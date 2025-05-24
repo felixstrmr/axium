@@ -20,5 +20,5 @@ export const signinAction = actionClient
       },
     })
 
-    revalidatePath('/signin', 'page')
+    revalidatePath('/', 'layout')
   })
