@@ -8,6 +8,55 @@
       "when": 1748095030947,
       "tag": "0000_living_nocturne",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1748107734931,
+      "tag": "0001_light_avengers",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1748109204570,
+      "tag": "0002_perpetual_may_parker",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1748109468362,
+      "tag": "0003_outstanding_zemo",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1748115155508,
+      "tag": "0004_minor_invisible_woman",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1748115867870,
+      "tag": "0005_cute_northstar",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1748116489669,
+      "tag": "0006_loose_owl",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1748116813245,
+      "tag": "0007_calm_jubilee",
+      "breakpoints": true
     }
   ]
 }

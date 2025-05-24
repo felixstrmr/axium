@@ -1,4 +1,5 @@
 import { generateId } from '@/lib/utils'
+import { relations } from 'drizzle-orm'
 import { boolean, integer, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 
 export const users = pgTable('users', {
@@ -74,11 +75,27 @@ export const servers = pgTable('servers', {
     .$defaultFn(() => generateId('srv'))
     .primaryKey(),
   name: text('name').notNull(),
+  description: text('description'),
   host: text('host').notNull(),
   port: integer('port').notNull(),
   protocol: text('protocol').$type<'ssh' | 'vnc' | 'rdp'>().notNull(),
   username: text('username'),
   password: text('password'),
+  credentialId: text('credential_id').references(() => credentials.id, {
+    onDelete: 'restrict',
+  }),
+  environmentId: text('environment_id').references(() => environments.id, {
+    onDelete: 'restrict',
+  }),
+  operatingSystem: text('operating_system')
+    .$type<'linux' | 'windows' | 'macos'>()
+    .notNull(),
+  isActive: boolean('is_active')
+    .$defaultFn(() => true)
+    .notNull(),
+  createdBy: text('created_by').references(() => users.id, {
+    onDelete: 'set null',
+  }),
   createdAt: timestamp('created_at').$defaultFn(
     () => /* @__PURE__ */ new Date(),
   ),
@@ -86,3 +103,70 @@ export const servers = pgTable('servers', {
     () => /* @__PURE__ */ new Date(),
   ),
 })
+
+export const serversRelations = relations(servers, ({ one }) => ({
+  createdBy: one(users, {
+    fields: [servers.createdBy],
+    references: [users.id],
+  }),
+  credential: one(credentials, {
+    fields: [servers.credentialId],
+    references: [credentials.id],
+  }),
+  environment: one(environments, {
+    fields: [servers.environmentId],
+    references: [environments.id],
+  }),
+}))
+
+export const credentials = pgTable('credentials', {
+  id: text('id')
+    .$defaultFn(() => generateId('crd'))
+    .primaryKey(),
+  name: text('name').notNull(),
+  description: text('description'),
+  username: text('username'),
+  password: text('password'),
+  domain: text('domain'),
+  type: text('type').$type<'ssh' | 'vnc' | 'rdp'>().notNull(),
+  createdBy: text('created_by').references(() => users.id, {
+    onDelete: 'set null',
+  }),
+  createdAt: timestamp('created_at').$defaultFn(
+    () => /* @__PURE__ */ new Date(),
+  ),
+  updatedAt: timestamp('updated_at').$defaultFn(
+    () => /* @__PURE__ */ new Date(),
+  ),
+})
+
+export const credentialsRelations = relations(credentials, ({ one }) => ({
+  createdBy: one(users, {
+    fields: [credentials.createdBy],
+    references: [users.id],
+  }),
+}))
+
+export const environments = pgTable('environments', {
+  id: text('id')
+    .$defaultFn(() => generateId('env'))
+    .primaryKey(),
+  name: text('name').notNull(),
+  description: text('description'),
+  createdBy: text('created_by').references(() => users.id, {
+    onDelete: 'set null',
+  }),
+  createdAt: timestamp('created_at').$defaultFn(
+    () => /* @__PURE__ */ new Date(),
+  ),
+  updatedAt: timestamp('updated_at').$defaultFn(
+    () => /* @__PURE__ */ new Date(),
+  ),
+})
+
+export const environmentsRelations = relations(environments, ({ one }) => ({
+  createdBy: one(users, {
+    fields: [environments.createdBy],
+    references: [users.id],
+  }),
+}))

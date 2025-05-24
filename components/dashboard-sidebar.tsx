@@ -34,12 +34,14 @@ export default function DashboardSidebar() {
   ]
 
   return (
-    <aside className='bg-muted flex flex-col border-r p-4'>
-      <Link href={'/'}>
-        <div className='bg-primary size-8 rounded-md' />
-      </Link>
-      <Separator className='my-4' />
-      <div className='flex h-full flex-col justify-between'>
+    <aside className='bg-muted/50 flex flex-col items-center border-r'>
+      <div className='p-4'>
+        <Link href={'/'}>
+          <div className='bg-primary size-8 rounded-md' />
+        </Link>
+      </div>
+      <Separator />
+      <div className='flex h-full flex-col justify-between p-4'>
         <div className='space-y-1'>
           {itemsTop.map((item) => (
             <SidebarItem key={item.name} {...item} />

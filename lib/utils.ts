@@ -23,30 +23,39 @@ export function generateId(prefix: string) {
 }
 
 export function encrypt(text: string) {
-  const iv = crypto.randomBytes(16)
+  const iv = crypto.randomBytes(12) // GCM mode requires 12 bytes IV
+  const key = Buffer.from(process.env.ENCRYPTION_KEY || '', 'hex')
 
-  const cipher = crypto.createCipheriv(
-    'aes-256-gcm',
-    Buffer.from(process.env.ENCRYPTION_KEY),
-    iv,
-  )
+  if (key.length !== 32) {
+    throw new Error(
+      'Invalid encryption key length. Must be 32 bytes (64 hex characters)',
+    )
+  }
+
+  const cipher = crypto.createCipheriv('aes-256-gcm', key, iv)
 
   let encrypted = cipher.update(text, 'utf8', 'hex')
   encrypted += cipher.final('hex')
 
-  return iv.toString('hex') + ':' + encrypted
+  const authTag = cipher.getAuthTag()
+
+  return iv.toString('hex') + ':' + encrypted + ':' + authTag.toString('hex')
 }
 
 export function decrypt(text: string): string {
-  const textParts = text.split(':')
-  const iv = Buffer.from(textParts[0], 'hex')
-  const encryptedText = textParts[1]
+  const [ivHex, encryptedText, authTagHex] = text.split(':')
+  const iv = Buffer.from(ivHex, 'hex')
+  const authTag = Buffer.from(authTagHex, 'hex')
+  const key = Buffer.from(process.env.ENCRYPTION_KEY || '', 'hex')
 
-  const decipher = crypto.createDecipheriv(
-    'aes-256-cbc',
-    Buffer.from(process.env.ENCRYPTION_KEY),
-    iv,
-  )
+  if (key.length !== 32) {
+    throw new Error(
+      'Invalid encryption key length. Must be 32 bytes (64 hex characters)',
+    )
+  }
+
+  const decipher = crypto.createDecipheriv('aes-256-gcm', key, iv)
+  decipher.setAuthTag(authTag)
 
   let decrypted = decipher.update(encryptedText, 'hex', 'utf8')
   decrypted += decipher.final('utf8')
