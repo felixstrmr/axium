@@ -9,4 +9,7 @@ export const auth = betterAuth({
     usePlural: true,
     schema,
   }),
+  advanced: {
+    generateId: false,
+  },
 })

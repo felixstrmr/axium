@@ -1,7 +1,10 @@
-import { boolean, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
+import { generateId } from '@/lib/utils'
+import { boolean, integer, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 
 export const users = pgTable('users', {
-  id: text('id').primaryKey(),
+  id: text('id')
+    .$defaultFn(() => generateId('usr'))
+    .primaryKey(),
   name: text('name').notNull(),
   email: text('email').notNull().unique(),
   emailVerified: boolean('email_verified')
@@ -17,7 +20,9 @@ export const users = pgTable('users', {
 })
 
 export const sessions = pgTable('sessions', {
-  id: text('id').primaryKey(),
+  id: text('id')
+    .$defaultFn(() => generateId('ses'))
+    .primaryKey(),
   expiresAt: timestamp('expires_at').notNull(),
   token: text('token').notNull().unique(),
   createdAt: timestamp('created_at').notNull(),
@@ -30,7 +35,9 @@ export const sessions = pgTable('sessions', {
 })
 
 export const accounts = pgTable('accounts', {
-  id: text('id').primaryKey(),
+  id: text('id')
+    .$defaultFn(() => generateId('acc'))
+    .primaryKey(),
   accountId: text('account_id').notNull(),
   providerId: text('provider_id').notNull(),
   userId: text('user_id')
@@ -48,10 +55,30 @@ export const accounts = pgTable('accounts', {
 })
 
 export const verifications = pgTable('verifications', {
-  id: text('id').primaryKey(),
+  id: text('id')
+    .$defaultFn(() => generateId('ver'))
+    .primaryKey(),
   identifier: text('identifier').notNull(),
   value: text('value').notNull(),
   expiresAt: timestamp('expires_at').notNull(),
+  createdAt: timestamp('created_at').$defaultFn(
+    () => /* @__PURE__ */ new Date(),
+  ),
+  updatedAt: timestamp('updated_at').$defaultFn(
+    () => /* @__PURE__ */ new Date(),
+  ),
+})
+
+export const servers = pgTable('servers', {
+  id: text('id')
+    .$defaultFn(() => generateId('srv'))
+    .primaryKey(),
+  name: text('name').notNull(),
+  host: text('host').notNull(),
+  port: integer('port').notNull(),
+  protocol: text('protocol').$type<'ssh' | 'vnc' | 'rdp'>().notNull(),
+  username: text('username'),
+  password: text('password'),
   createdAt: timestamp('created_at').$defaultFn(
     () => /* @__PURE__ */ new Date(),
   ),
