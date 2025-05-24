@@ -1,8 +1,9 @@
+import RootProvider from '@/components/providers/root-provider'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
+import { Metadata } from 'next/types'
 
 import '@/styles/globals.css'
-import { Metadata } from 'next/types'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -21,7 +22,9 @@ export default function RootLayout({ children }: Props) {
       className={`${GeistSans.variable} ${GeistMono.variable}`}
     >
       <body>
-        <main className='h-screen w-screen'>{children}</main>
+        <RootProvider>
+          <main className='h-screen w-screen'>{children}</main>
+        </RootProvider>
       </body>
     </html>
   )
