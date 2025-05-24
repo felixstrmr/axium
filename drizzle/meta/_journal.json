@@ -57,6 +57,13 @@
       "when": 1748116813245,
       "tag": "0007_calm_jubilee",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1748118965528,
+      "tag": "0008_square_lenny_balinger",
+      "breakpoints": true
     }
   ]
 }

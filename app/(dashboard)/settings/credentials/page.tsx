@@ -1,4 +1,9 @@
+import { columns } from '@/components/tables/credentials/columns'
+import { DataTable } from '@/components/tables/credentials/data-table'
+import { buttonVariants } from '@/components/ui/button'
 import { db } from '@/db'
+import { Plus } from 'lucide-react'
+import Link from 'next/link'
 
 export default async function Page() {
   const credentials = await db.query.credentials.findMany({
@@ -8,8 +13,18 @@ export default async function Page() {
   })
 
   return (
-    <div className='flex size-full flex-col'>
-      <pre>{JSON.stringify(credentials, null, 2)}</pre>
+    <div className='flex size-full flex-col gap-4 p-4'>
+      <div className='flex items-center justify-between'>
+        <h1 className='text-2xl font-semibold tracking-tight'>Credentials</h1>
+        <Link
+          href={'/settings/credentials/create'}
+          className={buttonVariants({ variant: 'default' })}
+        >
+          <Plus />
+          Create
+        </Link>
+      </div>
+      <DataTable columns={columns} data={credentials} />
     </div>
   )
 }

@@ -1,6 +1,5 @@
 'use client'
 
-import { Separator } from '@/components/ui/separator'
 import { cn } from '@/lib/utils'
 import { Home, LucideIcon, Server, Settings } from 'lucide-react'
 import Link from 'next/link'
@@ -34,14 +33,11 @@ export default function DashboardSidebar() {
   ]
 
   return (
-    <aside className='bg-muted/50 flex flex-col items-center border-r'>
-      <div className='p-4'>
-        <Link href={'/'}>
-          <div className='bg-primary size-8 rounded-md' />
-        </Link>
-      </div>
-      <Separator />
-      <div className='flex h-full flex-col justify-between p-4'>
+    <aside className='flex flex-col items-center p-4'>
+      <Link href={'/'}>
+        <div className='bg-primary size-8 rounded-md' />
+      </Link>
+      <div className='mt-4 flex h-full flex-col justify-between'>
         <div className='space-y-1'>
           {itemsTop.map((item) => (
             <SidebarItem key={item.name} {...item} />
