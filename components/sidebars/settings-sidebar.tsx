@@ -1,8 +1,15 @@
 'use client'
 
-import { Separator } from '@/components/ui/separator'
 import { cn } from '@/utils'
-import { BookText, LucideIcon, User, Users } from 'lucide-react'
+import {
+  BookText,
+  Folder,
+  Key,
+  LucideIcon,
+  Server,
+  User,
+  Users,
+} from 'lucide-react'
 import Link from 'next/link'
 import { useSelectedLayoutSegment } from 'next/navigation'
 
@@ -31,15 +38,30 @@ export default function SettingsSidebar() {
       icon: Users,
       isActive: segment === 'users',
     },
+    {
+      name: 'Groups',
+      href: '/settings/groups',
+      icon: Folder,
+      isActive: segment === 'groups',
+    },
+    {
+      name: 'Credentials',
+      href: '/settings/credentials',
+      icon: Key,
+      isActive: segment === 'credentials',
+    },
+    {
+      name: 'Servers',
+      href: '/settings/servers',
+      icon: Server,
+      isActive: segment === 'servers',
+    },
   ]
 
   return (
-    <aside className='flex w-64 max-w-64 min-w-64 flex-col p-4'>
-      <div className='flex h-8 items-center'>
-        <h1 className='text-2xl font-semibold tracking-tight'>Settings</h1>
-      </div>
-      <Separator className='my-4' />
+    <aside className='flex w-64 max-w-64 min-w-64 flex-col gap-4 p-4'>
       <div className='flex flex-col gap-1'>
+        <h2 className='text-muted-foreground mb-1 text-xs'>Account</h2>
         {itemsAccount.map((item) => (
           <SidebarItem key={item.name} {...item} />
         ))}

@@ -1,3 +1,6 @@
+import { users } from '@/db/schema'
+import { InferSelectModel } from 'drizzle-orm'
+
 declare namespace NodeJS {
   interface ProcessEnv {
     ENCRYPTION_KEY: string
@@ -6,3 +9,5 @@ declare namespace NodeJS {
     BETTER_AUTH_URL: string
   }
 }
+
+export type User = InferSelectModel<typeof users>
