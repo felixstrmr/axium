@@ -12,6 +12,9 @@ export const users = pgTable('users', {
     .$defaultFn(() => false)
     .notNull(),
   image: text('image'),
+  microsoftId: text('microsoft_id').unique(),
+  department: text('department'),
+  title: text('title'),
   role: text('role'),
   banned: boolean('banned'),
   banReason: text('ban_reason'),

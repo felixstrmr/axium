@@ -12,9 +12,22 @@ export default async function Page() {
     return redirect('/')
   }
 
+  const signinWithMicrosoft = async () => {
+    'use server'
+
+    const response = await auth.api.signInSocial({
+      body: {
+        provider: 'microsoft',
+      },
+    })
+
+    console.log(response)
+  }
+
   return (
     <div className='flex size-full items-center justify-center'>
       <SigninForm />
+      <button onClick={signinWithMicrosoft}>Sign in with Microsoft</button>
     </div>
   )
 }

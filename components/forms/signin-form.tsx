@@ -14,11 +14,14 @@ import { Input } from '@/components/ui/input'
 import { signinSchema } from '@/schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useAction } from 'next-safe-action/hooks'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
 export default function SigninForm() {
+  const router = useRouter()
+
   const form = useForm<z.infer<typeof signinSchema>>({
     resolver: zodResolver(signinSchema),
     defaultValues: {
@@ -34,6 +37,7 @@ export default function SigninForm() {
       })
     },
     onSuccess: () => {
+      router.push('/')
       toast.success('Signed in successfully!', {
         id: 'signin-form',
       })

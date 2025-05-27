@@ -7,6 +7,9 @@ declare namespace NodeJS {
     DATABASE_URL: string
     BETTER_AUTH_SECRET: string
     BETTER_AUTH_URL: string
+    MICROSOFT_CLIENT_ID: string
+    MICROSOFT_CLIENT_SECRET: string
+    MICROSOFT_TENANT_ID: string | null
   }
 }
 
