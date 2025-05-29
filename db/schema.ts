@@ -100,9 +100,11 @@ export const servers = pgTable('servers', {
   credentialId: text('credential_id').references(() => credentials.id, {
     onDelete: 'restrict',
   }),
-  environmentId: text('environment_id').references(() => environments.id, {
-    onDelete: 'restrict',
-  }),
+  environmentId: text('environment_id')
+    .notNull()
+    .references(() => environments.id, {
+      onDelete: 'restrict',
+    }),
   operatingSystem: text('operating_system')
     .$type<'linux' | 'windows' | 'macos'>()
     .notNull(),
@@ -145,6 +147,11 @@ export const credentials = pgTable('credentials', {
   password: text('password'),
   domain: text('domain'),
   type: text('type').$type<'ssh' | 'vnc' | 'rdp'>().notNull(),
+  environmentId: text('environment_id')
+    .notNull()
+    .references(() => environments.id, {
+      onDelete: 'restrict',
+    }),
   createdBy: text('created_by').references(() => users.id, {
     onDelete: 'set null',
   }),
@@ -161,6 +168,10 @@ export const credentialsRelations = relations(credentials, ({ one }) => ({
     fields: [credentials.createdBy],
     references: [users.id],
   }),
+  environment: one(environments, {
+    fields: [credentials.environmentId],
+    references: [environments.id],
+  }),
 }))
 
 export const environments = pgTable('environments', {
@@ -168,6 +179,7 @@ export const environments = pgTable('environments', {
     .primaryKey()
     .$defaultFn(() => generateId('env')),
   name: text('name').notNull().unique(),
+  color: text('color').notNull(),
   createdBy: text('created_by').references(() => users.id, {
     onDelete: 'set null',
   }),

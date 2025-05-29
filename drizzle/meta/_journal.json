@@ -57,6 +57,27 @@
       "when": 1748508917354,
       "tag": "0007_closed_gargoyle",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1748523385639,
+      "tag": "0008_aberrant_warlock",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1748524371112,
+      "tag": "0009_public_red_ghost",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1748526186244,
+      "tag": "0010_smooth_sersi",
+      "breakpoints": true
     }
   ]
 }

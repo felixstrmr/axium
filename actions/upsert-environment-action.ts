@@ -12,7 +12,7 @@ export const upsertEnvironmentAction = authActionClient
   })
   .schema(upsertEnvironmentSchema)
   .action(async ({ parsedInput, ctx }) => {
-    const { id, name } = parsedInput
+    const { id, name, color } = parsedInput
     const {
       session: { user },
     } = ctx
@@ -22,12 +22,14 @@ export const upsertEnvironmentAction = authActionClient
       .values({
         ...(id ? { id } : {}),
         name,
+        color,
         createdBy: user.id,
       })
       .onConflictDoUpdate({
         target: environments.id,
         set: {
           name,
+          color,
         },
       })
 

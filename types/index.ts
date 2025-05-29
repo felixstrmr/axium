@@ -1,4 +1,4 @@
-import { environments, users } from '@/db/schema'
+import * as schema from '@/db/schema'
 import { InferSelectModel } from 'drizzle-orm'
 
 declare namespace NodeJS {
@@ -13,5 +13,7 @@ declare namespace NodeJS {
   }
 }
 
-export type User = InferSelectModel<typeof users>
-export type Environment = InferSelectModel<typeof environments>
+export type User = InferSelectModel<typeof schema.users>
+export type Environment = InferSelectModel<typeof schema.environments>
+export type Server = InferSelectModel<typeof schema.servers>
+export type Credential = InferSelectModel<typeof schema.credentials>

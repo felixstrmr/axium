@@ -54,7 +54,7 @@ export default function DeleteEnviromentDialog({ environment }: Props) {
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>
-            Delete "{environment.name}" Environment
+            Delete &quot;{environment.name}&quot; Environment
           </AlertDialogTitle>
         </AlertDialogHeader>
         <div className='p-6'>

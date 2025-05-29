@@ -12,22 +12,28 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import { upsertEnvironmentSchema } from '@/schemas'
-import { useUpsertEnvironmentStore } from '@/store/use-upsert-environment-store'
+import { Environment } from '@/types'
+import { cn } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useAction } from 'next-safe-action/hooks'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
-export default function UpsertEnviromentForm() {
-  const { environment, setOpen } = useUpsertEnvironmentStore()
+type Props = {
+  environment: Environment | null
+  setOpen: (isOpen: boolean) => void
+}
 
+export default function UpsertEnviromentForm({ environment, setOpen }: Props) {
   const form = useForm<z.infer<typeof upsertEnvironmentSchema>>({
     resolver: zodResolver(upsertEnvironmentSchema),
     defaultValues: {
       id: environment?.id ?? '',
       name: environment?.name ?? '',
+      color: environment?.color ?? '',
     },
   })
 
@@ -54,10 +60,38 @@ export default function UpsertEnviromentForm() {
     },
   })
 
+  const colors = [
+    {
+      name: 'Green',
+      value: '#16a34a',
+    },
+    {
+      name: 'Red',
+      value: '#dc2626',
+    },
+
+    {
+      name: 'Yellow',
+      value: '#ca8a04',
+    },
+    {
+      name: 'Orange',
+      value: '#ea580c',
+    },
+    {
+      name: 'Blue',
+      value: '#2563eb',
+    },
+    {
+      name: 'Purple',
+      value: '#9333ea',
+    },
+  ]
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(execute)}>
-        <div className='p-6'>
+        <div className='space-y-4 p-6'>
           <FormField
             control={form.control}
             name='name'
@@ -76,12 +110,44 @@ export default function UpsertEnviromentForm() {
               </FormItem>
             )}
           />
+          <div className='space-y-2'>
+            <Label>Color</Label>
+            <div className='grid grid-cols-3 gap-2'>
+              {colors.map((color) => (
+                <button
+                  key={color.name}
+                  className={cn(
+                    'flex cursor-pointer items-center gap-2 rounded-md border p-2 shadow-xs',
+                    form.watch('color') === color.value
+                      ? 'border-ring bg-muted'
+                      : 'border-border hover:bg-muted',
+                  )}
+                  type='button'
+                  onClick={() => {
+                    form.setValue('color', color.value, {
+                      shouldDirty: true,
+                      shouldTouch: true,
+                    })
+                  }}
+                >
+                  <div
+                    className='size-3 rounded-full'
+                    style={{ backgroundColor: color.value }}
+                  />
+                  <p className='text-sm'>{color.name}</p>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
         <DialogFooter>
           <DialogClose asChild>
             <Button variant={'outline'}>Cancel</Button>
           </DialogClose>
-          <Button isLoading={isExecuting} disabled={!form.formState.isDirty}>
+          <Button
+            isLoading={isExecuting}
+            disabled={!form.formState.isDirty || isExecuting}
+          >
             {environment ? 'Update' : 'Create'}
           </Button>
         </DialogFooter>

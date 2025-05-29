@@ -30,7 +30,7 @@ export default function UpsertEnvironmentDialog() {
             {environment ? 'Update' : 'Create'} Environment
           </DialogTitle>
         </DialogHeader>
-        <UpsertEnviromentForm />
+        <UpsertEnviromentForm environment={environment} setOpen={setOpen} />
       </DialogContent>
     </Dialog>
   )
