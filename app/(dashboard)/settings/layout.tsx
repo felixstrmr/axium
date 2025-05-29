@@ -11,7 +11,7 @@ export default function SettingsLayout({ children }: Props) {
       <SettingsSidebar />
       <div className='flex flex-1 flex-col'>
         <DashboardHeader />
-        {children}
+        <div className='mx-auto w-full max-w-5xl flex-1'>{children}</div>
       </div>
     </div>
   )

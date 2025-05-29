@@ -167,7 +167,7 @@ export const environments = pgTable('environments', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => generateId('env')),
-  name: text('name').notNull(),
+  name: text('name').notNull().unique(),
   createdBy: text('created_by').references(() => users.id, {
     onDelete: 'set null',
   }),

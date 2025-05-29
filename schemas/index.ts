@@ -9,3 +9,7 @@ export const upsertEnvironmentSchema = z.object({
   id: z.string().optional(),
   name: z.string().min(1, 'Name is required'),
 })
+
+export const deleteEnvironmentSchema = z.object({
+  id: z.string().min(1),
+})

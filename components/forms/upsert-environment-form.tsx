@@ -44,7 +44,11 @@ export default function UpsertEnviromentForm() {
       })
     },
     onError: ({ error }) => {
-      toast.error(error.serverError, {
+      const errorMessage = error.serverError?.includes('unique')
+        ? 'Environment name must be unique'
+        : error.serverError
+
+      toast.error(errorMessage, {
         id: 'upsert-environment-form',
       })
     },

@@ -1,10 +1,11 @@
 'use client'
 
+import DeleteEnviromentDialog from '@/components/dialogs/delete-environment-dialog'
 import UpsertEnvironmentDialog from '@/components/dialogs/upsert-environment-dialog'
 import { Button } from '@/components/ui/button'
 import { useUpsertEnvironmentStore } from '@/store/use-upsert-environment-store'
 import { Environment } from '@/types'
-import { Box, Pencil, Trash } from 'lucide-react'
+import { Box, Pencil } from 'lucide-react'
 
 type Props = {
   environments: Environment[]
@@ -26,13 +27,13 @@ export default function Environments({ environments }: Props) {
         {environments.map((environment) => (
           <div
             key={environment.id}
-            className='bg-background flex items-center justify-between rounded-md border p-3 shadow-xs'
+            className='group bg-background flex items-center justify-between rounded-md border p-3 shadow-xs'
           >
-            <div className='flex items-center gap-2'>
+            <div className='flex h-7 items-center gap-2'>
               <Box className='text-muted-foreground size-4' />
               <p>{environment.name}</p>
             </div>
-            <div className='flex items-center gap-2'>
+            <div className='translate-x-2 items-center gap-2 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100'>
               <Button
                 variant={'ghost'}
                 size={'iconSm'}
@@ -43,9 +44,7 @@ export default function Environments({ environments }: Props) {
               >
                 <Pencil />
               </Button>
-              <Button variant={'ghost'} size={'iconSm'}>
-                <Trash className='text-destructive' />
-              </Button>
+              <DeleteEnviromentDialog environment={environment} />
             </div>
           </div>
         ))}

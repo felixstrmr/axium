@@ -19,7 +19,7 @@ export default function UpsertEnvironmentDialog() {
   return (
     <Dialog open={isOpen} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size={'sm'} onClick={() => setEnvironment(null)}>
+        <Button onClick={() => setEnvironment(null)}>
           <Plus />
           Create
         </Button>
