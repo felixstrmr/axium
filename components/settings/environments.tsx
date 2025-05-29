@@ -35,7 +35,6 @@ export default function Environments({ environments, servers }: Props) {
             Manage your environments here.
           </p>
         </div>
-
         <UpsertEnvironmentDialog />
       </div>
       {environments.length > 0 && (

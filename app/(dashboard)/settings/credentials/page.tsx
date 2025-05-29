@@ -7,6 +7,9 @@ import Link from 'next/link'
 export default async function Page() {
   const credentialsPromise = db.query.credentials.findMany({
     orderBy: (credentials, { asc }) => [asc(credentials.name)],
+    with: {
+      environment: true,
+    },
   })
 
   const serversPromise = db.query.servers.findMany({
@@ -24,7 +27,7 @@ export default async function Page() {
 
   return (
     <div className='flex flex-col gap-4 p-4'>
-      <div className='flex justify-between'>
+      <div className='flex h-8 items-center justify-between'>
         <h1 className='text-2xl font-semibold tracking-tight'>Credentials</h1>
         <Link
           href='/settings/credentials/create'

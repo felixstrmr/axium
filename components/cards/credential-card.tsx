@@ -8,14 +8,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Credential, Server } from '@/types'
+import { Credential, Environment, Server } from '@/types'
 import { cn } from '@/utils'
-import { format } from 'date-fns'
 import { Eye, Monitor, MoreHorizontal, Pencil, Terminal } from 'lucide-react'
 import React from 'react'
 
 type Props = {
-  credential: Credential
+  credential: Credential & { environment: Environment }
   servers: Server[]
 }
 
@@ -29,7 +28,7 @@ export default function CredentialCard({ credential, servers }: Props) {
   }[credential.type]
 
   return (
-    <div className='group bg-background flex w-full flex-col gap-2 rounded-md border p-4 shadow-xs'>
+    <div className='group bg-background flex w-full flex-col gap-4 rounded-md border p-4 shadow-xs'>
       <div className='flex items-start justify-between'>
         <div className='flex items-center gap-2'>
           <div className='bg-muted flex size-7 items-center justify-center rounded-md'>
@@ -63,10 +62,14 @@ export default function CredentialCard({ credential, servers }: Props) {
         </DropdownMenu>
       </div>
       <div className='flex items-center gap-2'>
+        <div
+          className='size-2 rounded-full'
+          style={{ backgroundColor: credential.environment.color }}
+        />
         <p className='text-muted-foreground text-xs'>
-          {format(credential.createdAt, 'PP')}
+          {credential.environment.name}
         </p>
-        <p className='mb-1'>•</p>
+        <p className='text-muted-foreground'>•</p>
         <p className='text-muted-foreground text-xs'>
           {servers.length} servers
         </p>

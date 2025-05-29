@@ -148,7 +148,7 @@ export default function UpsertEnviromentForm({ environment, setOpen }: Props) {
             isLoading={isExecuting}
             disabled={!form.formState.isDirty || isExecuting}
           >
-            {environment ? 'Update' : 'Create'}
+            Save
           </Button>
         </DialogFooter>
       </form>

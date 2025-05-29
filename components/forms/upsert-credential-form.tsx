@@ -304,7 +304,7 @@ export default function UpsertCredentialForm({
             isLoading={isExecuting}
             disabled={!form.formState.isDirty || isExecuting}
           >
-            {credential ? 'Update' : 'Create'}
+            Save
           </Button>
         </div>
       </form>
