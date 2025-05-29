@@ -1,4 +1,5 @@
 import RootProvider from '@/components/providers/root-provider'
+import { ThemeProvider } from '@/components/providers/theme-provider'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
 import { Metadata } from 'next/types'
@@ -23,7 +24,9 @@ export default function RootLayout({ children }: Props) {
     >
       <body>
         <RootProvider>
-          <main className='h-screen w-screen'>{children}</main>
+          <ThemeProvider attribute='class' forcedTheme='light'>
+            <main className='h-screen w-screen'>{children}</main>
+          </ThemeProvider>
         </RootProvider>
       </body>
     </html>

@@ -1,15 +1,7 @@
 'use client'
 
 import { cn } from '@/utils'
-import {
-  BookText,
-  Folder,
-  Key,
-  LucideIcon,
-  Server,
-  User,
-  Users,
-} from 'lucide-react'
+import { Key, LucideIcon, Server, User, Users } from 'lucide-react'
 import Link from 'next/link'
 import { useSelectedLayoutSegment } from 'next/navigation'
 
@@ -27,23 +19,12 @@ export default function SettingsSidebar() {
 
   const itemsAdministration = [
     {
-      name: 'General',
-      href: '/settings/general',
-      icon: BookText,
-      isActive: segment === 'general',
-    },
-    {
       name: 'Users',
       href: '/settings/users',
       icon: Users,
       isActive: segment === 'users',
     },
-    {
-      name: 'Groups',
-      href: '/settings/groups',
-      icon: Folder,
-      isActive: segment === 'groups',
-    },
+
     {
       name: 'Credentials',
       href: '/settings/credentials',
@@ -59,15 +40,20 @@ export default function SettingsSidebar() {
   ]
 
   return (
-    <aside className='flex w-64 max-w-64 min-w-64 flex-col gap-4 p-4'>
-      <div className='flex flex-col gap-1'>
+    <aside className='flex w-64 max-w-64 min-w-64 flex-col border-r'>
+      <div className='flex items-center border-b p-4'>
+        <div className='flex h-8 items-center'>
+          <h1 className='text-2xl font-semibold tracking-tight'>Settings</h1>
+        </div>
+      </div>
+      <div className='flex flex-col gap-1 p-4'>
         <h2 className='text-muted-foreground mb-1 text-xs'>Account</h2>
         {itemsAccount.map((item) => (
           <SidebarItem key={item.name} {...item} />
         ))}
       </div>
-      <div className='flex flex-col gap-1'>
-        <h2 className='text-muted-foreground mb-1 text-xs'>Administration</h2>
+      <div className='flex flex-col gap-1 p-4'>
+        <h2 className='text-muted-foreground mb-1 text-xs'>Workspace</h2>
         {itemsAdministration.map((item) => (
           <SidebarItem key={item.name} {...item} />
         ))}
@@ -88,10 +74,10 @@ function SidebarItem(item: SidebarItemProps) {
     <Link href={item.href}>
       <div
         className={cn(
-          'flex h-8 items-center gap-2 rounded-md p-2 transition-all',
+          'flex h-8 items-center gap-2 rounded-md border p-2 transition-all',
           item.isActive
-            ? 'bg-muted text-foreground'
-            : 'text-muted-foreground hover:bg-muted',
+            ? 'bg-background text-foreground border-border shadow-sm'
+            : 'text-muted-foreground hover:bg-background hover:border-border border-transparent',
         )}
       >
         <item.icon className='size-4' />

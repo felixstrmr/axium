@@ -10,9 +10,9 @@ export const auth = betterAuth({
     provider: 'pg',
     usePlural: true,
     schema,
+    debugLogs: true,
   }),
   advanced: {
-    cookiePrefix: 'axium',
     database: {
       generateId: false,
     },
@@ -24,31 +24,6 @@ export const auth = betterAuth({
     microsoft: {
       clientId: process.env.MICROSOFT_CLIENT_ID as string,
       clientSecret: process.env.MICROSOFT_CLIENT_SECRET as string,
-      authorizationUrl: `https://login.microsoftonline.com/${process.env.MICROSOFT_TENANT_ID || 'common'}/oauth2/v2.0/authorize`,
-      tokenUrl: `https://login.microsoftonline.com/${process.env.MICROSOFT_TENANT_ID || 'common'}/oauth2/v2.0/token`,
-      scope: [
-        'openid',
-        'profile',
-        'email',
-        'User.Read',
-        'GroupMember.Read.All',
-      ],
-    },
-  },
-  user: {
-    additionalFields: {
-      azureId: {
-        type: 'string',
-        required: false,
-      },
-      department: {
-        type: 'string',
-        required: false,
-      },
-      jobTitle: {
-        type: 'string',
-        required: false,
-      },
     },
   },
   plugins: [nextCookies(), admin()],

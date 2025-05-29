@@ -4,9 +4,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  const sessionCookie = getSessionCookie(request, {
-    cookiePrefix: 'axium',
-  })
+  const sessionCookie = getSessionCookie(request)
 
   if (!sessionCookie && pathname !== '/signin') {
     return NextResponse.redirect(new URL('/signin', request.url))

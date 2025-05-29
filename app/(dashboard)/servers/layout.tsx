@@ -1,14 +1,14 @@
 import DashboardHeader from '@/components/headers/dashboard-header'
-import SettingsSidebar from '@/components/sidebars/settings-sidebar'
+import ServersSidebar from '@/components/sidebars/servers-sidebar'
 
 type Props = {
   children: React.ReactNode
 }
 
-export default function SettingsLayout({ children }: Props) {
+export default function ServersLayout({ children }: Props) {
   return (
     <div className='flex size-full'>
-      <SettingsSidebar />
+      <ServersSidebar />
       <div className='flex flex-1 flex-col'>
         <DashboardHeader />
         {children}

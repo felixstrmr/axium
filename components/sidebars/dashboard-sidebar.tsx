@@ -34,20 +34,22 @@ export default function DashboardSidebar() {
   ]
 
   return (
-    <aside className='flex flex-col p-4'>
-      <Link
-        href={'/'}
-        className='from-primary border-primary shadow-[inset_0_1px_0_0_theme(colors.primary-foreground/15%)] flex size-8 items-center justify-center rounded-md border bg-gradient-to-t to-zinc-600'
-      >
-        <Terminal className='text-primary-foreground size-4' />
-      </Link>
-      <Separator className='my-4' />
-      <div className='flex h-full flex-col justify-between'>
+    <aside className='flex flex-col border-r'>
+      <div className='border-b p-4'>
+        <Link
+          href={'/'}
+          className='from-primary border-primary shadow-[inset_0_1px_0_0_theme(colors.primary-foreground/15%)] flex size-8 items-center justify-center rounded-md border bg-gradient-to-t to-zinc-600'
+        >
+          <Terminal className='text-primary-foreground size-4' />
+        </Link>
+      </div>
+      <div className='flex flex-col items-center p-4'>
         <div className='space-y-1'>
           {itemsTop.map((item) => (
             <SidebarItem key={item.name} {...item} />
           ))}
         </div>
+        <Separator className='my-4' />
         <div className='space-y-1'>
           {itemsBottom.map((item) => (
             <SidebarItem key={item.name} {...item} />
@@ -70,9 +72,9 @@ function SidebarItem(item: SidebarItemProps) {
     <Link
       href={item.href}
       className={cn(
-        'flex size-8 items-center rounded-md border px-2 transition-all',
+        'flex size-8 items-center justify-center rounded-md border transition-all',
         item.isActive
-          ? 'bg-background text-foreground shadow-xs'
+          ? 'bg-background text-foreground border-border shadow-sm'
           : 'text-muted-foreground hover:bg-background hover:border-border border-transparent',
       )}
     >
