@@ -1,9 +1,11 @@
-import SSHTerminal from '@/components/ssh-terminal'
 import { db } from '@/db'
 import { servers } from '@/db/schema'
 import { decrypt } from '@/utils/encryption'
 import { eq } from 'drizzle-orm'
+import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
+
+const SSHTerminal = dynamic(() => import('@/components/ssh-terminal'))
 
 type Props = {
   params: Promise<{ serverId: string }>
@@ -28,8 +30,8 @@ export default async function Page({ params }: Props) {
   let sshPassword = server.password
 
   if (server.credential) {
-    sshUsername = server.credential.username || ''
-    sshPassword = server.credential.password || ''
+    sshUsername = server.credential.username
+    sshPassword = server.credential.password
   }
 
   if (sshPassword) {

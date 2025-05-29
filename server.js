@@ -8,7 +8,6 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
-// Store SSH connections
 const sshConnections = new Map()
 
 app.prepare().then(() => {
@@ -36,7 +35,6 @@ app.prepare().then(() => {
 
         ssh = new NodeSSH()
 
-        // Connect to SSH server
         await ssh.connect({
           host,
           port,
@@ -46,7 +44,6 @@ app.prepare().then(() => {
           // You might want to add more options here like privateKey support
         })
 
-        // Store connection
         sshConnections.set(socket.id, ssh)
 
         // Create shell

@@ -39,27 +39,9 @@ export default function SSHTerminal({
       terminal.current = new Terminal({
         cursorBlink: true,
         fontSize: 14,
-        fontFamily: 'Monospace, Monaco, "Courier New", monospace',
+        fontFamily: 'var(--font-geist-mono)',
         theme: {
           background: '#09090b',
-          foreground: '#d4d4d4',
-          cursor: '#d4d4d4',
-          black: '#000000',
-          red: '#cd3131',
-          green: '#0dbc79',
-          yellow: '#e5e510',
-          blue: '#2472c8',
-          magenta: '#bc3fbc',
-          cyan: '#11a8cd',
-          white: '#e5e5e5',
-          brightBlack: '#666666',
-          brightRed: '#f14c4c',
-          brightGreen: '#23d18b',
-          brightYellow: '#f5f543',
-          brightBlue: '#3b8eea',
-          brightMagenta: '#d670d6',
-          brightCyan: '#29b8db',
-          brightWhite: '#e5e5e5',
         },
       })
 
@@ -130,7 +112,7 @@ export default function SSHTerminal({
   }, [serverId, host, port, username, password, credentialId])
 
   return (
-    <div className='bg-foreground size-full p-4'>
+    <div className='size-full bg-zinc-950 p-4'>
       <div ref={terminalRef} className='size-full' />
     </div>
   )
