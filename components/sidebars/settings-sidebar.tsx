@@ -1,7 +1,7 @@
 'use client'
 
 import { cn } from '@/utils'
-import { Key, LucideIcon, Server, User, Users } from 'lucide-react'
+import { Key, LucideIcon, Server, Settings2, User, Users } from 'lucide-react'
 import Link from 'next/link'
 import { useSelectedLayoutSegment } from 'next/navigation'
 
@@ -18,6 +18,12 @@ export default function SettingsSidebar() {
   ]
 
   const itemsAdministration = [
+    {
+      name: 'General',
+      href: '/settings/general',
+      icon: Settings2,
+      isActive: segment === 'general',
+    },
     {
       name: 'Users',
       href: '/settings/users',

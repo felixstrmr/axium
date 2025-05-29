@@ -165,10 +165,9 @@ export const credentialsRelations = relations(credentials, ({ one }) => ({
 
 export const environments = pgTable('environments', {
   id: text('id')
-    .$defaultFn(() => generateId('env'))
-    .primaryKey(),
+    .primaryKey()
+    .$defaultFn(() => generateId('env')),
   name: text('name').notNull(),
-  description: text('description'),
   createdBy: text('created_by').references(() => users.id, {
     onDelete: 'set null',
   }),
