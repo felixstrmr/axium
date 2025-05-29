@@ -55,10 +55,11 @@ export default function Environments({ environments, servers }: Props) {
                   {getServersByEnvironment(environment).length} servers
                 </p>
               </div>
-              <div className='translate-x-2 items-center gap-2 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100'>
+              <div className='flex translate-x-2 items-center gap-1 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100'>
                 <Button
                   variant={'ghost'}
                   size={'iconSm'}
+                  className='text-muted-foreground'
                   onClick={() => {
                     setEnvironment(environment)
                     setOpen(true)

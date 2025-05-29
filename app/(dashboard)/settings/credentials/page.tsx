@@ -1,11 +1,10 @@
-import UpsertCredentialDialog from '@/components/dialogs/upsert-crendetial-dialog'
+import CredentialCard from '@/components/cards/credential-card'
+import { buttonVariants } from '@/components/ui/button'
 import { db } from '@/db'
+import { Plus } from 'lucide-react'
+import Link from 'next/link'
 
 export default async function Page() {
-  const environmentsPromise = db.query.environments.findMany({
-    orderBy: (environments, { asc }) => [asc(environments.name)],
-  })
-
   const credentialsPromise = db.query.credentials.findMany({
     orderBy: (credentials, { asc }) => [asc(credentials.name)],
   })
@@ -14,8 +13,7 @@ export default async function Page() {
     orderBy: (servers, { asc }) => [asc(servers.name)],
   })
 
-  const [environments, credentials, servers] = await Promise.all([
-    environmentsPromise,
+  const [credentials, servers] = await Promise.all([
     credentialsPromise,
     serversPromise,
   ])
@@ -28,17 +26,21 @@ export default async function Page() {
     <div className='flex flex-col gap-4 p-4'>
       <div className='flex justify-between'>
         <h1 className='text-2xl font-semibold tracking-tight'>Credentials</h1>
-        <UpsertCredentialDialog environments={environments} />
+        <Link
+          href='/settings/credentials/create'
+          className={buttonVariants({ variant: 'default' })}
+        >
+          <Plus />
+          Create
+        </Link>
       </div>
       <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
         {credentials.map((credential) => (
-          <div
+          <CredentialCard
             key={credential.id}
-            className='w-full rounded-lg border p-4 shadow-xs'
-          >
-            <h2>{credential.name}</h2>
-            <p>{getServersByCredential(credential).length} servers</p>
-          </div>
+            credential={credential}
+            servers={getServersByCredential(credential)}
+          />
         ))}
       </div>
     </div>

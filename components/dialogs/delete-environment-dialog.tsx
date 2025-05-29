@@ -47,7 +47,11 @@ export default function DeleteEnviromentDialog({ environment }: Props) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant={'ghost'} size={'iconSm'}>
+        <Button
+          variant={'ghost'}
+          size={'iconSm'}
+          className='hover:bg-destructive/10'
+        >
           <Trash className='text-destructive' />
         </Button>
       </AlertDialogTrigger>

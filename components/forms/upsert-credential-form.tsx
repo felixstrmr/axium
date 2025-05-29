@@ -1,8 +1,7 @@
 'use client'
 
 import { upsertCredentialAction } from '@/actions/upsert-credential-action'
-import { Button } from '@/components/ui/button'
-import { DialogClose, DialogFooter } from '@/components/ui/dialog'
+import { Button, buttonVariants } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -26,6 +25,8 @@ import { Credential, Environment } from '@/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, Monitor, Terminal } from 'lucide-react'
 import { useAction } from 'next-safe-action/hooks'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -33,14 +34,14 @@ import { z } from 'zod'
 type Props = {
   environments: Environment[]
   credential: Credential | null
-  setOpen: (isOpen: boolean) => void
 }
 
 export default function UpsertCredentialForm({
   environments,
   credential,
-  setOpen,
 }: Props) {
+  const router = useRouter()
+
   const form = useForm<z.infer<typeof upsertCredentialSchema>>({
     resolver: zodResolver(upsertCredentialSchema),
     defaultValues: {
@@ -61,7 +62,7 @@ export default function UpsertCredentialForm({
       })
     },
     onSuccess: () => {
-      setOpen(false)
+      router.push('/settings/credentials')
       toast.success('Credential created successfully!', {
         id: 'upsert-credential-form',
       })
@@ -75,8 +76,8 @@ export default function UpsertCredentialForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(execute)}>
-        <div className='space-y-4 p-6'>
+      <form onSubmit={form.handleSubmit(execute)} className='space-y-8'>
+        <div className='space-y-4'>
           <FormField
             control={form.control}
             name='name'
@@ -292,17 +293,20 @@ export default function UpsertCredentialForm({
             </>
           )}
         </div>
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button variant={'outline'}>Cancel</Button>
-          </DialogClose>
+        <div className='flex justify-end gap-2'>
+          <Link
+            href='/settings/credentials'
+            className={buttonVariants({ variant: 'outline' })}
+          >
+            Cancel
+          </Link>
           <Button
             isLoading={isExecuting}
             disabled={!form.formState.isDirty || isExecuting}
           >
             {credential ? 'Update' : 'Create'}
           </Button>
-        </DialogFooter>
+        </div>
       </form>
     </Form>
   )
