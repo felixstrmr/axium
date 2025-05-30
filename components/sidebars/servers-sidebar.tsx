@@ -1,5 +1,5 @@
+import ServersSidebarNavigation from '@/components/sidebars/servers-sidebar-navigation'
 import { db } from '@/db'
-import Link from 'next/link'
 
 export default async function ServersSidebar() {
   const servers = await db.query.servers.findMany()
@@ -11,15 +11,7 @@ export default async function ServersSidebar() {
           <h1 className='text-2xl font-semibold tracking-tight'>Servers</h1>
         </div>
       </div>
-      <div className='flex-1 overflow-y-auto'>
-        <div className='space-y-2 p-4'>
-          {servers.map((server) => (
-            <Link key={server.id} href={`/servers/${server.id}`}>
-              {server.name}
-            </Link>
-          ))}
-        </div>
-      </div>
+      <ServersSidebarNavigation servers={servers} />
     </aside>
   )
 }

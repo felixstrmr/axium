@@ -5,7 +5,13 @@ import { eq } from 'drizzle-orm'
 import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
 
-const SSHTerminal = dynamic(() => import('@/components/ssh-terminal'))
+const SSHTerminal = dynamic(() => import('@/components/ssh-terminal'), {
+  loading: () => (
+    <div className='flex h-full items-center justify-center'>
+      <div className='text-muted-foreground'>Loading terminal...</div>
+    </div>
+  ),
+})
 
 type Props = {
   params: Promise<{ serverId: string }>
@@ -44,6 +50,7 @@ export default async function Page({ params }: Props) {
         <h1 className='text-2xl font-semibold tracking-tight'>{server.name}</h1>
       </div>
       <SSHTerminal
+        key={server.id} // Force remount when server changes
         serverId={server.id}
         host={server.host}
         port={server.port}

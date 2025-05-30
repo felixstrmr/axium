@@ -25,13 +25,11 @@ app.prepare().then(() => {
   })
 
   io.on('connection', (socket) => {
-    console.log('Client connected:', socket.id)
     let ssh = null
 
     socket.on('ssh:connect', async (connectionData) => {
       try {
-        const { serverId, host, port, username, password, credentialId } =
-          connectionData
+        const { host, port, username, password } = connectionData
 
         ssh = new NodeSSH()
 
@@ -41,43 +39,35 @@ app.prepare().then(() => {
           username,
           password,
           tryKeyboard: true,
-          // You might want to add more options here like privateKey support
+          keepaliveInterval: 10000,
+          keepaliveCountMax: 3,
         })
 
         sshConnections.set(socket.id, ssh)
 
-        // Create shell
         const shell = await ssh.requestShell({
           term: 'xterm-256color',
-          cols: 80,
-          rows: 24,
         })
 
         socket.emit('ssh:connected')
-
-        // Handle data from SSH server
         shell.on('data', (data) => {
           socket.emit('ssh:data', data.toString())
         })
 
-        // Handle SSH errors
         shell.on('error', (err) => {
           console.error('SSH Shell error:', err)
           socket.emit('ssh:error', err.message)
         })
 
-        // Handle SSH close
         shell.on('close', () => {
           socket.emit('ssh:disconnected')
           sshConnections.delete(socket.id)
         })
 
-        // Handle data from client
         socket.on('ssh:data', (data) => {
           shell.write(data)
         })
 
-        // Handle terminal resize
         socket.on('ssh:resize', ({ cols, rows }) => {
           shell.setWindow(rows, cols)
         })
@@ -88,9 +78,6 @@ app.prepare().then(() => {
     })
 
     socket.on('disconnect', () => {
-      console.log('Client disconnected:', socket.id)
-
-      // Clean up SSH connection
       const connection = sshConnections.get(socket.id)
       if (connection) {
         connection.dispose()
