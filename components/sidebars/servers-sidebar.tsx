@@ -2,8 +2,19 @@ import ServersSidebarNavigation from '@/components/sidebars/servers-sidebar-navi
 import { db } from '@/db'
 
 export default async function ServersSidebar() {
-  const serversPromise = db.query.servers.findMany()
-  const foldersPromise = db.query.folders.findMany()
+  const serversPromise = db.query.servers.findMany({
+    orderBy: (servers, { asc }) => [asc(servers.name)],
+    with: {
+      environment: true,
+    },
+  })
+
+  const foldersPromise = db.query.folders.findMany({
+    orderBy: (folders, { asc }) => [asc(folders.name)],
+    with: {
+      parent: true,
+    },
+  })
 
   const [servers, folders] = await Promise.all([serversPromise, foldersPromise])
 

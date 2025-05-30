@@ -2,55 +2,126 @@
 
 import { Folder, Server } from '@/types'
 import { cn } from '@/utils'
-import { Eye, Monitor, Terminal } from 'lucide-react'
+import { Eye, FolderClosed, FolderOpen, Monitor, Terminal } from 'lucide-react'
 import Link from 'next/link'
 import { useSelectedLayoutSegment } from 'next/navigation'
+import React from 'react'
 
 type Props = {
   servers: Server[]
   folders: Folder[]
 }
 
-export default function ServersSidebarNavigation({ servers }: Props) {
+export default function ServersSidebarNavigation({ servers, folders }: Props) {
   const segment = useSelectedLayoutSegment()
+  const [expandedFolders, setExpandedFolders] = React.useState<Set<string>>(
+    new Set(),
+  )
+
+  const rootServers = servers.filter((server) => !server.folderId)
+  const rootFolders = folders.filter((folder) => !folder.parentId)
+
+  const toggleFolder = (folderId: string) => {
+    const newExpanded = new Set(expandedFolders)
+    if (newExpanded.has(folderId)) {
+      newExpanded.delete(folderId)
+    } else {
+      newExpanded.add(folderId)
+    }
+    setExpandedFolders(newExpanded)
+  }
+
+  const getServersInFolder = (folderId: string) => {
+    return servers.filter((server) => server.folderId === folderId)
+  }
+
+  const getSubfolders = (parentId: string) => {
+    return folders.filter((folder) => folder.parentId === parentId)
+  }
+
+  const renderFolder = (folder: Folder, level: number = 0) => {
+    const isExpanded = expandedFolders.has(folder.id)
+    const serversInFolder = getServersInFolder(folder.id)
+    const subfolders = getSubfolders(folder.id)
+    const hasChildren = serversInFolder.length > 0 || subfolders.length > 0
+
+    return (
+      <div key={folder.id}>
+        <div
+          className={cn(
+            'hover:bg-muted text-muted-foreground mt-1 flex h-7 w-full cursor-pointer items-center gap-2 rounded-md px-2 text-sm transition-all',
+            isExpanded && 'text-foreground',
+          )}
+          style={{ marginLeft: `${level * 12}px` }}
+          onClick={() => hasChildren && toggleFolder(folder.id)}
+        >
+          {isExpanded ? (
+            <FolderOpen className='size-3.5' />
+          ) : (
+            <FolderClosed className='size-3.5' />
+          )}
+          {folder.name}
+        </div>
+        {isExpanded && (
+          <div className='flex flex-col gap-1'>
+            {subfolders.map((subfolder) => renderFolder(subfolder, level + 1))}
+            {serversInFolder.map((server) => (
+              <ServerItem
+                key={server.id}
+                server={server}
+                isActive={segment === server.id}
+                level={level + 1}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    )
+  }
 
   return (
-    <div className='flex flex-col gap-1 p-4'>
-      {servers.map((server) => (
-        <SidebarItem
+    <div className='flex flex-col p-4'>
+      {rootServers.map((server) => (
+        <ServerItem
           key={server.id}
           server={server}
           isActive={segment === server.id}
+          level={0}
         />
       ))}
+      {rootFolders.map((folder) => renderFolder(folder))}
     </div>
   )
 }
 
-type SidebarItemProps = {
+type ServerItemProps = {
   server: Server
   isActive: boolean
+  level: number
 }
 
-function SidebarItem(item: SidebarItemProps) {
+function ServerItem({ server, isActive, level }: ServerItemProps) {
+  const isRoot = !server.folderId
+
   const Icon = {
     ssh: Terminal,
     vnc: Eye,
     rdp: Monitor,
-  }[item.server.protocol]
+  }[server.protocol]
 
   return (
     <Link
-      href={`/servers/${item.server.id}`}
+      href={`/servers/${server.id}`}
       className={cn(
-        'flex h-7 w-fit items-center gap-2 rounded-md px-2 pr-3 text-sm transition-all',
-        item.isActive
+        'mt-1 flex h-7 w-fit items-center gap-2 rounded-md px-2 text-sm transition-all',
+        isActive
           ? 'bg-muted text-foreground'
           : 'hover:bg-muted text-muted-foreground',
       )}
+      style={{ marginLeft: isRoot ? '0px' : `${level * 12 + 15}px` }}
     >
-      <Icon className='size-4' />
-      {item.server.name}
+      <Icon className='size-3.5' />
+      {server.name}
     </Link>
   )
 }
