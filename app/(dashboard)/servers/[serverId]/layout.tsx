@@ -7,9 +7,11 @@ import React from 'react'
 type Props = {
   params: Promise<{ serverId: string }>
   ssh: React.ReactNode
+  vnc: React.ReactNode
+  rdp: React.ReactNode
 }
 
-export default async function ServerLayout({ params, ssh }: Props) {
+export default async function ServerLayout({ params, ssh, vnc, rdp }: Props) {
   const { serverId } = await params
 
   const server = await db.query.servers.findFirst({
@@ -24,7 +26,11 @@ export default async function ServerLayout({ params, ssh }: Props) {
     return notFound()
   }
 
-  if (server.protocol === 'ssh') {
-    return ssh
-  }
+  const Page = {
+    ssh: ssh,
+    vnc: vnc,
+    rdp: rdp,
+  }[server.protocol]
+
+  return Page
 }

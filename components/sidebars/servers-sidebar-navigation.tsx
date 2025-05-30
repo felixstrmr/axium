@@ -21,6 +21,28 @@ export default function ServersSidebarNavigation({ servers, folders }: Props) {
   const rootServers = servers.filter((server) => !server.folderId)
   const rootFolders = folders.filter((folder) => !folder.parentId)
 
+  const findParentFolders = React.useCallback(
+    (folderId: string | null): string[] => {
+      if (!folderId) return []
+      const folder = folders.find((f) => f.id === folderId)
+      if (!folder) return []
+      return [...findParentFolders(folder.parentId), folder.id]
+    },
+    [folders],
+  )
+
+  React.useEffect(() => {
+    if (!segment) return
+
+    const activeServer = servers.find((server) => server.id === segment)
+    if (!activeServer) return
+
+    const parentFolderIds = findParentFolders(activeServer.folderId)
+    if (parentFolderIds.length > 0) {
+      setExpandedFolders(new Set(parentFolderIds))
+    }
+  }, [segment, servers, findParentFolders])
+
   const toggleFolder = (folderId: string) => {
     const newExpanded = new Set(expandedFolders)
     if (newExpanded.has(folderId)) {
@@ -52,7 +74,7 @@ export default function ServersSidebarNavigation({ servers, folders }: Props) {
             'hover:bg-muted text-muted-foreground mt-1 flex h-7 w-full cursor-pointer items-center gap-2 rounded-md px-2 text-sm transition-all',
             isExpanded && 'text-foreground',
           )}
-          style={{ marginLeft: `${level * 12}px` }}
+          style={{ transform: `translateX(${level * 8}px)` }}
           onClick={() => hasChildren && toggleFolder(folder.id)}
         >
           {isExpanded ? (
@@ -118,7 +140,7 @@ function ServerItem({ server, isActive, level }: ServerItemProps) {
           ? 'bg-muted text-foreground'
           : 'hover:bg-muted text-muted-foreground',
       )}
-      style={{ marginLeft: isRoot ? '0px' : `${level * 12 + 15}px` }}
+      style={{ transform: `translateX(${isRoot ? '0px' : `${level * 8}px`})` }}
     >
       <Icon className='size-3.5' />
       {server.name}

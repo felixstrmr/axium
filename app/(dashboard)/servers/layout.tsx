@@ -1,5 +1,10 @@
 import DashboardHeader from '@/components/headers/dashboard-header'
 import ServersSidebar from '@/components/sidebars/servers-sidebar'
+import { Metadata } from 'next/types'
+
+export const metadata: Metadata = {
+  title: 'Axium • Servers',
+}
 
 type Props = {
   children: React.ReactNode

@@ -46,7 +46,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <div className='flex h-full flex-col overflow-hidden'>
-      <div className='flex items-center justify-between p-4'>
+      <div className='flex items-center justify-between border-b p-4'>
         <div className='flex items-center gap-2'>
           <div
             className='size-2 rounded-full'
