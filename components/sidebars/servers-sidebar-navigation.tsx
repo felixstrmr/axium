@@ -2,6 +2,7 @@
 
 import { Folder, Server } from '@/types'
 import { cn } from '@/utils'
+import { Eye, Monitor, Terminal } from 'lucide-react'
 import Link from 'next/link'
 import { useSelectedLayoutSegment } from 'next/navigation'
 
@@ -32,16 +33,23 @@ type SidebarItemProps = {
 }
 
 function SidebarItem(item: SidebarItemProps) {
+  const Icon = {
+    ssh: Terminal,
+    vnc: Eye,
+    rdp: Monitor,
+  }[item.server.protocol]
+
   return (
     <Link
       href={`/servers/${item.server.id}`}
       className={cn(
-        'flex h-8 items-center rounded-md px-2 text-sm transition-all',
+        'flex h-7 w-fit items-center gap-2 rounded-md px-2 pr-3 text-sm transition-all',
         item.isActive
           ? 'bg-muted text-foreground'
           : 'hover:bg-muted text-muted-foreground',
       )}
     >
+      <Icon className='size-4' />
       {item.server.name}
     </Link>
   )

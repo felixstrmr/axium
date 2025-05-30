@@ -28,7 +28,7 @@ export default function DashboardHeaderBreadcrumb({ servers }: Props) {
   }
 
   return (
-    <Breadcrumb>
+    <Breadcrumb className='flex h-8 items-center'>
       <BreadcrumbList className='flex items-center gap-1'>
         <BreadcrumbItem>
           <BreadcrumbLink href='/'>Home</BreadcrumbLink>
