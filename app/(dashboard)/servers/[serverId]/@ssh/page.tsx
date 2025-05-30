@@ -46,8 +46,19 @@ export default async function Page({ params }: Props) {
 
   return (
     <div className='flex h-full flex-col overflow-hidden'>
-      <div className='p-4'>
-        <h1 className='text-2xl font-semibold tracking-tight'>{server.name}</h1>
+      <div className='flex items-center justify-between p-4'>
+        <div className='flex items-center gap-2'>
+          <div
+            className='size-2 rounded-full'
+            style={{ backgroundColor: server.environment.color }}
+          />
+          <h1 className='text-2xl font-semibold tracking-tight'>
+            {server.name}
+          </h1>
+        </div>
+        <div>
+          <p className='text-muted-foreground'>{server.host}</p>
+        </div>
       </div>
       <SSHTerminal
         key={server.id} // Force remount when server changes

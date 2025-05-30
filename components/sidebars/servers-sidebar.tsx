@@ -2,7 +2,10 @@ import ServersSidebarNavigation from '@/components/sidebars/servers-sidebar-navi
 import { db } from '@/db'
 
 export default async function ServersSidebar() {
-  const servers = await db.query.servers.findMany()
+  const serversPromise = db.query.servers.findMany()
+  const foldersPromise = db.query.folders.findMany()
+
+  const [servers, folders] = await Promise.all([serversPromise, foldersPromise])
 
   return (
     <aside className='flex w-64 max-w-64 min-w-64 flex-col border-r'>
@@ -11,7 +14,7 @@ export default async function ServersSidebar() {
           <h1 className='text-2xl font-semibold tracking-tight'>Servers</h1>
         </div>
       </div>
-      <ServersSidebarNavigation servers={servers} />
+      <ServersSidebarNavigation servers={servers} folders={folders} />
     </aside>
   )
 }

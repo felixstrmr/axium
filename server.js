@@ -73,7 +73,12 @@ app.prepare().then(() => {
         })
       } catch (error) {
         console.error('SSH connection error:', error)
-        socket.emit('ssh:error', error.message)
+        const errorMessage = error.message.includes(
+          'All configured authentication methods failed',
+        )
+          ? 'Authentication failed: Please check your username and password'
+          : error.message
+        socket.emit('ssh:error', errorMessage)
       }
     })
 

@@ -1,6 +1,13 @@
 import { generateId } from '@/utils/database'
 import { relations } from 'drizzle-orm'
-import { boolean, integer, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
+import {
+  AnyPgColumn,
+  boolean,
+  integer,
+  pgTable,
+  text,
+  timestamp,
+} from 'drizzle-orm/pg-core'
 
 export const users = pgTable('users', {
   id: text('id')
@@ -97,6 +104,9 @@ export const servers = pgTable('servers', {
   protocol: text('protocol').$type<'ssh' | 'vnc' | 'rdp'>().notNull(),
   username: text('username'),
   password: text('password'),
+  folderId: text('folder_id').references(() => folders.id, {
+    onDelete: 'restrict',
+  }),
   credentialId: text('credential_id').references(() => credentials.id, {
     onDelete: 'restrict',
   }),
@@ -194,6 +204,36 @@ export const environments = pgTable('environments', {
 export const environmentsRelations = relations(environments, ({ one }) => ({
   createdBy: one(users, {
     fields: [environments.createdBy],
+    references: [users.id],
+  }),
+}))
+
+export const folders = pgTable('folders', {
+  id: text('id')
+    .$defaultFn(() => generateId('fld'))
+    .primaryKey(),
+  name: text('name').notNull(),
+  parentId: text('parent_id').references((): AnyPgColumn => folders.id, {
+    onDelete: 'restrict',
+  }),
+  createdBy: text('created_by').references(() => users.id, {
+    onDelete: 'set null',
+  }),
+  createdAt: timestamp('created_at')
+    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .notNull(),
+  updatedAt: timestamp('updated_at')
+    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .notNull(),
+})
+
+export const foldersRelations = relations(folders, ({ one, many }) => ({
+  parent: one(folders, {
+    fields: [folders.parentId],
+    references: [folders.id],
+  }),
+  createdBy: one(users, {
+    fields: [folders.createdBy],
     references: [users.id],
   }),
 }))

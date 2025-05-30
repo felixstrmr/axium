@@ -80,10 +80,10 @@ function SidebarItem(item: SidebarItemProps) {
     <Link href={item.href}>
       <div
         className={cn(
-          'flex h-8 items-center gap-2 rounded-md border p-2 transition-all',
+          'flex h-8 items-center gap-2 rounded-md p-2 transition-all',
           item.isActive
-            ? 'bg-background text-foreground border-border shadow-sm'
-            : 'text-muted-foreground hover:bg-background hover:border-border border-transparent',
+            ? 'bg-muted text-foreground'
+            : 'text-muted-foreground hover:bg-muted',
         )}
       >
         <item.icon className='size-4' />
