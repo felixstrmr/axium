@@ -123,7 +123,7 @@ export default function SSHTerminal({
   return (
     <div className='relative size-full bg-zinc-950 p-4'>
       {isLoading && (
-        <div className='absolute inset-0 z-10 flex items-center justify-center'>
+        <div className='absolute inset-0 z-10 flex items-center justify-center bg-zinc-950'>
           <div className='flex flex-col items-center gap-2'>
             <Loader className='text-primary-foreground size-4 animate-spin' />
             <p className='text-primary-foreground text-sm'>

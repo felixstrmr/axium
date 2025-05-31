@@ -2,7 +2,14 @@
 
 import { Separator } from '@/components/ui/separator'
 import { cn } from '@/utils'
-import { Home, LucideIcon, Server, Settings, Terminal } from 'lucide-react'
+import {
+  File,
+  Home,
+  LucideIcon,
+  Server,
+  Settings,
+  Terminal,
+} from 'lucide-react'
 import Link from 'next/link'
 import { useSelectedLayoutSegment } from 'next/navigation'
 
@@ -21,6 +28,12 @@ export default function DashboardSidebar() {
       href: '/servers',
       icon: Server,
       isActive: segment === 'servers',
+    },
+    {
+      name: 'SFTP',
+      href: '/sftp',
+      icon: File,
+      isActive: segment === 'sftp',
     },
   ]
 
