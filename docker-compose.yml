@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://axium:password@postgres:5432/axium
+      - BETTER_AUTH_SECRET=your-super-secret-key-here-change-this
+      - BETTER_AUTH_URL=http://localhost:3000
+      - ENCRYPTION_KEY=your-encryption-key-here-change-this
+      - MICROSOFT_CLIENT_ID=your-microsoft-client-id
+      - MICROSOFT_CLIENT_SECRET=your-microsoft-client-secret
+      - MICROSOFT_TENANT_ID=your-microsoft-tenant-id
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    volumes:
+      - ./drizzle:/app/drizzle
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=axium
+      - POSTGRES_USER=axium
+      - POSTGRES_PASSWORD=password
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U axium -d axium']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
