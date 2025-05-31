@@ -1,3 +1,4 @@
+import { env } from '@/lib/env'
 import crypto from 'crypto'
 
 export function generateEncryptionKey(): string {
@@ -13,7 +14,7 @@ export function encrypt(value: string) {
   const salt = crypto.randomBytes(32)
   const iv = crypto.randomBytes(16)
 
-  const key = deriveKey(process.env.ENCRYPTION_KEY as string, salt)
+  const key = deriveKey(env.ENCRYPTION_KEY, salt)
   const cipher = crypto.createCipheriv('aes-256-gcm', key, iv)
 
   const encrypted = Buffer.concat([
@@ -35,7 +36,7 @@ export function decrypt(value: string) {
   const tag = combined.subarray(48, 64)
   const encrypted = combined.subarray(64)
 
-  const key = deriveKey(process.env.ENCRYPTION_KEY as string, salt)
+  const key = deriveKey(env.ENCRYPTION_KEY, salt)
 
   const decipher = crypto.createDecipheriv('aes-256-gcm', key, iv)
   decipher.setAuthTag(tag)

@@ -1,6 +1,7 @@
 'use client'
 
 import { FitAddon } from '@xterm/addon-fit'
+import { Loader } from 'lucide-react'
 import React from 'react'
 import { io, Socket } from 'socket.io-client'
 import { Terminal } from 'xterm'
@@ -8,6 +9,7 @@ import 'xterm/css/xterm.css'
 
 type Props = {
   serverId: string
+  serverName: string
   host: string
   port: number
   username?: string
@@ -17,6 +19,7 @@ type Props = {
 
 export default function SSHTerminal({
   serverId,
+  serverName,
   host,
   port,
   username,
@@ -27,11 +30,13 @@ export default function SSHTerminal({
   const terminal = React.useRef<Terminal>(null)
   const socket = React.useRef<Socket | null>(null)
   const fitAddon = React.useRef<FitAddon>(null)
+  const [isLoading, setIsLoading] = React.useState(true)
 
   React.useEffect(() => {
     if (!terminalRef.current) return
 
     const initTerminal = async () => {
+      setIsLoading(true)
       const { Terminal } = await import('xterm')
       const { FitAddon } = await import('@xterm/addon-fit')
       const { WebLinksAddon } = await import('@xterm/addon-web-links')
@@ -74,14 +79,17 @@ export default function SSHTerminal({
       })
 
       socket.current.on('ssh:connected', () => {
+        setIsLoading(false)
         terminal.current?.write('\r\n*** SSH Connection Established ***\r\n')
       })
 
       socket.current.on('ssh:error', (error: string) => {
+        setIsLoading(false)
         terminal.current?.write(`\r\n*** Error: ${error} ***\r\n`)
       })
 
       socket.current.on('ssh:disconnected', () => {
+        setIsLoading(false)
         terminal.current?.write('\r\n*** SSH Connection Closed ***\r\n')
       })
 
@@ -105,6 +113,7 @@ export default function SSHTerminal({
         window.removeEventListener('resize', handleResize)
         socket.current?.disconnect()
         terminal.current?.dispose()
+        setIsLoading(false)
       }
     }
 
@@ -112,7 +121,17 @@ export default function SSHTerminal({
   }, [serverId, host, port, username, password, credentialId])
 
   return (
-    <div className='size-full bg-zinc-950 p-4'>
+    <div className='relative size-full bg-zinc-950 p-4'>
+      {isLoading && (
+        <div className='absolute inset-0 z-10 flex items-center justify-center'>
+          <div className='flex flex-col items-center gap-2'>
+            <Loader className='text-primary-foreground size-4 animate-spin' />
+            <p className='text-primary-foreground text-sm'>
+              Connecting to {serverName}...
+            </p>
+          </div>
+        </div>
+      )}
       <div ref={terminalRef} className='size-full' />
     </div>
   )

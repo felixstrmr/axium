@@ -69,21 +69,23 @@ export default function ServersSidebarNavigation({ servers, folders }: Props) {
 
     return (
       <div key={folder.id}>
-        <div
-          className={cn(
-            'hover:bg-muted text-muted-foreground mt-1 flex h-7 w-full cursor-pointer items-center gap-2 rounded-md px-2 text-sm transition-all',
-            isExpanded && 'text-foreground',
-          )}
-          style={{ transform: `translateX(${level * 8}px)` }}
-          onClick={() => hasChildren && toggleFolder(folder.id)}
-        >
-          {isExpanded ? (
-            <FolderOpen className='size-3.5' />
-          ) : (
-            <FolderClosed className='size-3.5' />
-          )}
-          {folder.name}
+        <div style={{ paddingLeft: `${level * 8}px` }}>
+          <div
+            className={cn(
+              'hover:bg-muted mt-1 flex h-7 w-full cursor-pointer items-center gap-2 rounded-md px-2 text-sm transition-all',
+              isExpanded ? 'text-foreground' : 'text-muted-foreground',
+            )}
+            onClick={() => hasChildren && toggleFolder(folder.id)}
+          >
+            {isExpanded ? (
+              <FolderOpen className='size-3.5' />
+            ) : (
+              <FolderClosed className='size-3.5' />
+            )}
+            {folder.name}
+          </div>
         </div>
+
         {isExpanded && (
           <div className='flex flex-col gap-1'>
             {subfolders.map((subfolder) => renderFolder(subfolder, level + 1))}
@@ -135,7 +137,7 @@ function ServerItem({ server, isActive, level }: ServerItemProps) {
     <Link
       href={`/servers/${server.id}`}
       className={cn(
-        'mt-1 flex h-7 w-fit items-center gap-2 rounded-md px-2 text-sm transition-all',
+        'flex h-7 w-fit items-center gap-2 rounded-md px-2 text-sm transition-all',
         isActive
           ? 'bg-muted text-foreground'
           : 'hover:bg-muted text-muted-foreground',

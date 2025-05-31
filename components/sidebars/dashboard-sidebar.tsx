@@ -38,7 +38,7 @@ export default function DashboardSidebar() {
       <div className='border-b p-4'>
         <Link
           href={'/'}
-          className='from-primary border-primary shadow-[inset_0_1px_0_0_theme(colors.primary-foreground/15%)] flex size-8 items-center justify-center rounded-md border bg-gradient-to-t to-zinc-600 dark:from-zinc-300 dark:to-zinc-50'
+          className='from-primary border-primary shadow-[inset_0_1px_0_0_theme(colors.primary-foreground/15%)] flex size-8 items-center justify-center rounded-md border bg-gradient-to-t to-neutral-600 dark:from-zinc-300 dark:to-zinc-50'
         >
           <Terminal className='text-primary-foreground size-4' />
         </Link>
