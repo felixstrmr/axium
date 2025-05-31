@@ -2,7 +2,12 @@ import { db } from '@/db'
 import { servers } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 import { notFound } from 'next/navigation'
+import { Metadata } from 'next/types'
 import React from 'react'
+
+export const metadata: Metadata = {
+  title: 'Axium • Server',
+}
 
 type Props = {
   params: Promise<{ serverId: string }>
