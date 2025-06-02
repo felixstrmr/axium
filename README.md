@@ -66,8 +66,6 @@
 2. **Install dependencies**
 
    ```bash
-   npm install
-   # or
    bun install
    ```
 
@@ -89,22 +87,18 @@
 
    # Encryption (generate with crypto.randomBytes(32).toString('base64'))
    ENCRYPTION_KEY="your-encryption-key-here"
-
-   # Microsoft OAuth (optional)
-   MICROSOFT_CLIENT_ID="your-microsoft-client-id"
-   MICROSOFT_CLIENT_SECRET="your-microsoft-client-secret"
    ```
 
 5. **Database setup**
 
    ```bash
-   npm run db:push
+   bun run db:push
    ```
 
 6. **Start the development server**
 
    ```bash
-   npm run dev
+   bun dev
    ```
 
 7. **Access the application**
