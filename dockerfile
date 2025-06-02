@@ -1,63 +1,40 @@
-# Dockerfile (NPM Alternative)
-FROM node:18-alpine AS base
-
-# Install dependencies only when needed
-FROM base AS deps
-RUN apk add --no-cache libc6-compat
+# Use Bun's official image
+FROM oven/bun:1 AS base
 WORKDIR /app
 
-# Copy package.json and generate package-lock.json if it doesn't exist
-COPY package.json ./
-RUN npm install --package-lock-only
-RUN npm ci --omit=dev
+# Install dependencies into temp directory
+# This will cache them and speed up future builds
+FROM base AS install
+RUN mkdir -p /temp/dev
+COPY package.json bun.lockb /temp/dev/
+RUN cd /temp/dev && bun install --frozen-lockfile
 
-# Rebuild the source code only when needed
-FROM base AS builder
-WORKDIR /app
+# Install with --production (exclude devDependencies)
+RUN mkdir -p /temp/prod
+COPY package.json bun.lockb /temp/prod/
+RUN cd /temp/prod && bun install --frozen-lockfile --production
 
-# Install all dependencies for building
-COPY package.json ./
-RUN npm install
-
+# Copy node_modules from temp directory
+# Then copy all (non-ignored) project files into the image
+FROM base AS prerelease
+COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
 
 # Build the application
-RUN npm run build
-
-# Production image, copy all the files and run next
-FROM base AS runner
-WORKDIR /app
-
 ENV NODE_ENV=production
+RUN bun run build
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+# Copy production dependencies and source code into final image
+FROM base AS release
+COPY --from=install /temp/prod/node_modules node_modules
+COPY --from=prerelease /app/.next .next
+COPY --from=prerelease /app/public public
+COPY --from=prerelease /app/package.json .
+COPY --from=prerelease /app/server.js .
+COPY --from=prerelease /app/drizzle drizzle
 
-# Copy production dependencies
-COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/package*.json ./
+# Expose port
+EXPOSE 3000/tcp
 
-# Copy built application
-COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-# Copy necessary files for migrations
-COPY --from=builder /app/drizzle ./drizzle
-COPY --from=builder /app/drizzle.config.ts ./
-
-# Copy custom server file
-COPY --from=builder /app/server.js ./
-
-# Copy entrypoint script
-COPY docker-entrypoint.sh ./
-RUN chmod +x docker-entrypoint.sh
-
-USER nextjs
-
-EXPOSE 3000
-
-ENV PORT=3000
-ENV HOSTNAME="0.0.0.0"
-
-ENTRYPOINT ["./docker-entrypoint.sh"]
+# Run the app
+ENTRYPOINT [ "bun", "run", "start" ]
