@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node server.js",
-    "build": "next build",
-    "start": "NODE_ENV=production node server.js",
+    "dev": "bun server.js",
+    "build": "bun run build:next",
+    "start": "NODE_ENV=production bun server.js",
     "lint": "next lint",
-    "db:push": "bunx drizzle-kit generate && bunx drizzle-kit migrate"
+    "db:push": "bun drizzle-kit generate && bun drizzle-kit migrate"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
