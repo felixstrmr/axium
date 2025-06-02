@@ -59,7 +59,7 @@
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/axium.git
+   git clone https://github.com/felixstrmr/axium.git
    cd axium
    ```
 
