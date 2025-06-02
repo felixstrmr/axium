@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "bun server.js",
-    "build": "bun run build:next",
+    "build": "next build",
     "start": "NODE_ENV=production bun server.js",
     "lint": "next lint",
     "db:push": "bun drizzle-kit generate && bun drizzle-kit migrate"
