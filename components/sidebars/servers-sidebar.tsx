@@ -1,3 +1,4 @@
+import EnvironmentSelect from '@/components/selects/environment-select'
 import ServersSidebarNavigation from '@/components/sidebars/servers-sidebar-navigation'
 import { db } from '@/db'
 
@@ -16,7 +17,15 @@ export default async function ServersSidebar() {
     },
   })
 
-  const [servers, folders] = await Promise.all([serversPromise, foldersPromise])
+  const environmentsPromise = db.query.environments.findMany({
+    orderBy: (environments, { asc }) => [asc(environments.name)],
+  })
+
+  const [servers, folders, environments] = await Promise.all([
+    serversPromise,
+    foldersPromise,
+    environmentsPromise,
+  ])
 
   return (
     <aside className='flex w-64 max-w-64 min-w-64 flex-col border-r'>
@@ -24,6 +33,9 @@ export default async function ServersSidebar() {
         <div className='flex h-8 items-center'>
           <h1 className='text-2xl font-semibold tracking-tight'>Servers</h1>
         </div>
+      </div>
+      <div className='px-4 pt-4'>
+        <EnvironmentSelect environments={environments} />
       </div>
       <ServersSidebarNavigation servers={servers} folders={folders} />
     </aside>

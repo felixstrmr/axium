@@ -1,18 +1,34 @@
-const { createServer } = require('http')
-const { parse } = require('url')
-const next = require('next')
-const { Server } = require('socket.io')
-const { NodeSSH } = require('node-ssh')
+import type { IncomingMessage, ServerResponse } from 'http'
+import { createServer } from 'http'
+import next from 'next'
+import { NodeSSH } from 'node-ssh'
+import type { Socket } from 'socket.io'
+import { Server } from 'socket.io'
+import { parse } from 'url'
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
-const sshConnections = new Map()
+interface ConnectionData {
+  serverId: string
+  host: string
+  port: number
+  username: string
+  password: string
+  credentialId: string
+}
+
+interface ResizeData {
+  cols: number
+  rows: number
+}
+
+const sshConnections = new Map<string, NodeSSH>()
 
 app.prepare().then(() => {
-  const server = createServer((req, res) => {
-    const parsedUrl = parse(req.url, true)
+  const server = createServer((req: IncomingMessage, res: ServerResponse) => {
+    const parsedUrl = parse(req.url || '', true)
     handle(req, res, parsedUrl)
   })
 
@@ -24,10 +40,10 @@ app.prepare().then(() => {
     },
   })
 
-  io.on('connection', (socket) => {
-    let ssh = null
+  io.on('connection', (socket: Socket) => {
+    let ssh: NodeSSH | null = null
 
-    socket.on('ssh:connect', async (connectionData) => {
+    socket.on('ssh:connect', async (connectionData: ConnectionData) => {
       try {
         const { host, port, username, password } = connectionData
 
@@ -50,11 +66,12 @@ app.prepare().then(() => {
         })
 
         socket.emit('ssh:connected')
-        shell.on('data', (data) => {
+
+        shell.on('data', (data: Buffer) => {
           socket.emit('ssh:data', data.toString())
         })
 
-        shell.on('error', (err) => {
+        shell.on('error', (err: Error) => {
           console.error('SSH Shell error:', err)
           socket.emit('ssh:error', err.message)
         })
@@ -64,21 +81,16 @@ app.prepare().then(() => {
           sshConnections.delete(socket.id)
         })
 
-        socket.on('ssh:data', (data) => {
+        socket.on('ssh:data', (data: string) => {
           shell.write(data)
         })
 
-        socket.on('ssh:resize', ({ cols, rows }) => {
+        socket.on('ssh:resize', ({ cols, rows }: ResizeData) => {
           shell.setWindow(rows, cols)
         })
       } catch (error) {
         console.error('SSH connection error:', error)
-        const errorMessage = error.message.includes(
-          'All configured authentication methods failed',
-        )
-          ? 'Authentication failed: Please check your username and password'
-          : error.message
-        socket.emit('ssh:error', errorMessage)
+        socket.emit('ssh:error', (error as Error).message)
       }
     })
 
@@ -91,7 +103,7 @@ app.prepare().then(() => {
     })
   })
 
-  server.listen(3000, (err) => {
+  server.listen(3000, (err?: Error) => {
     if (err) throw err
     console.log('> Ready on http://localhost:3000')
   })

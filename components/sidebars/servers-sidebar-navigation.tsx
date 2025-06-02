@@ -5,6 +5,7 @@ import { cn } from '@/utils'
 import { Eye, FolderClosed, FolderOpen, Monitor, Terminal } from 'lucide-react'
 import Link from 'next/link'
 import { useSelectedLayoutSegment } from 'next/navigation'
+import { parseAsString, useQueryState } from 'nuqs'
 import React from 'react'
 
 type Props = {
@@ -12,7 +13,22 @@ type Props = {
   folders: Folder[]
 }
 
-export default function ServersSidebarNavigation({ servers, folders }: Props) {
+export default function ServersSidebarNavigation({
+  servers: initalServers,
+  folders,
+}: Props) {
+  const [environmentId] = useQueryState(
+    'environmentId',
+    parseAsString.withDefault('all'),
+  )
+
+  const servers = React.useMemo(() => {
+    if (environmentId === 'all') return initalServers
+    return initalServers.filter(
+      (server) => server.environmentId === environmentId,
+    )
+  }, [initalServers, environmentId])
+
   const segment = useSelectedLayoutSegment()
   const [expandedFolders, setExpandedFolders] = React.useState<Set<string>>(
     new Set(),

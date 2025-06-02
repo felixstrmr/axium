@@ -1,4 +1,5 @@
 import { Toaster } from '@/components/ui/sonner'
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { ReactNode } from 'react'
 
 type Props = {
@@ -8,8 +9,10 @@ type Props = {
 export default function RootProvider({ children }: Props) {
   return (
     <>
-      {children}
-      <Toaster />
+      <NuqsAdapter>
+        {children}
+        <Toaster />
+      </NuqsAdapter>
     </>
   )
 }
