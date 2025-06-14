@@ -81,3 +81,21 @@ export const verifications = pgTable('verifications', {
     .$defaultFn(() => /* @__PURE__ */ new Date())
     .notNull(),
 })
+
+export const servers = pgTable('servers', {
+  id: text('id')
+    .$defaultFn(() => generateId('srv'))
+    .primaryKey(),
+  name: text('name').notNull(),
+  host: text('host').notNull(),
+  description: text('description'),
+  createdBy: text('created_by')
+    .notNull()
+    .references(() => users.id, { onDelete: 'restrict' }),
+  createdAt: timestamp('created_at')
+    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .notNull(),
+  updatedAt: timestamp('updated_at')
+    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .notNull(),
+})
