@@ -1,7 +1,11 @@
-import type { NextConfig } from "next";
+import '@/lib/env'
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  devIndicators: false,
+  experimental: {
+    nodeMiddleware: true,
+  },
+}
 
-export default nextConfig;
+export default nextConfig
