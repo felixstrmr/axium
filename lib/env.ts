@@ -14,7 +14,13 @@ export default defineEnv({
     BETTER_AUTH_SECRET: z.string(),
     BETTER_AUTH_URL: z.string().optional(),
     DATABASE_URL: z.string(),
-    ENCRYPTION_KEY: z.string(),
+    ENCRYPTION_KEY: z
+      .string()
+      .min(32, 'Encryption key must be at least 32 characters')
+      .refine(
+        (key) => Buffer.from(key, 'base64').length >= 32,
+        'Encryption key must be a valid base64 string of at least 32 bytes',
+      ),
 
     MICROSOFT_CLIENT_ID: z.string(),
     MICROSOFT_CLIENT_SECRET: z.string(),

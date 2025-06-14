@@ -39,7 +39,7 @@ export default function DashboardSidebar() {
   ]
 
   return (
-    <aside className='flex flex-col gap-4 border-r p-4'>
+    <aside className='flex flex-col gap-4 border-r bg-zinc-900/50 p-4'>
       <Link
         href={'/'}
         className='bg-primary flex size-8 items-center justify-center rounded-md'
