@@ -4,7 +4,7 @@ import HouseIcon from '@/components/icons/house-icon'
 import ServerIcon from '@/components/icons/server-icon'
 import SettingsIcon from '@/components/icons/settings-icon'
 import { cn } from '@/utils'
-import { Terminal } from 'lucide-react'
+import { House, LucideIcon, Server, Settings, Terminal } from 'lucide-react'
 import Link from 'next/link'
 import { useSelectedLayoutSegment } from 'next/navigation'
 
@@ -15,13 +15,15 @@ export default function DashboardSidebar() {
     {
       name: 'Dashboard',
       href: '/',
-      icon: HouseIcon,
+      icon: House,
+      activeIcon: HouseIcon,
       isActive: segment === null,
     },
     {
       name: 'Servers',
       href: '/servers',
-      icon: ServerIcon,
+      icon: Server,
+      activeIcon: ServerIcon,
       isActive: segment === 'servers',
     },
   ]
@@ -30,7 +32,8 @@ export default function DashboardSidebar() {
     {
       name: 'Settings',
       href: '/settings',
-      icon: SettingsIcon,
+      icon: Settings,
+      activeIcon: SettingsIcon,
       isActive: segment === 'settings',
     },
   ]
@@ -62,11 +65,14 @@ export default function DashboardSidebar() {
 type SidebarItemProps = {
   name: string
   href: string
-  icon: React.ElementType
+  icon: LucideIcon
+  activeIcon: React.ElementType<React.SVGProps<SVGSVGElement>>
   isActive: boolean
 }
 
 function SidebarItem(item: SidebarItemProps) {
+  const Icon = item.isActive ? item.activeIcon : item.icon
+
   return (
     <Link
       href={item.href}
@@ -77,7 +83,7 @@ function SidebarItem(item: SidebarItemProps) {
           : 'text-muted-foreground hover:bg-muted hover:border-border border-transparent bg-transparent',
       )}
     >
-      <item.icon className='size-4' />
+      <Icon className='size-4' />
     </Link>
   )
 }

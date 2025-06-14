@@ -15,6 +15,13 @@
       "when": 1749881238681,
       "tag": "0001_empty_wallop",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1749903918680,
+      "tag": "0002_goofy_drax",
+      "breakpoints": true
     }
   ]
 }

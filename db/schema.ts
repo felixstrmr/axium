@@ -1,5 +1,6 @@
 import { generateId } from '@/utils/database'
-import { boolean, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
+import { relations } from 'drizzle-orm'
+import { boolean, integer, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 
 export const users = pgTable('users', {
   id: text('id')
@@ -92,6 +93,9 @@ export const servers = pgTable('servers', {
   createdBy: text('created_by')
     .notNull()
     .references(() => users.id, { onDelete: 'restrict' }),
+  updatedBy: text('updated_by')
+    .notNull()
+    .references(() => users.id, { onDelete: 'restrict' }),
   createdAt: timestamp('created_at')
     .$defaultFn(() => /* @__PURE__ */ new Date())
     .notNull(),
@@ -99,3 +103,104 @@ export const servers = pgTable('servers', {
     .$defaultFn(() => /* @__PURE__ */ new Date())
     .notNull(),
 })
+
+export const serversRelations = relations(servers, ({ one }) => ({
+  createdBy: one(users, {
+    fields: [servers.createdBy],
+    references: [users.id],
+  }),
+  updatedBy: one(users, {
+    fields: [servers.updatedBy],
+    references: [users.id],
+  }),
+}))
+
+export const serverConnections = pgTable('server_connections', {
+  id: text('id')
+    .$defaultFn(() => generateId('conn'))
+    .primaryKey(),
+  port: integer('port').notNull(),
+  username: text('username'),
+  password: text('password'),
+  domain: text('domain'),
+  type: text('type').$type<'ssh' | 'vnc' | 'rdp'>().notNull(),
+  serverId: text('server_id')
+    .notNull()
+    .references(() => servers.id, { onDelete: 'cascade' }),
+  credentialId: text('credential_id').references(() => credentials.id, {
+    onDelete: 'restrict',
+  }),
+  createdBy: text('created_by')
+    .references(() => users.id, {
+      onDelete: 'restrict',
+    })
+    .notNull(),
+  updatedBy: text('updated_by')
+    .references(() => users.id, {
+      onDelete: 'restrict',
+    })
+    .notNull(),
+  createdAt: timestamp('created_at')
+    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .notNull(),
+  updatedAt: timestamp('updated_at')
+    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .notNull(),
+})
+
+export const serverConnectionsRelations = relations(
+  serverConnections,
+  ({ one }) => ({
+    server: one(servers, {
+      fields: [serverConnections.serverId],
+      references: [servers.id],
+    }),
+    credential: one(credentials, {
+      fields: [serverConnections.credentialId],
+      references: [credentials.id],
+    }),
+    createdBy: one(users, {
+      fields: [serverConnections.createdBy],
+      references: [users.id],
+    }),
+    updatedBy: one(users, {
+      fields: [serverConnections.updatedBy],
+      references: [users.id],
+    }),
+  }),
+)
+
+export const credentials = pgTable('credentials', {
+  id: text('id')
+    .$defaultFn(() => generateId('cred'))
+    .primaryKey(),
+  name: text('name').notNull(),
+  description: text('description'),
+  sername: text('username'),
+  password: text('password'),
+  domain: text('domain'),
+  type: text('type').$type<'ssh' | 'vnc' | 'rdp'>().notNull(),
+  createdBy: text('created_by')
+    .notNull()
+    .references(() => users.id, { onDelete: 'restrict' }),
+  updatedBy: text('updated_by')
+    .notNull()
+    .references(() => users.id, { onDelete: 'restrict' }),
+  createdAt: timestamp('created_at')
+    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .notNull(),
+  updatedAt: timestamp('updated_at')
+    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .notNull(),
+})
+
+export const credentialsRelations = relations(credentials, ({ one }) => ({
+  createdBy: one(users, {
+    fields: [credentials.createdBy],
+    references: [users.id],
+  }),
+  updatedBy: one(users, {
+    fields: [credentials.updatedBy],
+    references: [users.id],
+  }),
+}))
