@@ -9,10 +9,6 @@ export async function middleware(request: NextRequest) {
     headers: await headers(),
   })
 
-  if (!session && pathname !== '/signin') {
-    return NextResponse.redirect(new URL('/signin', request.url))
-  }
-
   if (
     pathname.startsWith('/settings/admin') &&
     session?.user.role !== 'admin'

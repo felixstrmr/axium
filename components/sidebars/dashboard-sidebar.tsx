@@ -39,7 +39,7 @@ export default function DashboardSidebar() {
   ]
 
   return (
-    <aside className='flex flex-col gap-4 border-r bg-zinc-900/50 p-4'>
+    <aside className='bg-background flex flex-col gap-4 p-4'>
       <Link
         href={'/'}
         className='bg-primary flex size-8 items-center justify-center rounded-md'
@@ -79,8 +79,8 @@ function SidebarItem(item: SidebarItemProps) {
       className={cn(
         'flex size-8 items-center justify-center rounded-md border transition-all',
         item.isActive
-          ? 'bg-muted border-border text-foreground'
-          : 'text-muted-foreground hover:bg-muted hover:border-border border-transparent bg-transparent',
+          ? 'bg-muted border-border/50 text-foreground'
+          : 'text-muted-foreground hover:bg-muted hover:border-border/50 border-transparent bg-transparent',
       )}
     >
       <Icon className='size-4' />
