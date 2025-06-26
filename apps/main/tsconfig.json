@@ -4,7 +4,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-      "@axium/ui/*": ["../../packages/ui/src/*"]
+      "@axium/ui/*": ["../../packages/ui/src/*"],
+      "@axium/auth/*": ["../../packages/auth/src/*"]
     },
     "plugins": [
       {

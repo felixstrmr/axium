@@ -1,0 +1,26 @@
+{
+  "name": "@axium/db",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./schema": "./src/schema.ts"
+  },
+  "dependencies": {
+    "@axium/utils": "workspace:*",
+    "dotenv": "^16.5.0",
+    "drizzle-orm": "^0.44.2",
+    "pg": "^8.16.2"
+  },
+  "devDependencies": {
+    "@axium/typescript": "workspace:*",
+    "@types/pg": "^8.14.6",
+    "drizzle-kit": "^0.31.3"
+  }
+}

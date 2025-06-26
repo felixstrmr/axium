@@ -1,0 +1,20 @@
+{
+  "name": "@axium/auth",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/auth.ts",
+    "./middleware": "./src/middleware.ts"
+  },
+  "dependencies": {
+    "@axium/db": "workspace:*",
+    "better-auth": "^1.2.10",
+    "dotenv": "^16.5.0",
+    "next": "^15.3.0"
+  },
+  "devDependencies": {
+    "@axium/eslint": "*",
+    "@axium/typescript": "*"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "@axium/utils",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts",
+    "./database": "./src/database.ts"
+  },
+  "dependencies": {
+    "@axium/typescript": "workspace:*"
+  }
+}

@@ -12,7 +12,7 @@
   "iconLibrary": "lucide",
   "aliases": {
     "components": "@axium/ui/components",
-    "utils": "@axium/ui/lib/utils",
+    "utils": "@axium/utils",
     "hooks": "@axium/ui/hooks",
     "lib": "@axium/ui/lib",
     "ui": "@axium/ui/components"

@@ -1,28 +1,24 @@
-import { Geist, Geist_Mono } from 'next/font/google'
+import Providers from '@/src/components/providers/providers'
+import { GeistMono } from 'geist/font/mono'
+import { GeistSans } from 'geist/font/sans'
 
 import '@axium/ui/globals.css'
 
-const fontSans = Geist({
-  subsets: ['latin'],
-  variable: '--font-sans',
-})
-
-const fontMono = Geist_Mono({
-  subsets: ['latin'],
-  variable: '--font-mono',
-})
-
-export default function RootLayout({
-  children,
-}: Readonly<{
+type Props = {
   children: React.ReactNode
-}>) {
+}
+
+export default function RootLayout({ children }: Props) {
   return (
-    <html lang='en' suppressHydrationWarning>
-      <body
-        className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased`}
-      >
-        {children}
+    <html
+      lang='en'
+      suppressHydrationWarning
+      className={`${GeistSans.variable} ${GeistMono.variable}`}
+    >
+      <body>
+        <Providers>
+          <main className='h-screen w-screen'>{children}</main>
+        </Providers>
       </body>
     </html>
   )
