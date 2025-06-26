@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "../../packages/ui/src/styles/globals.css",
+    "baseColor": "zinc",
+    "cssVariables": true
+  },
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "@axium/ui/components",
+    "hooks": "@axium/ui/hooks",
+    "lib": "@axium/ui/lib",
+    "utils": "@axium/ui/lib/utils",
+    "ui": "@axium/ui/components"
+  }
+}
