@@ -1,6 +1,11 @@
 'use client'
 
 import { Separator } from '@axium/ui/components/separator'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@axium/ui/components/tooltip'
 import { cn } from '@axium/utils'
 import { Cog, House, LucideIcon, Server } from 'lucide-react'
 import Link from 'next/link'
@@ -61,16 +66,23 @@ type SidebarItemProps = {
 
 function SidebarItem(item: SidebarItemProps) {
   return (
-    <Link
-      href={item.href}
-      className={cn(
-        'flex size-8 items-center justify-center rounded-md transition-colors',
-        item.isActive
-          ? 'text-foreground bg-muted'
-          : 'text-muted-foreground hover:bg-muted',
-      )}
-    >
-      <item.icon className='size-4' />
-    </Link>
+    <Tooltip>
+      <TooltipTrigger>
+        <Link
+          href={item.href}
+          className={cn(
+            'flex size-8 items-center justify-center rounded-md transition-colors',
+            item.isActive
+              ? 'text-foreground bg-muted'
+              : 'text-muted-foreground hover:bg-muted',
+          )}
+        >
+          <item.icon className='size-4' />
+        </Link>
+      </TooltipTrigger>
+      <TooltipContent side='right'>
+        <p>{item.name}</p>
+      </TooltipContent>
+    </Tooltip>
   )
 }
