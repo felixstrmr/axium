@@ -59,13 +59,11 @@ export default function SettingsSidebar() {
   ]
 
   return (
-    <aside className='w-64 max-w-64 min-w-64 border-r'>
-      <div className='border-b p-4'>
-        <div className='flex h-6.5 items-center'>
-          <h1 className='text-xl font-semibold tracking-tight'>Settings</h1>
-        </div>
+    <aside className='flex w-64 max-w-64 min-w-64 flex-col border-r'>
+      <div className='border-b px-5 py-3'>
+        <h1 className='text-lg font-semibold tracking-tight'>Settings</h1>
       </div>
-      <div className='space-y-4 p-4'>
+      <div className='space-y-3.5 p-3'>
         <div className='space-y-1'>
           <p className='text-muted-foreground mb-1 ml-2 text-xs'>Personal</p>
           {itemsPersoal.map((item) => (

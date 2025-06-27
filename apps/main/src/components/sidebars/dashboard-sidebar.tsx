@@ -39,16 +39,16 @@ export default function DashboardSidebar() {
   ]
 
   return (
-    <aside className='flex flex-col p-4'>
+    <aside className='flex flex-col p-3'>
       <Link href='/'>
         <div className='bg-primary size-8 rounded-md' />
       </Link>
-      <Separator className='mx-auto my-4 max-w-6' />
+      <Separator className='mx-auto my-3.5 max-w-6' />
       <div className='flex flex-col gap-1'>
         {itemsTop.map((item) => (
           <SidebarItem key={item.name} {...item} />
         ))}
-        <Separator className='mx-auto my-3 max-w-6' />
+        <Separator className='mx-auto my-3.5 max-w-6' />
         {itemsBottom.map((item) => (
           <SidebarItem key={item.name} {...item} />
         ))}

@@ -1,3 +1,4 @@
+import DashboardHeader from '@/src/components/headers/dashboard-header'
 import DashboardSidebar from '@/src/components/sidebars/dashboard-sidebar'
 
 type Props = {
@@ -9,7 +10,8 @@ export default function DashboardLayout({ children }: Props) {
     <div className='flex size-full bg-zinc-900/50'>
       <DashboardSidebar />
       <div className='flex-1 py-1 pr-1'>
-        <div className='bg-background flex size-full rounded-sm border shadow-sm'>
+        <div className='bg-background flex size-full flex-col rounded-sm border shadow-sm'>
+          <DashboardHeader />
           {children}
         </div>
       </div>
