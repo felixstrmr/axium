@@ -14,11 +14,14 @@ import {
 import { Input } from '@axium/ui/components/input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useAction } from 'next-safe-action/hooks'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
 export default function CredentialSigninForm() {
+  const router = useRouter()
+
   const form = useForm<z.infer<typeof credentialSigninSchema>>({
     resolver: zodResolver(credentialSigninSchema),
     defaultValues: {
@@ -37,6 +40,7 @@ export default function CredentialSigninForm() {
       toast.success('Signed in successfully', {
         id: 'credential-signin-form',
       })
+      router.push('/')
     },
     onError: ({ error }) => {
       toast.error(error.serverError, {
