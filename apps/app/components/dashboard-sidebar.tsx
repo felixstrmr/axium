@@ -45,7 +45,7 @@ export default function DashboardSidebar() {
   ]
 
   return (
-    <div className='flex flex-col items-center p-4'>
+    <aside className='flex flex-col items-center border border-transparent px-4 py-5'>
       <Link href='/'>
         <div className='bg-primary size-8 rounded-md' />
       </Link>
@@ -76,7 +76,7 @@ export default function DashboardSidebar() {
           ))}
         </div>
       </div>
-    </div>
+    </aside>
   )
 }
 
