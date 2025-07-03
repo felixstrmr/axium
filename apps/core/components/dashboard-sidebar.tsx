@@ -1,5 +1,6 @@
 'use client'
 
+import AxiumIcon from '@/components/icons/axium-icon'
 import HomeIcon from '@/components/icons/home-icon'
 import ServerIcon from '@/components/icons/server-icon'
 import SettingsIcon from '@/components/icons/settings-icon'
@@ -10,14 +11,7 @@ import {
   TooltipTrigger,
 } from '@axium/ui/components/tooltip'
 import { cn } from '@axium/utils'
-import {
-  Home,
-  LucideIcon,
-  MessageCircle,
-  Server,
-  Settings,
-  Terminal,
-} from 'lucide-react'
+import { Home, LucideIcon, MessageCircle, Server, Settings } from 'lucide-react'
 import Link from 'next/link'
 import { useSelectedLayoutSegment } from 'next/navigation'
 
@@ -55,7 +49,7 @@ export default function DashboardSidebar() {
     <aside className='flex flex-col items-center border border-transparent px-4 py-5'>
       <Link href='/'>
         <div className='bg-primary text-primary-foreground flex size-8 items-center justify-center rounded-md'>
-          <Terminal className='size-4' />
+          <AxiumIcon className='size-5' />
         </div>
       </Link>
       <Separator className='my-4 max-w-4' />

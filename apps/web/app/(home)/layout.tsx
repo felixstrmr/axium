@@ -8,7 +8,7 @@ export default function HomeLayout({ children }: Props) {
   return (
     <div className='flex size-full flex-col'>
       <HomeNavbar />
-      <div className='flex-1 pt-14'>{children}</div>
+      <main className='flex-1'>{children}</main>
     </div>
   )
 }

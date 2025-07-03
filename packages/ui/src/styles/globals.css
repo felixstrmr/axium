@@ -3,6 +3,8 @@
 @source "../../../components/**/*.{ts,tsx}";
 @source "../**/*.{ts,tsx}";
 
+@plugin "tailwindcss-motion";
+
 @import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
