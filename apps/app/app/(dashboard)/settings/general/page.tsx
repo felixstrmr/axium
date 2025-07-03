@@ -1,4 +1,4 @@
-import EnvironmentsSettings from '@/components/settings/environments-settings'
+import EnvironmentsCard from '@/components/settings/environments/environments-card'
 import { db } from '@axium/db'
 
 export default async function Page() {
@@ -12,7 +12,7 @@ export default async function Page() {
           Manage your general settings here.
         </p>
       </div>
-      <EnvironmentsSettings environments={environments} />
+      <EnvironmentsCard environments={environments} />
     </div>
   )
 }
