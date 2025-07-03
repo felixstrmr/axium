@@ -1,5 +1,4 @@
 import SettingsSidebar from '@/components/settings-sidebar'
-import { Suspense } from 'react'
 
 type Props = {
   children: React.ReactNode
@@ -8,9 +7,7 @@ type Props = {
 export default function SettingsLayout({ children }: Props) {
   return (
     <div className='flex size-full'>
-      <Suspense fallback={<div>Loading...</div>}>
-        <SettingsSidebar />
-      </Suspense>
+      <SettingsSidebar />
       {children}
     </div>
   )

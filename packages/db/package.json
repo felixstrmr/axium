@@ -11,7 +11,8 @@
   },
   "exports": {
     ".": "./src/index.ts",
-    "./schema": "./src/schema.ts"
+    "./schema": "./src/schema.ts",
+    "./types": "./src/types.ts"
   },
   "dependencies": {
     "@axium/utils": "workspace:*",
