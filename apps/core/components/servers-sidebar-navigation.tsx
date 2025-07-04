@@ -1,6 +1,7 @@
 'use client'
 
-import { Environment, Server } from '@/db/types'
+import ServersSidebarTree from '@/components/servers-sidebar-tree'
+import { Environment, Folder, Server } from '@/db/types'
 import {
   Select,
   SelectContent,
@@ -8,24 +9,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@axium/ui/components/select'
+import { Separator } from '@axium/ui/components/separator'
 import { parseAsString, useQueryState } from 'nuqs'
 
 type Props = {
+  folders: Folder[]
   servers: Server[]
   environments: Environment[]
 }
 
 export default function ServersSidebarNavigation({
+  folders,
   servers,
   environments,
 }: Props) {
   const [selectedEnvironment, setSelectedEnvironment] = useQueryState(
     'environment',
-    parseAsString.withDefault('all'),
+    parseAsString.withDefault('all').withOptions({ shallow: false }),
   )
 
   return (
-    <div>
+    <div className='flex flex-col'>
       <Select
         value={selectedEnvironment}
         onValueChange={setSelectedEnvironment}
@@ -34,7 +38,7 @@ export default function ServersSidebarNavigation({
           <SelectValue placeholder='Select Environment' />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value='all'>All Environments</SelectItem>
+          <SelectItem value='all'>All environments</SelectItem>
           {environments.map((environment) => (
             <SelectItem key={environment.id} value={environment.id}>
               <div
@@ -46,6 +50,8 @@ export default function ServersSidebarNavigation({
           ))}
         </SelectContent>
       </Select>
+      <Separator className='my-4 bg-transparent' />
+      <ServersSidebarTree folders={folders} servers={servers} />
     </div>
   )
 }

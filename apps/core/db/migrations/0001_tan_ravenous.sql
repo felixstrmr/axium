@@ -1,0 +1,1 @@
+ALTER TABLE "servers" ALTER COLUMN "environment_id" DROP NOT NULL;

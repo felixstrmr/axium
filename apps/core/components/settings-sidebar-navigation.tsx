@@ -1,7 +1,7 @@
 'use client'
 
 import { cn } from '@axium/utils'
-import { LucideIcon, Settings2, UserCog } from 'lucide-react'
+import { LucideIcon, Server, Settings2, UserCog } from 'lucide-react'
 import Link from 'next/link'
 import { useSelectedLayoutSegment } from 'next/navigation'
 
@@ -27,6 +27,12 @@ export default function SettingsSidebarNavigation({ isAdmin }: Props) {
       href: '/settings/general',
       icon: Settings2,
       isActive: segment === 'general',
+    },
+    {
+      name: 'Servers',
+      href: '/settings/servers',
+      icon: Server,
+      isActive: segment === 'servers',
     },
   ]
 

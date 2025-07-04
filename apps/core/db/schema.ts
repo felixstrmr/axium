@@ -137,11 +137,9 @@ export const servers = pgTable('servers', {
   folderId: text('folder_id').references(() => folders.id, {
     onDelete: 'restrict',
   }),
-  environmentId: text('environment_id')
-    .references(() => environments.id, {
-      onDelete: 'restrict',
-    })
-    .notNull(),
+  environmentId: text('environment_id').references(() => environments.id, {
+    onDelete: 'restrict',
+  }),
   createdBy: text('created_by')
     .references(() => users.id, {
       onDelete: 'restrict',
