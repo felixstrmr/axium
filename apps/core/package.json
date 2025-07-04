@@ -4,9 +4,9 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack -p 3000",
+    "dev": "bun server.ts",
     "build": "next build",
-    "start": "next start -p 3000",
+    "start": "NODE_ENV=production bun server.ts",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "typecheck": "tsc --noEmit",
@@ -16,15 +16,22 @@
   },
   "dependencies": {
     "@axium/ui": "workspace:*",
+    "@xterm/addon-fit": "^0.10.0",
+    "@xterm/addon-web-links": "^0.11.0",
     "better-auth": "^1.2.12",
     "geist": "^1.4.2",
     "lucide-react": "^0.525.0",
-    "next": "^15.2.3",
+    "next": "^15.3.5",
     "next-safe-action": "^8.0.7",
+    "node-ssh": "^13.2.1",
     "nuqs": "^2.4.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
     "sonner": "^2.0.5",
+    "ws": "^8.18.2",
+    "xterm": "^5.3.0",
     "zod": "^3.25.67"
   },
   "devDependencies": {
@@ -33,6 +40,7 @@
     "@types/react-dom": "^19",
     "@axium/eslint": "workspace:*",
     "@axium/typescript": "workspace:*",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "tsx": "^4.19.4"
   }
 }

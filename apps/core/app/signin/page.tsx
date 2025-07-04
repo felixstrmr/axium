@@ -19,7 +19,7 @@ export default async function Page() {
         <div className='bg-background rounded-lg border p-8 shadow-xs'>
           <div className='mb-8'>
             <div className='bg-primary text-primary-foreground mb-4 flex size-8 items-center justify-center rounded-md border'>
-              <AxiumIcon className='size-4' />
+              <AxiumIcon className='size-4' aria-hidden='true' />
             </div>
             <h1 className='text-2xl font-semibold tracking-tight'>
               Welcome back!

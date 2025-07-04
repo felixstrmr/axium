@@ -6,7 +6,10 @@ export default function Page() {
       <div className='flex flex-col items-center gap-4'>
         <div className='rounded-full border border-dashed border-zinc-800 p-2'>
           <div className='bg-muted rounded-full p-6'>
-            <ServerIcon className='text-muted-foreground size-12' />
+            <ServerIcon
+              className='text-muted-foreground size-12'
+              aria-hidden='true'
+            />
           </div>
         </div>
 

@@ -74,7 +74,7 @@ function SidebarItem({ item }: { item: SidebarItemProps }) {
           : 'text-muted-foreground hover:bg-muted',
       )}
     >
-      <item.icon className='size-4' />
+      <item.icon className='size-4' aria-hidden='true' />
       <span className='text-sm'>{item.name}</span>
     </Link>
   )

@@ -51,9 +51,9 @@ const FolderItem = React.memo<{
             onClick={() => hasChildren && onToggle(folder.id)}
           >
             {isExpanded ? (
-              <FolderOpen className='size-4' />
+              <FolderOpen className='size-4' aria-hidden='true' />
             ) : (
-              <FolderClosed className='size-4' />
+              <FolderClosed className='size-4' aria-hidden='true' />
             )}
             <span className='text-sm'>{folder.name}</span>
           </div>
@@ -100,7 +100,7 @@ const ServerItem = React.memo<{
   return (
     <div style={{ marginLeft: `${isRoot ? '0px' : `${level * 16}px`}` }}>
       <Link
-        href={`/servers/${server.id}`}
+        href={`/servers/${server.id}/ssh`}
         className={cn(
           'flex h-8 w-full items-center gap-2 rounded-md px-2 transition-all first:mt-1',
           isActive
@@ -108,7 +108,7 @@ const ServerItem = React.memo<{
             : 'hover:bg-muted text-muted-foreground',
         )}
       >
-        <ServerIcon className='size-4' />
+        <ServerIcon className='size-4' aria-hidden='true' />
         <span className='truncate text-sm'>{server.name}</span>
         {isActive && (
           <button
@@ -119,7 +119,7 @@ const ServerItem = React.memo<{
               router.push(`/servers`)
             }}
           >
-            <X className='size-4' />
+            <X className='size-4' aria-hidden='true' />
           </button>
         )}
       </Link>

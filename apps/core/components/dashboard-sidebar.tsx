@@ -49,7 +49,7 @@ export default function DashboardSidebar() {
     <aside className='flex flex-col items-center px-4 py-5'>
       <Link href='/'>
         <div className='bg-primary text-primary-foreground flex size-8 items-center justify-center rounded-md'>
-          <AxiumIcon className='size-4' />
+          <AxiumIcon className='size-4' aria-hidden='true' />
         </div>
       </Link>
       <Separator className='my-4 max-w-4' />
@@ -67,7 +67,10 @@ export default function DashboardSidebar() {
                 target='_blank'
                 className='hover:bg-muted flex size-8 items-center justify-center rounded-md transition-colors'
               >
-                <MessageCircle className='text-muted-foreground size-4' />
+                <MessageCircle
+                  className='text-muted-foreground size-4'
+                  aria-hidden='true'
+                />
               </Link>
             </TooltipTrigger>
             <TooltipContent side='right'>
@@ -106,7 +109,7 @@ function SidebarItem({ item }: { item: SidebarItemProps }) {
               : 'hover:bg-muted text-muted-foreground',
           )}
         >
-          <Icon className='size-4' />
+          <Icon className='size-4' aria-hidden='true' />
         </Link>
       </TooltipTrigger>
       <TooltipContent side='right'>
