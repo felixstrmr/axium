@@ -189,6 +189,7 @@ export const serverConnections = pgTable('server_connections', {
   serverId: text('server_id')
     .notNull()
     .references(() => servers.id, { onDelete: 'cascade' }),
+  isDefault: boolean('is_default').notNull().default(false),
   credentialId: text('credential_id').references(() => credentials.id, {
     onDelete: 'restrict',
   }),

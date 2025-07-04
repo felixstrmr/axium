@@ -1,5 +1,6 @@
 'use client'
 
+import { loadXtermModules } from '@/utils/xterm'
 import { Loader } from 'lucide-react'
 import React from 'react'
 import { io, Socket } from 'socket.io-client'
@@ -43,17 +44,7 @@ export default function SSHTerminal({
       try {
         setIsLoading(true)
 
-        const [{ Terminal }, { FitAddon }, { WebLinksAddon }] =
-          await Promise.all([
-            import('xterm'),
-            import('@xterm/addon-fit'),
-            import('@xterm/addon-web-links'),
-          ])
-
-        const link = document.createElement('link')
-        link.rel = 'stylesheet'
-        link.href = 'https://cdn.jsdelivr.net/npm/xterm@5.3.0/css/xterm.min.css'
-        document.head.appendChild(link)
+        const { Terminal, FitAddon, WebLinksAddon } = await loadXtermModules()
 
         terminal.current = new Terminal({
           cursorBlink: true,
@@ -129,6 +120,7 @@ export default function SSHTerminal({
         }
       } catch (err) {
         console.error('Failed to initialize terminal:', err)
+        toast.error('Failed to initialize terminal')
         setIsLoading(false)
       }
     }

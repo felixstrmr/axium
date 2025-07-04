@@ -1,6 +1,6 @@
 'use client'
 
-import { upsertEnvironmentAction } from '@/actions/create-environment-action'
+import { upsertEnvironmentAction } from '@/actions/upsert-environment-action'
 import { DEFAULT_COLORS } from '@/lib/constants'
 import { upsertEnvironmentSchema } from '@/schemas/create-environment-schema'
 import {
