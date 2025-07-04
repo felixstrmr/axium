@@ -25,7 +25,7 @@ export default function ServersSidebarNavigation({
 }: Props) {
   const [selectedEnvironment, setSelectedEnvironment] = useQueryState(
     'environment',
-    parseAsString.withDefault('all').withOptions({ shallow: false }),
+    parseAsString.withDefault('all'),
   )
 
   return (
