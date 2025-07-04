@@ -1,7 +1,10 @@
+import { randomUUID } from 'crypto'
 import { boolean, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 
 export const users = pgTable('users', {
-  id: text('id').primaryKey(),
+  id: text('id')
+    .$defaultFn(() => randomUUID())
+    .primaryKey(),
   name: text('name').notNull(),
   email: text('email').notNull().unique(),
   emailVerified: boolean('email_verified')
@@ -17,7 +20,9 @@ export const users = pgTable('users', {
 })
 
 export const sessions = pgTable('sessions', {
-  id: text('id').primaryKey(),
+  id: text('id')
+    .$defaultFn(() => randomUUID())
+    .primaryKey(),
   expiresAt: timestamp('expires_at').notNull(),
   token: text('token').notNull().unique(),
   ipAddress: text('ip_address'),
@@ -34,7 +39,9 @@ export const sessions = pgTable('sessions', {
 })
 
 export const accounts = pgTable('accounts', {
-  id: text('id').primaryKey(),
+  id: text('id')
+    .$defaultFn(() => randomUUID())
+    .primaryKey(),
   accountId: text('account_id').notNull(),
   providerId: text('provider_id').notNull(),
   userId: text('user_id')
@@ -56,7 +63,9 @@ export const accounts = pgTable('accounts', {
 })
 
 export const verifications = pgTable('verifications', {
-  id: text('id').primaryKey(),
+  id: text('id')
+    .$defaultFn(() => randomUUID())
+    .primaryKey(),
   identifier: text('identifier').notNull(),
   value: text('value').notNull(),
   expiresAt: timestamp('expires_at').notNull(),

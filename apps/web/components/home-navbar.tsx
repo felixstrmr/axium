@@ -1,5 +1,5 @@
-import GitHubIcon from '@/components/icons/github-icon'
 import { buttonVariants } from '@axium/ui/components/button'
+import GitHubIcon from '@axium/ui/icons/github-icon'
 import Link from 'next/link'
 
 export default async function HomeNavbar() {
