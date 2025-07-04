@@ -15,6 +15,7 @@
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "@axium/ui": "workspace:*",
     "better-auth": "^1.2.12",
     "geist": "^1.4.2",
     "lucide-react": "^0.525.0",

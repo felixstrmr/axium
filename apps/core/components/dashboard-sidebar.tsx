@@ -1,15 +1,15 @@
 'use client'
 
-import AxiumIcon from '@/components/icons/axium-icon'
-import HomeIcon from '@/components/icons/home-icon'
-import ServerIcon from '@/components/icons/server-icon'
-import SettingsIcon from '@/components/icons/settings-icon'
 import { Separator } from '@axium/ui/components/separator'
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from '@axium/ui/components/tooltip'
+import AxiumIcon from '@axium/ui/icons/axium-icon'
+import HomeIcon from '@axium/ui/icons/home-icon'
+import ServerIcon from '@axium/ui/icons/server-icon'
+import SettingsIcon from '@axium/ui/icons/settings-icon'
 import { cn } from '@axium/utils'
 import { Home, LucideIcon, MessageCircle, Server, Settings } from 'lucide-react'
 import Link from 'next/link'

@@ -33,6 +33,13 @@ export default async function HomeNavbar() {
       </Link>
       <div className='flex items-center gap-2'>
         <Link
+          href='https://axium.userjot.com/roadmap'
+          target='_blank'
+          className={buttonVariants({ variant: 'secondary' })}
+        >
+          Roadmap
+        </Link>
+        <Link
           href='https://github.com/felixstrmr/axium'
           className={buttonVariants({ variant: 'default' })}
         >

@@ -9,7 +9,7 @@ type Props = {
 
 export default function EnvironmentsCard({ environments }: Props) {
   return (
-    <div className='bg-muted rounded-2xl p-1'>
+    <div className='rounded-2xl bg-zinc-800 p-1'>
       <div className='flex items-center justify-between p-4'>
         <div>
           <h2 className='text-lg font-semibold tracking-tight'>Environments</h2>
