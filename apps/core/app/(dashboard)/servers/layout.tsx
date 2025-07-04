@@ -6,9 +6,9 @@ type Props = {
 
 export default function ServersLayout({ children }: Props) {
   return (
-    <div className='flex size-full'>
+    <div className='flex size-full gap-1'>
       <ServersSidebar />
-      {children}
+      <div className='flex-1 rounded-lg bg-zinc-900/50'>{children}</div>
     </div>
   )
 }

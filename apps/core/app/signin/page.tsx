@@ -18,8 +18,8 @@ export default async function Page() {
       <div className='bg-muted rounded-2xl p-1'>
         <div className='bg-background rounded-lg border p-8 shadow-xs'>
           <div className='mb-8'>
-            <div className='from-primary border-primary shadow-[inset_0_1px_0_0_theme(colors.primary-foreground/25%)] mb-4 flex size-8 items-center justify-center rounded-md border bg-gradient-to-t to-blue-500'>
-              <AxiumIcon className='size-5' />
+            <div className='bg-primary text-primary-foreground mb-4 flex size-8 items-center justify-center rounded-md border'>
+              <AxiumIcon className='size-4' />
             </div>
             <h1 className='text-2xl font-semibold tracking-tight'>
               Welcome back!

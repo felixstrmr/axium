@@ -1,3 +1,5 @@
 export default function Page() {
-  return <div>Servers</div>
+  return (
+    <div className='flex size-full items-center justify-center'>Servers</div>
+  )
 }

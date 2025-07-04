@@ -46,10 +46,10 @@ export default function DashboardSidebar() {
   ]
 
   return (
-    <aside className='flex flex-col items-center border border-transparent px-4 py-5'>
+    <aside className='flex flex-col items-center px-4 py-5'>
       <Link href='/'>
         <div className='bg-primary text-primary-foreground flex size-8 items-center justify-center rounded-md'>
-          <AxiumIcon className='size-5' />
+          <AxiumIcon className='size-4' />
         </div>
       </Link>
       <Separator className='my-4 max-w-4' />

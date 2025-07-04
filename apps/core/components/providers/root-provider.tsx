@@ -1,5 +1,6 @@
 import { Toaster } from '@axium/ui/components/sonner'
 import ThemeProvider from '@axium/ui/providers/theme-provider'
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
 type Props = {
   children: React.ReactNode
@@ -7,9 +8,11 @@ type Props = {
 
 export default function RootProvider({ children }: Props) {
   return (
-    <ThemeProvider>
-      {children}
-      <Toaster />
-    </ThemeProvider>
+    <NuqsAdapter>
+      <ThemeProvider>
+        {children}
+        <Toaster position='bottom-center' />
+      </ThemeProvider>
+    </NuqsAdapter>
   )
 }

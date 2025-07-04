@@ -12,7 +12,7 @@ export default function EnvironmentsCard({ environments }: Props) {
     <div className='rounded-2xl bg-zinc-800 p-1'>
       <div className='flex items-center justify-between p-4'>
         <div>
-          <h2 className='text-lg font-semibold tracking-tight'>Environments</h2>
+          <h2 className='text-lg font-semibold'>Environments</h2>
           <p className='text-muted-foreground text-sm'>
             Manage your environments here.
           </p>
