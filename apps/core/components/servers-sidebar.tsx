@@ -2,7 +2,7 @@ import ServersSidebarNavigation from '@/components/servers-sidebar-navigation'
 import { db } from '@/db'
 
 export default async function ServersSidebar() {
-  const [environemnts, servers, folders] = await Promise.all([
+  const [environments, servers, folders] = await Promise.all([
     db.query.environments.findMany(),
     db.query.servers.findMany(),
     db.query.folders.findMany(),
@@ -12,7 +12,7 @@ export default async function ServersSidebar() {
     <aside className='flex w-64 max-w-64 min-w-64 flex-col rounded-lg bg-zinc-900/50 p-4'>
       <ServersSidebarNavigation
         servers={servers}
-        environments={environemnts}
+        environments={environments}
         folders={folders}
       />
     </aside>

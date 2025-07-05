@@ -283,6 +283,9 @@ export const folders = pgTable('folders', {
       onDelete: 'restrict',
     },
   ),
+  environmentId: text('environment_id').references(() => environments.id, {
+    onDelete: 'restrict',
+  }),
   createdAt: timestamp('created_at')
     .$defaultFn(() => /* @__PURE__ */ new Date())
     .notNull(),
@@ -295,5 +298,9 @@ export const foldersRelations = relations(folders, ({ one }) => ({
   parentFolder: one(folders, {
     fields: [folders.parentFolderId],
     references: [folders.id],
+  }),
+  environment: one(environments, {
+    fields: [folders.environmentId],
+    references: [environments.id],
   }),
 }))

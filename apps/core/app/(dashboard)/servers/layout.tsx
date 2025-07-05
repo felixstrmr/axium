@@ -4,7 +4,7 @@ type Props = {
   children: React.ReactNode
 }
 
-export default function ServersLayout({ children }: Props) {
+export default async function ServersLayout({ children }: Props) {
   return (
     <div className='flex size-full gap-1'>
       <ServersSidebar />

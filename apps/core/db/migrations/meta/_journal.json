@@ -15,6 +15,13 @@
       "when": 1751649041897,
       "tag": "0001_tan_ravenous",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1751706119290,
+      "tag": "0002_magical_professor_monster",
+      "breakpoints": true
     }
   ]
 }

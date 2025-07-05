@@ -11,6 +11,7 @@ import {
 } from '@axium/ui/components/select'
 import { Separator } from '@axium/ui/components/separator'
 import { parseAsString, useQueryState } from 'nuqs'
+import React from 'react'
 
 type Props = {
   folders: Folder[]
@@ -27,6 +28,20 @@ export default function ServersSidebarNavigation({
     'environment',
     parseAsString.withDefault('all'),
   )
+
+  const filteredServers = React.useMemo(() => {
+    if (selectedEnvironment === 'all') return servers
+    return servers.filter(
+      (server) => server.environmentId === selectedEnvironment,
+    )
+  }, [selectedEnvironment, servers])
+
+  const filteredFolders = React.useMemo(() => {
+    if (selectedEnvironment === 'all') return folders
+    return folders.filter(
+      (folder) => folder.environmentId === selectedEnvironment,
+    )
+  }, [selectedEnvironment, folders])
 
   return (
     <div className='flex flex-col'>
@@ -51,7 +66,7 @@ export default function ServersSidebarNavigation({
         </SelectContent>
       </Select>
       <Separator className='my-4 bg-transparent' />
-      <ServersSidebarTree folders={folders} servers={servers} />
+      <ServersSidebarTree folders={filteredFolders} servers={filteredServers} />
     </div>
   )
 }
