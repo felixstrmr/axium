@@ -1,6 +1,9 @@
 'use client'
 
 import { Folder, Server } from '@/db/types'
+import DebianIcon from '@axium/ui/icons/debian-icon'
+import UbuntuIcon from '@axium/ui/icons/ubuntu-icon'
+import WindowsIcon from '@axium/ui/icons/windows-icon'
 import { cn } from '@axium/utils'
 import { FolderClosed, FolderOpen, ServerIcon, X } from 'lucide-react'
 import Link from 'next/link'
@@ -145,6 +148,16 @@ const ServerItem = React.memo(
       [server.id, onRemove],
     )
 
+    const IconMap = {
+      debian: DebianIcon,
+      ubuntu: UbuntuIcon,
+      windows: WindowsIcon,
+    }
+
+    const Icon = server.operatingSystem
+      ? IconMap[server.operatingSystem] || ServerIcon
+      : ServerIcon
+
     return (
       <div style={{ paddingLeft: `${level * 16}px` }} className='relative'>
         <Link
@@ -156,7 +169,7 @@ const ServerItem = React.memo(
               : 'text-muted-foreground hover:bg-muted',
           )}
         >
-          <ServerIcon className='size-4' aria-hidden='true' />
+          <Icon className='size-4' aria-hidden='true' />
           <span className='truncate text-sm'>{server.name}</span>
           {isActive && (
             <button

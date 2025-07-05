@@ -1,15 +1,22 @@
 'use client'
 
 import { cn } from '@axium/utils'
-import { LucideIcon, Server, Settings2, UserCog } from 'lucide-react'
+import { Key, LucideIcon, Server, Settings2, UserCog } from 'lucide-react'
 import Link from 'next/link'
 import { useSelectedLayoutSegment } from 'next/navigation'
+import React from 'react'
 
 type Props = {
   isAdmin: boolean
 }
 
 export default function SettingsSidebarNavigation({ isAdmin }: Props) {
+  const [isClient, setIsClient] = React.useState(false)
+
+  React.useEffect(() => {
+    setIsClient(true)
+  }, [])
+
   const segment = useSelectedLayoutSegment()
 
   const itemsPersonal = [
@@ -29,12 +36,22 @@ export default function SettingsSidebarNavigation({ isAdmin }: Props) {
       isActive: segment === 'general',
     },
     {
+      name: 'Credentials',
+      href: '/settings/credentials',
+      icon: Key,
+      isActive: segment === 'credentials',
+    },
+    {
       name: 'Servers',
       href: '/settings/servers',
       icon: Server,
       isActive: segment === 'servers',
     },
   ]
+
+  if (!isClient) {
+    return null
+  }
 
   return (
     <div className='flex flex-col gap-4'>

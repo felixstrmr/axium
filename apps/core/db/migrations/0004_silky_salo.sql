@@ -1,0 +1,2 @@
+ALTER TABLE "credentials" ADD COLUMN "environment_id" text;--> statement-breakpoint
+ALTER TABLE "credentials" ADD CONSTRAINT "credentials_environment_id_environments_id_fk" FOREIGN KEY ("environment_id") REFERENCES "public"."environments"("id") ON DELETE restrict ON UPDATE no action;

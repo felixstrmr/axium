@@ -134,6 +134,9 @@ export const servers = pgTable('servers', {
   name: text('name').notNull(),
   host: text('host').notNull(),
   description: text('description'),
+  operatingSystem: text('operating_system').$type<
+    'debian' | 'ubuntu' | 'windows'
+  >(),
   folderId: text('folder_id').references(() => folders.id, {
     onDelete: 'restrict',
   }),
@@ -243,6 +246,9 @@ export const credentials = pgTable('credentials', {
   password: text('password'),
   domain: text('domain'),
   type: text('type').$type<'ssh' | 'vnc' | 'rdp'>().notNull(),
+  environmentId: text('environment_id').references(() => environments.id, {
+    onDelete: 'restrict',
+  }),
   createdBy: text('created_by')
     .references(() => users.id, {
       onDelete: 'restrict',
@@ -262,6 +268,10 @@ export const credentials = pgTable('credentials', {
 })
 
 export const credentialsRelations = relations(credentials, ({ one }) => ({
+  environment: one(environments, {
+    fields: [credentials.environmentId],
+    references: [environments.id],
+  }),
   createdBy: one(users, {
     fields: [credentials.createdBy],
     references: [users.id],

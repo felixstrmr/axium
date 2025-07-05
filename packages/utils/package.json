@@ -8,7 +8,8 @@
   },
   "exports": {
     ".": "./src/index.ts",
-    "./database": "./src/database.ts"
+    "./database": "./src/database.ts",
+    "./encryption": "./src/encryption.ts"
   },
   "dependencies": {
     "@axium/typescript": "workspace:*"
