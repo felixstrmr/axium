@@ -30,12 +30,9 @@ export default function ServersSidebarTree({ folders, servers }: Props) {
     return buildOptimizedTree(folders, servers)
   }, [folders, servers])
 
-  const handleRemove = React.useCallback(
-    (serverId: string) => {
-      router.push('/servers')
-    },
-    [router],
-  )
+  const handleRemove = React.useCallback(() => {
+    router.push('/servers')
+  }, [router])
 
   return (
     <div className='space-y-1'>
@@ -61,7 +58,7 @@ const TreeNodeComponent = React.memo(
     segment: string | null
     onRemove: (serverId: string) => void
   }) => {
-    const [isExpanded, setIsExpanded] = React.useState(false)
+    const [isExpanded, setIsExpanded] = React.useState(segment === node.id)
 
     const handleToggle = React.useCallback(() => {
       setIsExpanded((prev) => !prev)

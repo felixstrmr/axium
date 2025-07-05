@@ -1,6 +1,5 @@
 export async function loadXtermModules() {
   try {
-    // Load CSS first
     if (!document.querySelector('link[href*="xterm.min.css"]')) {
       const link = document.createElement('link')
       link.rel = 'stylesheet'
@@ -8,7 +7,6 @@ export async function loadXtermModules() {
       document.head.appendChild(link)
     }
 
-    // Import modules with proper error handling
     const [xtermModule, fitModule, webLinksModule] = await Promise.all([
       import('xterm').catch(() => null),
       import('@xterm/addon-fit').catch(() => null),
