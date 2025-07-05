@@ -4,7 +4,11 @@ import { Folder, Server } from '@/db/types'
 import { cn } from '@axium/utils'
 import { FolderClosed, FolderOpen, ServerIcon, X } from 'lucide-react'
 import Link from 'next/link'
-import { useRouter, useSelectedLayoutSegment } from 'next/navigation'
+import {
+  useRouter,
+  useSearchParams,
+  useSelectedLayoutSegment,
+} from 'next/navigation'
 import React from 'react'
 
 type Props = {
@@ -23,6 +27,7 @@ type TreeNode = {
 }
 
 export default function ServersSidebarTree({ folders, servers }: Props) {
+  const searchParams = useSearchParams()
   const router = useRouter()
   const segment = useSelectedLayoutSegment()
 
@@ -31,8 +36,8 @@ export default function ServersSidebarTree({ folders, servers }: Props) {
   }, [folders, servers])
 
   const handleRemove = React.useCallback(() => {
-    router.push('/servers')
-  }, [router])
+    router.push(`/servers?${searchParams.toString()}`)
+  }, [router, searchParams])
 
   return (
     <div className='space-y-1'>
@@ -42,6 +47,7 @@ export default function ServersSidebarTree({ folders, servers }: Props) {
           node={node}
           segment={segment}
           onRemove={handleRemove}
+          searchParams={searchParams}
         />
       ))}
     </div>
@@ -53,10 +59,12 @@ const TreeNodeComponent = React.memo(
     node,
     segment,
     onRemove,
+    searchParams,
   }: {
     node: TreeNode
     segment: string | null
     onRemove: (serverId: string) => void
+    searchParams: URLSearchParams
   }) => {
     const [isExpanded, setIsExpanded] = React.useState(segment === node.id)
 
@@ -71,6 +79,7 @@ const TreeNodeComponent = React.memo(
           level={node.level}
           isActive={segment === node.id}
           onRemove={onRemove}
+          searchParams={searchParams}
         />
       )
     }
@@ -101,6 +110,7 @@ const TreeNodeComponent = React.memo(
                 node={child}
                 segment={segment}
                 onRemove={onRemove}
+                searchParams={searchParams}
               />
             ))}
           </div>
@@ -118,11 +128,13 @@ const ServerItem = React.memo(
     level,
     isActive,
     onRemove,
+    searchParams,
   }: {
     server: Server
     level: number
     isActive: boolean
     onRemove: (serverId: string) => void
+    searchParams: URLSearchParams
   }) => {
     const handleRemove = React.useCallback(
       (e: React.MouseEvent) => {
@@ -136,7 +148,7 @@ const ServerItem = React.memo(
     return (
       <div style={{ paddingLeft: `${level * 16}px` }} className='relative'>
         <Link
-          href={`/servers/${server.id}/ssh`}
+          href={`/servers/${server.id}/ssh?${searchParams.toString()}`}
           className={cn(
             'flex h-8 items-center gap-2 rounded-md pr-1.5 pl-2 transition-colors',
             isActive
