@@ -14,7 +14,7 @@ export const auth = betterAuth({
     schema,
   }),
   secret: process.env.BETTER_AUTH_SECRET,
-  url: process.env.BETTER_AUTH_URL,
+  url: process.env.NEXT_PUBLIC_APP_URL,
   emailAndPassword: {
     enabled: true,
   },
