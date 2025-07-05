@@ -2,7 +2,7 @@ import { Loader } from 'lucide-react'
 
 export default function Loading() {
   return (
-    <div className='flex size-full items-center justify-center rounded-lg bg-zinc-900/50'>
+    <div className='flex size-full items-center justify-center'>
       <Loader className='size-4 animate-spin' />
     </div>
   )

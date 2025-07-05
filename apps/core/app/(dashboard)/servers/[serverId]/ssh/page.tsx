@@ -1,19 +1,31 @@
+import { db } from '@/db'
+import { servers } from '@/db/schema'
+import { eq } from 'drizzle-orm'
 import dynamic from 'next/dynamic'
+import { notFound } from 'next/navigation'
 
-const SSHTerminal = dynamic(() => import('@/components/ssh-terminal'), {
-  loading: () => (
-    <div className='flex size-full items-center justify-center'>
-      <div className='flex flex-col items-center gap-2'>
-        <div className='border-primary size-4 animate-spin rounded-full border-2 border-t-transparent' />
-        <p className='text-muted-foreground text-sm'>Loading terminal...</p>
-      </div>
-    </div>
-  ),
-})
+const SSHTerminal = dynamic(() => import('@/components/ssh-terminal'))
 
-export default function Page() {
+type Props = {
+  params: Promise<{ serverId: string }>
+}
+
+export default async function Page({ params }: Props) {
+  const { serverId } = await params
+
+  const server = await db.query.servers.findFirst({
+    where: eq(servers.id, serverId),
+  })
+
+  if (!server) {
+    return notFound()
+  }
+
   return (
-    <div className='flex size-full'>
+    <div className='flex size-full flex-col'>
+      <div className='border-b p-4'>
+        <h1 className='text-2xl font-semibold tracking-tight'>{server.name}</h1>
+      </div>
       <SSHTerminal
         key={123}
         serverId={'123'}

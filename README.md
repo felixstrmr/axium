@@ -4,23 +4,18 @@
 
 A powerful, open-source remote server management platform for homelabbers and IT professionals. Take control of your server infrastructure with secure SSH, RDP, and VNC connections through a modern web interface.
 
-![Axium](https://img.shields.io/badge/Axium-Open%20Source-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue)
-![Next.js](https://img.shields.io/badge/Next.js-15.3-black)
+## Features
 
-## ✨ Features
+- **Secure Connections**: SSH, RDP, and VNC terminal access
+- **Web-based Interface**: Modern, responsive UI built with Next.js and Tailwind CSS
+- **Credential Management**: Secure storage and management of server credentials
+- **Mobile-friendly**: Responsive design that works on all devices
+- **Real-time Terminal**: Full-featured terminal with xterm.js
+- **User-Management**: Manage users and groups and assign permissions
+- **Authentication**: Built-in user authentication and session management
+- **Server Management**: Organize and manage multiple servers efficiently
 
-- **🔐 Secure Connections**: SSH, RDP, and VNC terminal access
-- **🌐 Web-based Interface**: Modern, responsive UI built with Next.js and Tailwind CSS
-- **🔑 Credential Management**: Secure storage and management of server credentials
-- **📱 Mobile-friendly**: Responsive design that works on all devices
-- **🚀 Real-time Terminal**: Full-featured terminal with xterm.js
-- **👤 User-Management**: Manage users and groups and assign permissions
-- **🔒 Authentication**: Built-in user authentication and session management
-- **📊 Server Management**: Organize and manage multiple servers efficiently
-
-## 🏗️ Architecture
+## Architecture
 
 Axium is built as a monorepo using Turbo with the following structure:
 
@@ -46,7 +41,7 @@ axium/
 - **Build Tool**: Turbo
 - **Package Manager**: Bun
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -99,17 +94,7 @@ The applications will be available at:
 
 ### Project Structure
 
-- **`apps/core/`**: Main dashboard application with all functionalities
+- **`apps/core/`**: Core dashboard application with all functionalities
 - **`apps/web/`**: Public website and authentication
 - **`packages/ui/`**: Reusable UI components and design system
 - **`packages/utils/`**: Shared utilities and database helpers
-
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
