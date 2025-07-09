@@ -1,0 +1,12 @@
+{
+  "name": "@axium/auth",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "better-auth": "^1.2.12"
+  },
+  "exports": {
+    ".": "./src/auth.ts"
+  }
+}
