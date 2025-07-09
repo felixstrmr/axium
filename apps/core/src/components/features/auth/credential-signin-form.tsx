@@ -1,7 +1,7 @@
 'use client'
 
-import { credentialSigninAction } from '@/actions/credential-signin-action'
-import { credentialSigninSchema } from '@/schemas/credential-signin-schema'
+import { credentialSigninAction } from '@/src/actions/credential-signin-action'
+import { credentialSigninSchema } from '@/src/schemas/credential-signin-schema'
 import { Button } from '@axium/ui/components/button'
 import {
   Form,

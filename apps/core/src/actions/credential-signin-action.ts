@@ -1,7 +1,7 @@
 'use server'
 
-import { actionClient } from '@/lib/clients/action-client'
-import { credentialSigninSchema } from '@/schemas/credential-signin-schema'
+import { actionClient } from '@/src/lib/clients/action-client'
+import { credentialSigninSchema } from '@/src/schemas/credential-signin-schema'
 import { auth } from '@axium/auth'
 
 export const credentialSigninAction = actionClient

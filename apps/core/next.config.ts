@@ -1,6 +1,6 @@
 import type { NextConfig } from 'next'
 
-import '@/lib/env'
+import '@/src/lib/env'
 
 const nextConfig: NextConfig = {
   devIndicators: false,
@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
   experimental: {
     nodeMiddleware: true,
   },
+  output: 'standalone',
 }
 
 export default nextConfig

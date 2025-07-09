@@ -8,6 +8,13 @@
       "when": 1752070348224,
       "tag": "0000_third_lethal_legion",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1752073853589,
+      "tag": "0001_large_champions",
+      "breakpoints": true
     }
   ]
 }

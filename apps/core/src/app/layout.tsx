@@ -1,4 +1,4 @@
-import RootProvider from '@/components/providers/root-provider'
+import RootProvider from '@/src/components/providers/root-provider'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
 import type { Metadata } from 'next'

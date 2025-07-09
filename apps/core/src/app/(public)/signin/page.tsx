@@ -1,4 +1,4 @@
-import CredentialSigninForm from '@/components/forms/credential-signin-form'
+import CredentialSigninForm from '@/src/components/features/auth/credential-signin-form'
 import AxiumIcon from '@axium/ui/icons/axium-icon'
 
 export default async function Page() {
