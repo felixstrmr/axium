@@ -1,0 +1,17 @@
+{
+  "name": "@axium/utils",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "check-types": "tsc --noEmit"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./database": "./src/database.ts",
+    "./encryption": "./src/encryption.ts"
+  },
+  "dependencies": {
+    "@axium/typescript": "workspace:*"
+  }
+}
