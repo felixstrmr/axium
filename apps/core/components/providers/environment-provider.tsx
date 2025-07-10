@@ -1,11 +1,12 @@
 'use client'
 
 import { Environment } from '@axium/database/types'
+import { useQueryState } from 'nuqs'
 import React from 'react'
 
 type EnvironmentContextValue = {
-  currentEnvironment: string
-  setCurrentEnvironmentId: (id: string | 'all') => void
+  currentEnvironmentId: string
+  setCurrentEnvironmentId: (id: string) => void
   environments: Environment[]
 }
 
@@ -19,16 +20,27 @@ type Props = {
 }
 
 export default function EnvironmentProvider({ children, environments }: Props) {
-  const [currentEnvironmentId, setCurrentEnvironmentId] =
-    React.useState<string>('all')
+  const defaultEnvironment = React.useMemo(
+    () => environments.find((env) => env.isDefault),
+    [environments],
+  )
+
+  const [currentEnvironmentId, setCurrentEnvironmentId] = useQueryState('env', {
+    defaultValue: defaultEnvironment?.id ?? 'all',
+  })
 
   const contextValue = React.useMemo(() => {
     return {
-      currentEnvironment: currentEnvironmentId,
+      currentEnvironmentId: currentEnvironmentId ?? defaultEnvironment?.id,
       setCurrentEnvironmentId,
       environments,
     }
-  }, [currentEnvironmentId, environments])
+  }, [
+    currentEnvironmentId,
+    setCurrentEnvironmentId,
+    environments,
+    defaultEnvironment?.id,
+  ])
 
   return (
     <EnvironmentContext.Provider value={contextValue}>

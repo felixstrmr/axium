@@ -1,7 +1,10 @@
 import DashboardSidebar from '@/components/layout/dashboard-sidebar'
 import EnvironmentProvider from '@/components/providers/environment-provider'
 import DashboardSidebarSkeleton from '@/components/skeletons/dashboard-sidebar-skeleton'
-import { db } from '@axium/database'
+import { getEnvironments } from '@/queries/environment'
+import { auth } from '@axium/auth'
+import { headers } from 'next/headers'
+import { redirect } from 'next/navigation'
 import { Suspense } from 'react'
 
 type Props = {
@@ -9,7 +12,15 @@ type Props = {
 }
 
 export default async function DashboardLayout({ children }: Props) {
-  const environments = await db.query.environments.findMany()
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  })
+
+  if (!session) {
+    redirect('/signin')
+  }
+
+  const environments = await getEnvironments()
 
   return (
     <EnvironmentProvider environments={environments}>

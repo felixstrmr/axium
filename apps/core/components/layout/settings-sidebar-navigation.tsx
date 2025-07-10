@@ -3,7 +3,8 @@
 import { cn } from '@axium/utils'
 import { Building2, Key, LucideIcon, UserCog, Users } from 'lucide-react'
 import Link from 'next/link'
-import { useSelectedLayoutSegment } from 'next/navigation'
+import { useSearchParams, useSelectedLayoutSegment } from 'next/navigation'
+import React from 'react'
 
 type Props = {
   isAdmin: boolean
@@ -11,6 +12,7 @@ type Props = {
 
 export default function SettingsSidebarNavigation({ isAdmin }: Props) {
   const segment = useSelectedLayoutSegment()
+  const searchParams = useSearchParams()
 
   const itemsPersonal = [
     {
@@ -45,13 +47,17 @@ export default function SettingsSidebarNavigation({ isAdmin }: Props) {
   return (
     <nav className='flex flex-col gap-1'>
       {itemsPersonal.map((item) => (
-        <SidebarItem key={item.name} item={item} />
+        <SidebarItem key={item.name} item={item} searchParams={searchParams} />
       ))}
       {isAdmin && (
         <div className='mt-4 flex flex-col gap-1'>
           <p className='text-muted-foreground text-xs'>Admin</p>
           {itemsAdmin.map((item) => (
-            <SidebarItem key={item.name} item={item} />
+            <SidebarItem
+              key={item.name}
+              item={item}
+              searchParams={searchParams}
+            />
           ))}
         </div>
       )}
@@ -64,12 +70,25 @@ type SidebarItemProps = {
   href: string
   icon: LucideIcon
   isActive: boolean
+  searchParams?: URLSearchParams
 }
 
-function SidebarItem({ item }: { item: SidebarItemProps }) {
+function SidebarItem({
+  item,
+  searchParams,
+}: {
+  item: SidebarItemProps
+  searchParams: URLSearchParams
+}) {
+  const href = React.useMemo(() => {
+    const params = searchParams ? `?${searchParams.toString()}` : ''
+
+    return `${item.href}${params}`
+  }, [item.href, searchParams])
+
   return (
     <Link
-      href={item.href}
+      href={href}
       className={cn(
         'flex h-8 items-center gap-2 rounded-md px-2',
         item.isActive

@@ -1,6 +1,8 @@
 'use client'
 
+import UserAvatar from '@/components/user-avatar'
 import { User } from '@axium/database/types'
+import { Separator } from '@axium/ui/components/separator'
 import {
   Tooltip,
   TooltipContent,
@@ -9,7 +11,8 @@ import {
 import { cn } from '@axium/utils'
 import { Home, LucideIcon, MessageCircle, Server, Settings } from 'lucide-react'
 import Link from 'next/link'
-import { useSelectedLayoutSegment } from 'next/navigation'
+import { useSearchParams, useSelectedLayoutSegment } from 'next/navigation'
+import React from 'react'
 
 type Props = {
   user: User
@@ -17,6 +20,7 @@ type Props = {
 
 export default function DashboardSidebarNavigation({ user }: Props) {
   const segment = useSelectedLayoutSegment()
+  const searchParams = useSearchParams()
 
   const itemsTop = [
     {
@@ -46,7 +50,11 @@ export default function DashboardSidebarNavigation({ user }: Props) {
     <nav className='flex h-full flex-col justify-between'>
       <div className='space-y-1'>
         {itemsTop.map((item) => (
-          <SidebarItem key={item.name} item={item} />
+          <SidebarItem
+            key={item.name}
+            item={item}
+            searchParams={searchParams}
+          />
         ))}
       </div>
       <div className='flex flex-col items-center gap-1'>
@@ -65,8 +73,14 @@ export default function DashboardSidebarNavigation({ user }: Props) {
           </TooltipContent>
         </Tooltip>
         {itemsBottom.map((item) => (
-          <SidebarItem key={item.name} item={item} />
+          <SidebarItem
+            key={item.name}
+            item={item}
+            searchParams={searchParams}
+          />
         ))}
+        <Separator className='mx-auto my-4 max-w-4' />
+        <UserAvatar user={user} />
       </div>
     </nav>
   )
@@ -77,14 +91,27 @@ type SidebarItemProps = {
   href: string
   icon: LucideIcon
   isActive: boolean
+  searchParams?: URLSearchParams
 }
 
-function SidebarItem({ item }: { item: SidebarItemProps }) {
+function SidebarItem({
+  item,
+  searchParams,
+}: {
+  item: SidebarItemProps
+  searchParams: URLSearchParams
+}) {
+  const href = React.useMemo(() => {
+    const params = searchParams ? `?${searchParams.toString()}` : ''
+
+    return `${item.href}${params}`
+  }, [item.href, searchParams])
+
   return (
     <Tooltip>
       <TooltipTrigger asChild>
         <Link
-          href={item.href}
+          href={href}
           className={cn(
             'flex size-8 items-center justify-center rounded-md',
             item.isActive

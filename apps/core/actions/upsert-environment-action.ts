@@ -4,7 +4,7 @@ import { authActionClient } from '@/lib/clients/action-client'
 import { upsertEnvironmentSchema } from '@/schemas/upsert-environment-schema'
 import { db } from '@axium/database'
 import { environments } from '@axium/database/schema'
-import { revalidatePath } from 'next/cache'
+import { revalidateTag } from 'next/cache'
 
 export const upsertEnvironmentAction = authActionClient
   .metadata({
@@ -47,5 +47,5 @@ export const upsertEnvironmentAction = authActionClient
       })
     }
 
-    revalidatePath('/settings/environments')
+    revalidateTag('environments')
   })

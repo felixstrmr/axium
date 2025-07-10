@@ -10,11 +10,14 @@ import {
 } from '@axium/ui/components/select'
 
 export default function EnvironmentSelect() {
-  const { environments, currentEnvironment, setCurrentEnvironmentId } =
+  const { environments, currentEnvironmentId, setCurrentEnvironmentId } =
     useEnvironment()
 
   return (
-    <Select value={currentEnvironment} onValueChange={setCurrentEnvironmentId}>
+    <Select
+      value={currentEnvironmentId}
+      onValueChange={setCurrentEnvironmentId}
+    >
       <SelectTrigger className='w-full'>
         <SelectValue placeholder='Select an environment' />
       </SelectTrigger>

@@ -1,13 +1,14 @@
-'use client'
-
-import { useEnvironment } from '@/components/providers/environment-provider'
+import EmptyState from '@/components/empty-state'
+import { Server } from 'lucide-react'
 
 export default function Page() {
-  const { environments } = useEnvironment()
-
   return (
-    <div>
-      <pre>{JSON.stringify(environments, null, 2)}</pre>
+    <div className='flex size-full items-center justify-center'>
+      <EmptyState
+        icon={Server}
+        title='No server selected'
+        description='Select a server to connect to.'
+      />
     </div>
   )
 }
