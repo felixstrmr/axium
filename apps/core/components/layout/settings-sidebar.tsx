@@ -1,4 +1,4 @@
-import EnvironmentSelect from '@/components/features/environment/environment-select'
+import EnvironmentSelect from '@/components/features/environments/environment-select'
 import SettingsSidebarNavigation from '@/components/layout/settings-sidebar-navigation'
 import { Separator } from '@axium/ui/components/separator'
 

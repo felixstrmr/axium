@@ -9,7 +9,7 @@ function deriveKey(masterKey: string, salt: Buffer) {
   return crypto.pbkdf2Sync(masterKey, salt, 100000, 32, 'sha256')
 }
 
-export function encrypt(encryptionKey: string, value: string) {
+export async function encrypt(encryptionKey: string, value: string) {
   const salt = crypto.randomBytes(32)
   const iv = crypto.randomBytes(16)
 
@@ -27,7 +27,7 @@ export function encrypt(encryptionKey: string, value: string) {
   return combined.toString('base64')
 }
 
-export function decrypt(encryptionKey: string, value: string) {
+export async function decrypt(encryptionKey: string, value: string) {
   const combined = Buffer.from(value, 'base64')
 
   const salt = combined.subarray(0, 32)

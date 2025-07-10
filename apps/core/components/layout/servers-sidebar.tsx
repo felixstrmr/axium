@@ -1,4 +1,4 @@
-import EnvironmentSelect from '@/components/features/environment/environment-select'
+import EnvironmentSelect from '@/components/features/environments/environment-select'
 
 export default async function ServersSidebar() {
   return (
