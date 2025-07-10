@@ -1,7 +1,5 @@
-export default function Page() {
+export default async function Page() {
   return (
-    <div className='bg-background flex size-full rounded-xl shadow-xs'>
-      Dashboard
-    </div>
+    <div className='bg-background flex size-full rounded-xl shadow-xs'></div>
   )
 }

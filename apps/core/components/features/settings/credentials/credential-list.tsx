@@ -37,12 +37,16 @@ export default function CredentialList({ credentials }: Props) {
 
   return (
     <div>
-      <div className='p-4'>
+      <div className='px-4 py-2'>
         <p className='text-muted-foreground text-sm'>Name</p>
       </div>
       <div>
-        {filteredCredentials.map((credential) => (
-          <CredentialListItem key={credential.id} credential={credential} />
+        {filteredCredentials.map((credential, index) => (
+          <CredentialListItem
+            key={credential.id}
+            credential={credential}
+            isOnlyItem={filteredCredentials.length === 1}
+          />
         ))}
       </div>
     </div>
