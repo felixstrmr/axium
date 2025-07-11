@@ -2,7 +2,6 @@
 
 import { loadXtermModules } from '@/utils/xterm'
 import { FitAddon } from '@xterm/addon-fit'
-import { Loader } from 'lucide-react'
 import React from 'react'
 import { io, Socket } from 'socket.io-client'
 import { toast } from 'sonner'
@@ -31,7 +30,6 @@ export default function SSHTerminal({
   const terminal = React.useRef<Terminal | null>(null)
   const socket = React.useRef<Socket | null>(null)
   const fitAddon = React.useRef<FitAddon | null>(null)
-  const [isLoading, setIsLoading] = React.useState(true)
   const [isInitialized, setIsInitialized] = React.useState(false)
   const [isClient, setIsClient] = React.useState(false)
 
@@ -44,8 +42,6 @@ export default function SSHTerminal({
 
     const initTerminal = async () => {
       try {
-        setIsLoading(true)
-
         const { Terminal, FitAddon, WebLinksAddon } = await loadXtermModules()
 
         terminal.current = new Terminal({
@@ -85,18 +81,14 @@ export default function SSHTerminal({
         })
 
         socket.current.on('ssh:connected', () => {
-          setIsLoading(false)
           setIsInitialized(true)
         })
 
         socket.current.on('ssh:error', (error: string) => {
-          setIsLoading(false)
           toast.error(error)
         })
 
-        socket.current.on('ssh:disconnected', () => {
-          setIsLoading(false)
-        })
+        socket.current.on('ssh:disconnected', () => {})
 
         terminal.current.onData((data: string) => {
           socket.current?.emit('ssh:data', data)
@@ -118,13 +110,11 @@ export default function SSHTerminal({
           window.removeEventListener('resize', handleResize)
           socket.current?.disconnect()
           terminal.current?.dispose()
-          setIsLoading(false)
           setIsInitialized(false)
         }
       } catch (err) {
         console.error('Failed to initialize terminal:', err)
         toast.error('Failed to initialize terminal')
-        setIsLoading(false)
       }
     }
 
@@ -144,19 +134,5 @@ export default function SSHTerminal({
     return null
   }
 
-  return (
-    <div className='relative size-full rounded-b-xl bg-zinc-950 p-4'>
-      {isLoading && (
-        <div className='absolute inset-0 z-10 flex items-center justify-center'>
-          <div className='flex flex-col items-center gap-2'>
-            <Loader className='text-foreground size-4 animate-spin' />
-            <p className='text-foreground text-sm'>
-              Connecting to {serverName}...
-            </p>
-          </div>
-        </div>
-      )}
-      <div ref={terminalRef} className='size-full' />
-    </div>
-  )
+  return <div ref={terminalRef} className='size-full' />
 }

@@ -1,6 +1,4 @@
-import EmptyState from '@/components/empty-state'
-import { getServer, getServerConnections } from '@/queries/server'
-import { Server } from 'lucide-react'
+import { getServerConnections } from '@/queries/server'
 import { notFound } from 'next/navigation'
 
 type Props = {
@@ -12,44 +10,27 @@ type Props = {
 
 export default async function ServerLayout({ rdp, ssh, vnc, params }: Props) {
   const { serverId } = await params
-  const server = await getServer(serverId)
-
-  if (!server) {
-    notFound()
-  }
 
   const connections = await getServerConnections(serverId)
 
-  if (connections.length > 0) {
-    const defaultConnection = connections.find(
-      (connection) => connection.isDefault,
-    )
+  if (connections.length === 0) {
+    notFound()
+  }
 
-    if (defaultConnection) {
-      return defaultConnection.type === 'rdp'
-        ? rdp
-        : defaultConnection.type === 'vnc'
-          ? vnc
-          : ssh
+  const defaultConnection = connections.find(
+    (connection) => connection.isDefault,
+  )
+
+  if (defaultConnection) {
+    switch (defaultConnection.type) {
+      case 'rdp':
+        return rdp
+      case 'ssh':
+        return ssh
+      case 'vnc':
+        return vnc
     }
   }
 
-  if (connections.length === 0) {
-    return (
-      <div className='flex size-full items-center justify-center'>
-        <EmptyState
-          icon={Server}
-          title='No connections found'
-          description='Create a connection to start using the server.'
-        />
-      </div>
-    )
-  }
-
-  return (
-    <div>
-      <pre>{JSON.stringify(server, null, 2)}</pre>
-      <pre>{JSON.stringify(connections, null, 2)}</pre>
-    </div>
-  )
+  return <div>ServerLayout</div>
 }

@@ -1,3 +1,5 @@
-export default function Page() {
-  return <div>rdp</div>
+type Props = {}
+
+export default function Page({}: Props) {
+  return <div>Page</div>
 }
