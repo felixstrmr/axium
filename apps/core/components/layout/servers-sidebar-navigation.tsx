@@ -137,6 +137,8 @@ const TreeNodeComponent = React.memo(
   },
 )
 
+TreeNodeComponent.displayName = 'TreeNodeComponent'
+
 const ServerItem = React.memo(
   ({
     server,
@@ -197,6 +199,8 @@ const ServerItem = React.memo(
     )
   },
 )
+
+ServerItem.displayName = 'ServerItem'
 
 function buildTree(folders: Folder[], servers: Server[]): TreeNode[] {
   const folderChildren = new Map<string, Folder[]>()

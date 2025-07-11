@@ -34,3 +34,20 @@ export const getServer = cache(async (serverId: string) => {
     },
   )()
 })
+
+export const getServerConnections = cache(async (serverId: string) => {
+  return unstable_cache(
+    async () => {
+      const connections = await db.query.serverConnections.findMany({
+        where: eq(schema.serverConnections.serverId, serverId),
+      })
+
+      return connections
+    },
+    ['server-connections', serverId],
+    {
+      tags: [`server-connections`],
+      revalidate: 60 * 60 * 24, // 1 day
+    },
+  )()
+})

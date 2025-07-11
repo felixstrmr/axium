@@ -9,6 +9,7 @@ export default async function Page() {
         <h1 className='text-2xl font-semibold tracking-tight'>Credentials</h1>
         <p className='text-muted-foreground'>Manage your credentials</p>
       </div>
+      <pre>{JSON.stringify(credentials, null, 2)}</pre>
     </div>
   )
 }
