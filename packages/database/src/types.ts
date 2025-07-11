@@ -6,3 +6,4 @@ export type Environment = InferSelectModel<typeof schema.environments>
 export type Credential = InferSelectModel<typeof schema.credentials>
 export type Folder = InferSelectModel<typeof schema.folders>
 export type Server = InferSelectModel<typeof schema.servers>
+export type ServerConnection = InferSelectModel<typeof schema.serverConnections>

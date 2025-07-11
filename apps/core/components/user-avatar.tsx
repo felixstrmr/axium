@@ -9,9 +9,10 @@ import { cn } from '@axium/utils'
 type Props = {
   user: User
   size?: 'sm' | 'md' | 'lg'
+  className?: string
 }
 
-export default function UserAvatar({ user, size = 'md' }: Props) {
+export default function UserAvatar({ user, size = 'md', className }: Props) {
   const sizeClass = {
     sm: 'size-7 rounded-md',
     md: 'size-8 rounded-md',
@@ -24,7 +25,7 @@ export default function UserAvatar({ user, size = 'md' }: Props) {
     .join('')
 
   return (
-    <Avatar className={cn(sizeClass)}>
+    <Avatar className={cn(sizeClass, className)}>
       <AvatarImage className={cn(sizeClass)} src={user.image ?? undefined} />
       <AvatarFallback
         className={cn(

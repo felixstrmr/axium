@@ -2,7 +2,6 @@
 
 import UserAvatar from '@/components/user-avatar'
 import { User } from '@axium/database/types'
-import { Separator } from '@axium/ui/components/separator'
 import {
   Tooltip,
   TooltipContent,
@@ -79,8 +78,7 @@ export default function DashboardSidebarNavigation({ user }: Props) {
             searchParams={searchParams}
           />
         ))}
-        <Separator className='mx-auto my-4 max-w-4' />
-        <UserAvatar user={user} />
+        <UserAvatar user={user} className='mt-4' />
       </div>
     </nav>
   )
