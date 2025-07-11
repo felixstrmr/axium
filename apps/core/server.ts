@@ -16,6 +16,7 @@ type ConnectionData = {
   port: number
   username: string
   password: string
+  credentialId: string
 }
 
 type ResizeData = {

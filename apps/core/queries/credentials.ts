@@ -28,3 +28,20 @@ export const getCredentials = cache(async (environmentId?: string) => {
     },
   )()
 })
+
+export const getCredential = cache(async (credentialId: string) => {
+  return unstable_cache(
+    async () => {
+      const credential = await db.query.credentials.findFirst({
+        where: eq(schema.credentials.id, credentialId),
+      })
+
+      return credential
+    },
+    ['credential', credentialId],
+    {
+      tags: [`credential-${credentialId}`],
+      revalidate: 60 * 60 * 24, // 1 day
+    },
+  )()
+})
