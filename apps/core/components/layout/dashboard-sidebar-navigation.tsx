@@ -7,8 +7,11 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@axium/ui/components/tooltip'
+import HouseIcon from '@axium/ui/icons/house-icon'
+import MessageCircleIcon from '@axium/ui/icons/message-circle-icon'
+import ServerIcon from '@axium/ui/icons/server-icon'
+import SettingsIcon from '@axium/ui/icons/settings-icon'
 import { cn } from '@axium/utils'
-import { Home, LucideIcon, MessageCircle, Server, Settings } from 'lucide-react'
 import Link from 'next/link'
 import { useSearchParams, useSelectedLayoutSegment } from 'next/navigation'
 import React from 'react'
@@ -25,13 +28,13 @@ export default function DashboardSidebarNavigation({ user }: Props) {
     {
       name: 'Dashboard',
       href: '/',
-      icon: Home,
+      icon: HouseIcon,
       isActive: segment === null,
     },
     {
       name: 'Servers',
       href: '/servers',
-      icon: Server,
+      icon: ServerIcon,
       isActive: segment === 'servers',
     },
   ]
@@ -40,7 +43,7 @@ export default function DashboardSidebarNavigation({ user }: Props) {
     {
       name: 'Settings',
       href: '/settings',
-      icon: Settings,
+      icon: SettingsIcon,
       isActive: segment === 'settings',
     },
   ]
@@ -62,9 +65,9 @@ export default function DashboardSidebarNavigation({ user }: Props) {
             <Link
               href='https://axium.userjot.com'
               target='_blank'
-              className='flex size-8 items-center justify-center rounded-md hover:bg-zinc-200'
+              className='flex size-8 items-center justify-center rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-800'
             >
-              <MessageCircle className='text-muted-foreground size-4' />
+              <MessageCircleIcon className='text-muted-foreground size-4' />
             </Link>
           </TooltipTrigger>
           <TooltipContent side='right'>
@@ -87,7 +90,7 @@ export default function DashboardSidebarNavigation({ user }: Props) {
 type SidebarItemProps = {
   name: string
   href: string
-  icon: LucideIcon
+  icon: React.ElementType
   isActive: boolean
   searchParams?: URLSearchParams
 }
@@ -113,8 +116,8 @@ function SidebarItem({
           className={cn(
             'flex size-8 items-center justify-center rounded-md',
             item.isActive
-              ? 'text-foreground bg-zinc-200'
-              : 'text-muted-foreground hover:bg-zinc-200',
+              ? 'text-foreground bg-zinc-200 dark:bg-zinc-800'
+              : 'text-muted-foreground hover:bg-zinc-200 dark:hover:bg-zinc-800',
           )}
         >
           <item.icon className='size-4' />

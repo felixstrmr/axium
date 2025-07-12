@@ -3,10 +3,12 @@
 import { useEnvironment } from '@/components/providers/environment-provider'
 import { Folder, Server } from '@axium/database/types'
 import DebianIcon from '@axium/ui/icons/debian-icon'
+import FolderIcon from '@axium/ui/icons/folder-icon'
+import FolderOpenIcon from '@axium/ui/icons/folder-open-icon'
 import UbuntuIcon from '@axium/ui/icons/ubuntu-icon'
 import WindowsIcon from '@axium/ui/icons/windows-icon'
 import { cn } from '@axium/utils'
-import { FolderClosed, FolderOpen, ServerIcon, X } from 'lucide-react'
+import { ServerIcon, X } from 'lucide-react'
 import Link from 'next/link'
 import {
   useRouter,
@@ -187,9 +189,9 @@ const TreeNodeComponent = React.memo<{
           onClick={handleToggle}
         >
           {isExpanded ? (
-            <FolderOpen className='size-4' aria-hidden='true' />
+            <FolderOpenIcon className='size-4' />
           ) : (
-            <FolderClosed className='size-4' aria-hidden='true' />
+            <FolderIcon className='size-4' />
           )}
           <span className='truncate text-sm'>{node.name}</span>
         </button>

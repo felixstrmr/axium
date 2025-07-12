@@ -24,7 +24,7 @@ export default async function DashboardLayout({ children }: Props) {
 
   return (
     <EnvironmentProvider environments={environments}>
-      <div className='bg-muted flex size-full'>
+      <div className='bg-muted flex size-full dark:bg-zinc-900/50'>
         <Suspense fallback={<DashboardSidebarSkeleton />}>
           <DashboardSidebar />
         </Suspense>

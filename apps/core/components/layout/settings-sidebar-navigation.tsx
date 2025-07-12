@@ -1,7 +1,10 @@
 'use client'
 
+import BuildingIcon from '@axium/ui/icons/building-icon'
+import LockIcon from '@axium/ui/icons/lock-icon'
+import UserCogIcon from '@axium/ui/icons/user-cog-icon'
+import UserIcon from '@axium/ui/icons/user-icon'
 import { cn } from '@axium/utils'
-import { Building2, Key, LucideIcon, UserCog, Users } from 'lucide-react'
 import Link from 'next/link'
 import { useSearchParams, useSelectedLayoutSegment } from 'next/navigation'
 import React from 'react'
@@ -18,7 +21,7 @@ export default function SettingsSidebarNavigation({ isAdmin }: Props) {
     {
       name: 'Account',
       href: '/settings',
-      icon: UserCog,
+      icon: UserCogIcon,
       isActive: segment === null,
     },
   ]
@@ -27,19 +30,19 @@ export default function SettingsSidebarNavigation({ isAdmin }: Props) {
     {
       name: 'Workspace',
       href: '/settings/workspace',
-      icon: Building2,
+      icon: BuildingIcon,
       isActive: segment === 'workspace',
     },
     {
       name: 'Users',
       href: '/settings/users',
-      icon: Users,
+      icon: UserIcon,
       isActive: segment === 'users',
     },
     {
       name: 'Credentials',
       href: '/settings/credentials',
-      icon: Key,
+      icon: LockIcon,
       isActive: segment === 'credentials',
     },
   ]
@@ -68,7 +71,7 @@ export default function SettingsSidebarNavigation({ isAdmin }: Props) {
 type SidebarItemProps = {
   name: string
   href: string
-  icon: LucideIcon
+  icon: React.ElementType
   isActive: boolean
   searchParams?: URLSearchParams
 }
