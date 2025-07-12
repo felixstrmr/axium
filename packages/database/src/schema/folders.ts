@@ -34,6 +34,14 @@ export const folders = pgTable('folders', {
 })
 
 export const foldersRelations = relations(folders, ({ one }) => ({
+  createdBy: one(users, {
+    fields: [folders.createdBy],
+    references: [users.id],
+  }),
+  updatedBy: one(users, {
+    fields: [folders.updatedBy],
+    references: [users.id],
+  }),
   parentFolder: one(folders, {
     fields: [folders.parentId],
     references: [folders.id],

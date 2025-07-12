@@ -29,7 +29,7 @@ export default function UserAvatar({ user, size = 'md', className }: Props) {
       <AvatarImage className={cn(sizeClass)} src={user.image ?? undefined} />
       <AvatarFallback
         className={cn(
-          'from-primary border-primary text-primary-foreground shadow-[inset_0_1px_0_0_theme(colors.primary-foreground/25%)] border bg-gradient-to-t to-zinc-600',
+          'rounded-md border border-zinc-300 bg-zinc-200 shadow-xs',
           sizeClass,
         )}
       >

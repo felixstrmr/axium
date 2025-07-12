@@ -23,6 +23,9 @@ export const getServer = cache(async (serverId: string) => {
     async () => {
       const server = await db.query.servers.findFirst({
         where: eq(schema.servers.id, serverId),
+        with: {
+          environment: true,
+        },
       })
 
       return server

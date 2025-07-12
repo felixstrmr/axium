@@ -27,3 +27,18 @@ export const getCurrentUser = cache(async () => {
     },
   )()
 })
+
+export const getUsers = cache(async () => {
+  return unstable_cache(
+    async () => {
+      const users = await db.query.users.findMany()
+
+      return users
+    },
+    ['users'],
+    {
+      tags: [`users`],
+      revalidate: 60 * 60 * 24, // 1 day
+    },
+  )()
+})

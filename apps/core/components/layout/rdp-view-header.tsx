@@ -12,7 +12,7 @@ type Props = {
   environment: Environment | null
 }
 
-export default function SSHViewHeader({ server, environment }: Props) {
+export default function RDPViewHeader({ server, environment }: Props) {
   const searchParams = useSearchParams()
 
   const params = searchParams ? `?${searchParams.toString()}` : ''

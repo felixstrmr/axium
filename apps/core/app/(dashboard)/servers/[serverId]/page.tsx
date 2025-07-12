@@ -28,11 +28,23 @@ export default async function Page({ params, searchParams }: Props) {
   const View = (connection: ServerConnection) => {
     switch (connection.type) {
       case 'ssh':
-        return <SSHView server={server} connection={connection} />
+        return (
+          <SSHView
+            server={server}
+            connection={connection}
+            environment={server.environment}
+          />
+        )
       case 'vnc':
         return <VNCView />
       case 'rdp':
-        return <RDPView />
+        return (
+          <RDPView
+            server={server}
+            connection={connection}
+            environment={server.environment}
+          />
+        )
     }
   }
 
@@ -54,5 +66,5 @@ export default async function Page({ params, searchParams }: Props) {
     return View(defaultConnection)
   }
 
-  return null
+  return <div>No connection selected</div>
 }

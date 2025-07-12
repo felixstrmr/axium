@@ -1,6 +1,7 @@
 'use client'
 
 import BuildingIcon from '@axium/ui/icons/building-icon'
+import FolderIcon from '@axium/ui/icons/folder-icon'
 import LockIcon from '@axium/ui/icons/lock-icon'
 import UserCogIcon from '@axium/ui/icons/user-cog-icon'
 import UserIcon from '@axium/ui/icons/user-icon'
@@ -38,6 +39,12 @@ export default function SettingsSidebarNavigation({ isAdmin }: Props) {
       href: '/settings/users',
       icon: UserIcon,
       isActive: segment === 'users',
+    },
+    {
+      name: 'Groups',
+      href: '/settings/groups',
+      icon: FolderIcon,
+      isActive: segment === 'groups',
     },
     {
       name: 'Credentials',
@@ -94,13 +101,18 @@ function SidebarItem({
       href={href}
       className={cn(
         'flex h-8 items-center gap-2 rounded-md px-2',
-        item.isActive
-          ? 'text-foreground bg-muted'
-          : 'text-muted-foreground hover:bg-muted',
+        item.isActive ? 'bg-muted' : 'hover:bg-muted',
       )}
     >
-      <item.icon className='size-4' />
-      <span className='text-sm'>{item.name}</span>
+      <item.icon className='text-muted-foreground size-4' />
+      <span
+        className={cn(
+          'text-sm',
+          item.isActive ? 'text-foreground' : 'text-muted-foreground',
+        )}
+      >
+        {item.name}
+      </span>
     </Link>
   )
 }

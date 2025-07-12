@@ -16,7 +16,7 @@ type Props = {
   password: string
 }
 
-export default function SSHTerminal({
+export default function SSHViewCanvas({
   serverId,
   host,
   port,

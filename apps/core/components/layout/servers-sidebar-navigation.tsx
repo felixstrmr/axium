@@ -8,7 +8,7 @@ import FolderOpenIcon from '@axium/ui/icons/folder-open-icon'
 import UbuntuIcon from '@axium/ui/icons/ubuntu-icon'
 import WindowsIcon from '@axium/ui/icons/windows-icon'
 import { cn } from '@axium/utils'
-import { ServerIcon, X } from 'lucide-react'
+import { ServerIcon } from 'lucide-react'
 import Link from 'next/link'
 import {
   useRouter,
@@ -149,7 +149,15 @@ export default function ServersSidebarNavigation({ folders, servers }: Props) {
       if (currentServer) {
         const serverPath = findServerPath(filteredFolders, currentServer)
 
-        setExpandedFolders(serverPath)
+        setExpandedFolders((prev) => {
+          const newExpandedFolders = [...prev]
+          for (const folderId of serverPath) {
+            if (!newExpandedFolders.includes(folderId)) {
+              newExpandedFolders.push(folderId)
+            }
+          }
+          return newExpandedFolders
+        })
       }
     }
   }, [segment, filteredFolders, filteredServers])
@@ -179,7 +187,6 @@ export default function ServersSidebarNavigation({ folders, servers }: Props) {
           key={node.id}
           node={node}
           segment={segment}
-          onRemove={handleRemove}
           params={params}
           expandedFolders={expandedFolders}
           onFolderToggle={handleFolderToggle}
@@ -192,11 +199,10 @@ export default function ServersSidebarNavigation({ folders, servers }: Props) {
 const TreeNodeComponent = React.memo<{
   node: TreeNode
   segment: string | null
-  onRemove: () => void
   params: string
   expandedFolders: string[]
   onFolderToggle: (folderId: string) => void
-}>(({ node, segment, onRemove, params, expandedFolders, onFolderToggle }) => {
+}>(({ node, segment, params, expandedFolders, onFolderToggle }) => {
   const isExpanded = expandedFolders.includes(node.id)
 
   if (node.type === 'server') {
@@ -205,7 +211,6 @@ const TreeNodeComponent = React.memo<{
         server={node.server!}
         level={node.level}
         isActive={segment === node.id}
-        onRemove={onRemove}
         params={params}
       />
     )
@@ -220,18 +225,22 @@ const TreeNodeComponent = React.memo<{
       <div style={{ paddingLeft: `${node.level * 16}px` }}>
         <button
           type='button'
-          className={cn(
-            'hover:bg-muted flex h-8 w-full cursor-pointer items-center gap-2 rounded-md px-2',
-            isExpanded ? 'text-foreground' : 'text-muted-foreground',
-          )}
+          className='hover:bg-muted flex h-8 w-full cursor-pointer items-center gap-2 rounded-md px-2'
           onClick={handleToggle}
         >
           {isExpanded ? (
-            <FolderOpenIcon className='size-4' />
+            <FolderOpenIcon className='text-muted-foreground size-4' />
           ) : (
-            <FolderIcon className='size-4' />
+            <FolderIcon className='text-muted-foreground size-4' />
           )}
-          <span className='truncate text-sm'>{node.name}</span>
+          <span
+            className={cn(
+              'truncate text-sm',
+              isExpanded ? 'text-foreground' : 'text-muted-foreground',
+            )}
+          >
+            {node.name}
+          </span>
         </button>
       </div>
       {isExpanded && node.children && (
@@ -241,7 +250,6 @@ const TreeNodeComponent = React.memo<{
               key={child.id}
               node={child}
               segment={segment}
-              onRemove={onRemove}
               params={params}
               expandedFolders={expandedFolders}
               onFolderToggle={onFolderToggle}
@@ -259,18 +267,8 @@ const ServerItem = React.memo<{
   server: Server
   level: number
   isActive: boolean
-  onRemove: () => void
   params: string
-}>(({ server, level, isActive, onRemove, params }) => {
-  const handleRemove = React.useCallback(
-    (e: React.MouseEvent) => {
-      e.preventDefault()
-      e.stopPropagation()
-      onRemove()
-    },
-    [onRemove],
-  )
-
+}>(({ server, level, isActive, params }) => {
   const Icon = server.operatingSystem
     ? OS_ICONS[server.operatingSystem as keyof typeof OS_ICONS] || ServerIcon
     : ServerIcon
@@ -290,15 +288,6 @@ const ServerItem = React.memo<{
       >
         <Icon className='size-4' />
         <span className='truncate text-sm'>{server.name}</span>
-        {isActive && (
-          <button
-            type='button'
-            className='ml-auto cursor-pointer rounded-sm p-0.5 hover:bg-zinc-200'
-            onClick={handleRemove}
-          >
-            <X className='size-4' />
-          </button>
-        )}
       </Link>
     </div>
   )
