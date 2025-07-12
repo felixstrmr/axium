@@ -1,7 +1,11 @@
 import EnvironmentSelect from '@/components/environment-select'
-import ServersSidebarNavigation from '@/components/layout/servers-sidebar-navigation'
 import { getFolders } from '@/queries/folders'
 import { getServers } from '@/queries/server'
+import dynamic from 'next/dynamic'
+
+const ServersSidebarNavigation = dynamic(
+  () => import('@/components/layout/servers-sidebar-navigation'),
+)
 
 export default async function ServersSidebar() {
   const [folders, servers] = await Promise.all([getFolders(), getServers()])

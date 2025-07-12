@@ -88,6 +88,30 @@ function buildTree(folders: Folder[], servers: Server[]): TreeNode[] {
   return buildNodes('root', 0)
 }
 
+function findServerPath(folders: Folder[], server: Server): string[] {
+  if (!server.folderId) {
+    return []
+  }
+
+  const path: string[] = []
+  let currentFolderId = server.folderId
+
+  const folderMap = new Map<string, Folder>()
+  for (const folder of folders) {
+    folderMap.set(folder.id, folder)
+  }
+
+  while (currentFolderId) {
+    const folder = folderMap.get(currentFolderId)
+    if (!folder) break
+
+    path.unshift(folder.id)
+    currentFolderId = folder.parentId || ''
+  }
+
+  return path
+}
+
 export default function ServersSidebarNavigation({ folders, servers }: Props) {
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -115,6 +139,20 @@ export default function ServersSidebarNavigation({ folders, servers }: Props) {
     () => buildTree(filteredFolders, filteredServers),
     [filteredFolders, filteredServers],
   )
+
+  React.useEffect(() => {
+    if (segment && segment !== 'servers') {
+      const currentServer = filteredServers.find(
+        (server) => server.id === segment,
+      )
+
+      if (currentServer) {
+        const serverPath = findServerPath(filteredFolders, currentServer)
+
+        setExpandedFolders(serverPath)
+      }
+    }
+  }, [segment, filteredFolders, filteredServers])
 
   const params = React.useMemo(
     () => (searchParams ? `?${searchParams.toString()}` : ''),

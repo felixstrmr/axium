@@ -9,10 +9,12 @@ const RDPView = dynamic(() => import('@/components/layout/rdp-view'))
 
 type Props = {
   params: Promise<{ serverId: string }>
+  searchParams: Promise<{ connectionId: string }>
 }
 
-export default async function Page({ params }: Props) {
+export default async function Page({ params, searchParams }: Props) {
   const { serverId } = await params
+  const { connectionId } = await searchParams
 
   const [server, connections] = await Promise.all([
     getServer(serverId),
@@ -31,6 +33,16 @@ export default async function Page({ params }: Props) {
         return <VNCView />
       case 'rdp':
         return <RDPView />
+    }
+  }
+
+  if (connectionId) {
+    const connection = connections.find(
+      (connection) => connection.id === connectionId,
+    )
+
+    if (connection) {
+      return View(connection)
     }
   }
 

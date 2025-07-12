@@ -25,9 +25,12 @@ export default function EnvironmentProvider({ children, environments }: Props) {
     [environments],
   )
 
-  const [currentEnvironmentId, setCurrentEnvironmentId] = useQueryState('env', {
-    defaultValue: defaultEnvironment?.id ?? 'all',
-  })
+  const [currentEnvironmentId, setCurrentEnvironmentId] = useQueryState(
+    'environmentId',
+    {
+      defaultValue: defaultEnvironment?.id ?? 'all',
+    },
+  )
 
   const contextValue = React.useMemo(() => {
     return {
