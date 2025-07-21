@@ -37,8 +37,6 @@ export const upsertEnvironmentAction = authActionClient
           updatedAt: new Date(),
         })
         .where(eq(environments.id, id))
-
-      revalidateTag(`environment-${id}`)
     } else {
       await db.insert(environments).values({
         name,
@@ -47,7 +45,7 @@ export const upsertEnvironmentAction = authActionClient
         createdBy: user.id,
         createdAt: new Date(),
       })
-
-      revalidateTag('environments')
     }
+
+    revalidateTag('environments')
   })

@@ -12,8 +12,6 @@ export const sessions = pgTable('sessions', {
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
   impersonatedBy: text('impersonated_by'),
-  createdAt: timestamp('created_at')
-    .$defaultFn(() => new Date())
-    .notNull(),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at'),
 })

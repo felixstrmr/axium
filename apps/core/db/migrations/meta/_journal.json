@@ -15,6 +15,13 @@
       "when": 1753116115238,
       "tag": "0001_flaky_mandrill",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1753122876999,
+      "tag": "0002_clear_midnight",
+      "breakpoints": true
     }
   ]
 }

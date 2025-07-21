@@ -28,7 +28,7 @@ export default function EnvironmentsSetting({ environments }: Props) {
   }
 
   return (
-    <div className='dark:bg-muted/75 bg-muted p-1 rounded-2xl w-full'>
+    <div className='bg-muted p-1 rounded-2xl w-full'>
       <div className='p-4 flex items-center justify-between gap-4'>
         <div>
           <h3 className='text-lg font-semibold tracking-tight'>Environments</h3>
@@ -70,7 +70,7 @@ export default function EnvironmentsSetting({ environments }: Props) {
                 <h4>{environment.name}</h4>
               </div>
               {environment.isDefault && (
-                <div className='px-2 border rounded-full bg-primary/10 border-primary/20'>
+                <div className='px-2 border rounded-full bg-blue-50 border-blue-100'>
                   <span className='text-xs text-primary'>Default</span>
                 </div>
               )}

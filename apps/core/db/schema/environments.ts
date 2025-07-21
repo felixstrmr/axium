@@ -9,9 +9,7 @@ export const environments = pgTable('environments', {
   isDefault: boolean('is_default').notNull().default(false),
   createdBy: uuid('created_by').references(() => users.id),
   updatedBy: uuid('updated_by').references(() => users.id),
-  createdAt: timestamp('created_at')
-    .$defaultFn(() => new Date())
-    .notNull(),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at'),
 })
 

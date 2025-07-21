@@ -22,6 +22,5 @@ export const deleteEnvironmentAction = authActionClient
 
     await db.delete(environments).where(eq(environments.id, id))
 
-    revalidateTag(`environment-${id}`)
     revalidateTag('environments')
   })

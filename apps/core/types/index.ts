@@ -3,6 +3,7 @@ import type {
   accounts,
   environments,
   sessions,
+  settings,
   users,
   verifications,
 } from '@/db/schema'
@@ -10,5 +11,6 @@ import type {
 export type Account = InferSelectModel<typeof accounts>
 export type Environment = InferSelectModel<typeof environments>
 export type Session = InferSelectModel<typeof sessions>
+export type Setting = InferSelectModel<typeof settings>
 export type User = InferSelectModel<typeof users>
 export type Verification = InferSelectModel<typeof verifications>

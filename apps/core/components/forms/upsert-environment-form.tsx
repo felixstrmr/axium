@@ -85,21 +85,6 @@ export default function UpsertEnvironmentForm({
           />
           <FormField
             control={form.control}
-            name='isDefault'
-            render={({ field }) => (
-              <FormItem className='flex'>
-                <FormControl>
-                  <Switch
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <FormLabel>Default environment</FormLabel>
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
             name='color'
             render={({ field }) => (
               <FormItem>
@@ -122,6 +107,21 @@ export default function UpsertEnvironmentForm({
                   </div>
                 </FormControl>
                 <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='isDefault'
+            render={({ field }) => (
+              <FormItem className='flex'>
+                <FormControl>
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <FormLabel>Default environment</FormLabel>
               </FormItem>
             )}
           />

@@ -1,5 +1,6 @@
 export * from './accounts'
 export * from './environments'
 export * from './sessions'
+export * from './settings'
 export * from './users'
 export * from './verifications'
