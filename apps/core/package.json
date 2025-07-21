@@ -17,6 +17,7 @@
     "@react-email/components": "0.3.2",
     "@t3-oss/env-nextjs": "^0.13.8",
     "better-auth": "1.2.12",
+    "date-fns": "^4.1.0",
     "drizzle-orm": "^0.44.3",
     "geist": "^1.4.2",
     "lucide-react": "^0.525.0",

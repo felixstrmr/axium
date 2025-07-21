@@ -1,6 +1,8 @@
 'use client'
 
 import type { ColumnDef } from '@tanstack/react-table'
+import { formatRelative } from 'date-fns'
+import { ShieldCheck } from 'lucide-react'
 import UserAvatar from '@/components/user-avatar'
 import type { User } from '@/types'
 
@@ -29,7 +31,29 @@ export const columns: ColumnDef<User>[] = [
     cell: ({ row }) => {
       const user = row.original
 
-      return <p className='capitalize'>{user.role}</p>
+      return (
+        <div className='flex items-center gap-1'>
+          {user.role === 'admin' ? (
+            <ShieldCheck className='size-3.5 text-muted-foreground' />
+          ) : null}
+          <p className='capitalize'>{user.role}</p>
+        </div>
+      )
+    },
+  },
+  {
+    accessorKey: 'lastLoginAt',
+    header: 'Last Login',
+    cell: ({ row }) => {
+      const user = row.original
+
+      return (
+        <p className='capitalize'>
+          {user.lastLoginAt
+            ? formatRelative(user.lastLoginAt, new Date())
+            : 'Never'}
+        </p>
+      )
     },
   },
 ]
