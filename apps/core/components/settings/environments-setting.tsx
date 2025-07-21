@@ -28,7 +28,7 @@ export default function EnvironmentsSetting({ environments }: Props) {
   }
 
   return (
-    <div className='bg-muted p-1 rounded-2xl w-full'>
+    <div className='bg-muted p-1 rounded-xl w-full'>
       <div className='p-4 flex items-center justify-between gap-4'>
         <div>
           <h3 className='text-lg font-semibold tracking-tight'>Environments</h3>
@@ -49,7 +49,7 @@ export default function EnvironmentsSetting({ environments }: Props) {
           setEnvironment={setSelectedEnvironment}
         />
       </div>
-      <div className='bg-background rounded-xl shadow-xs border'>
+      <div className='bg-background rounded-lg shadow-xs border'>
         {environments.length < 1 ? (
           <div className='p-4'>
             <p className='text-sm text-muted-foreground'>

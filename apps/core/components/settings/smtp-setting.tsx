@@ -13,7 +13,7 @@ export default function SmtpSetting({ settings }: Props) {
   const [isChecked, setIsChecked] = useState(settings !== undefined)
 
   return (
-    <div className='bg-muted p-1 rounded-2xl w-full'>
+    <div className='bg-muted p-1 rounded-xl w-full'>
       <div className='p-4 flex  gap-4'>
         <Switch
           checked={isChecked}
@@ -29,7 +29,7 @@ export default function SmtpSetting({ settings }: Props) {
       </div>
       <div
         className={cn(
-          'bg-background p-4 border rounded-xl',
+          'bg-background p-4 border rounded-lg',
           isChecked ? 'block' : 'hidden'
         )}
       ></div>

@@ -4,21 +4,22 @@ import {
   AvatarImage,
 } from '@axium/ui/components/avatar'
 import { cn } from '@axium/ui/lib/utils'
-import type { User } from 'better-auth'
+import type { User as AuthUser } from 'better-auth'
+import type { User } from '@/types'
 
 type Props = {
-  user: User
+  user: AuthUser | User
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   className?: string
 }
 
 export default function UserAvatar({ user, size = 'md', className }: Props) {
   const sizeClass = {
-    xs: 'size-6',
-    sm: 'size-7',
-    md: 'size-8',
-    lg: 'size-9',
-    xl: 'size-10',
+    xs: 'size-6 rounded-xs',
+    sm: 'size-7 rounded-sm',
+    md: 'size-8 rounded-md',
+    lg: 'size-9 rounded-lg',
+    xl: 'size-10 rounded-xl',
   }[size]
 
   const initials = user.name
@@ -27,13 +28,13 @@ export default function UserAvatar({ user, size = 'md', className }: Props) {
     .join('')
 
   return (
-    <Avatar className={cn(sizeClass, className, 'rounded-md')}>
+    <Avatar className={cn(sizeClass, className)}>
       <AvatarImage src={user.image ?? undefined} />
       <AvatarFallback
         className={cn(
+          'bg-blue-100 border-blue-200 text-primary border',
           sizeClass,
-          className,
-          'bg-blue-100 rounded-md border-blue-200 text-primary border'
+          className
         )}
       >
         {initials}

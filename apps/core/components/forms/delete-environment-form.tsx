@@ -72,6 +72,7 @@ export default function DeleteEnvironmentForm({
                   <Input
                     disabled={isExecuting}
                     autoFocus
+                    required
                     placeholder={environment.name}
                     {...field}
                   />

@@ -75,6 +75,7 @@ export default function UpsertEnvironmentForm({
                   <Input
                     disabled={isExecuting}
                     autoFocus
+                    required
                     placeholder='Production'
                     {...field}
                   />
@@ -132,7 +133,11 @@ export default function UpsertEnvironmentForm({
               Cancel
             </Button>
           </DialogClose>
-          <Button type='submit' isLoading={isExecuting}>
+          <Button
+            type='submit'
+            isLoading={isExecuting}
+            disabled={isExecuting || !form.formState.isValid}
+          >
             Save
           </Button>
         </DialogFooter>
