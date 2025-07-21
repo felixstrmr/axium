@@ -4,8 +4,8 @@ import AxiumIcon from '@axium/ui/icons/axium-icon'
 import { headers } from 'next/headers'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
+import UserDropdown from '@/components/dropdowns/user-dropdown'
 import DashboardSidebarNav from '@/components/sidebars/dashboard-sidebar-nav'
-import UserAvatar from '@/components/user-avatar'
 import { auth } from '@/lib/auth'
 
 export default async function DashboardSidebar() {
@@ -26,7 +26,7 @@ export default async function DashboardSidebar() {
       <Separator className='my-4 mx-auto max-w-4' />
       <DashboardSidebarNav />
       <Separator className='my-4 mx-auto max-w-4' />
-      <UserAvatar user={session.user} />
+      <UserDropdown user={session.user} />
     </aside>
   )
 }
