@@ -14,21 +14,22 @@ import {
   Server,
 } from 'lucide-react'
 import Link from 'next/link'
-import { useSelectedLayoutSegment } from 'next/navigation'
+import { useSearchParams, useSelectedLayoutSegment } from 'next/navigation'
 
 export default function DashboardSidebarNav() {
   const segment = useSelectedLayoutSegment()
+  const searchParams = useSearchParams()
 
   const itemsTop = [
     {
       name: 'Dashboard',
-      href: '/',
+      href: `/?${searchParams ? searchParams.toString() : ''}`,
       icon: House,
       isActive: segment === null,
     },
     {
       name: 'Servers',
-      href: '/servers',
+      href: `/servers?${searchParams ? searchParams.toString() : ''}`,
       icon: Server,
       isActive: segment === 'servers',
     },
@@ -37,7 +38,7 @@ export default function DashboardSidebarNav() {
   const itemsBottom = [
     {
       name: 'Settings',
-      href: '/settings',
+      href: `/settings?${searchParams ? searchParams.toString() : ''}`,
       icon: Cog,
       isActive: segment === 'settings',
     },

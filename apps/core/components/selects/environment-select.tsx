@@ -18,7 +18,7 @@ export default function EnvironmentSelect() {
       value={currentEnvironmentId}
       onValueChange={setCurrentEnvironmentId}
     >
-      <SelectTrigger>
+      <SelectTrigger className='w-full'>
         <SelectValue placeholder='Environment' />
       </SelectTrigger>
       <SelectContent>

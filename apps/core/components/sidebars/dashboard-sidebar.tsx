@@ -15,7 +15,7 @@ export default async function DashboardSidebar() {
   if (!session) return redirect('/signin')
 
   return (
-    <aside className='p-4 flex flex-col'>
+    <aside className='px-4 py-5 flex flex-col'>
       <Link
         href='/'
         className={buttonVariants({ variant: 'default', size: 'icon' })}

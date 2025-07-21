@@ -1,59 +1,49 @@
 'use client'
 
+import { useQueryState } from 'nuqs'
 import React from 'react'
-import { setEnvironmentAction } from '@/actions/set-environment-action'
 import type { Environment } from '@/types'
 
-type EnvironmentContextType = {
+type EnvironmentContextValue = {
   currentEnvironmentId: string
-  setCurrentEnvironmentId: (environmentId: string) => void
+  setCurrentEnvironmentId: (id: string) => void
   environments: Environment[]
 }
 
-const EnvironmentContext = React.createContext<EnvironmentContextType>({
-  currentEnvironmentId: '',
-  setCurrentEnvironmentId: () => {},
-  environments: [],
-})
+const EnvironmentContext = React.createContext<EnvironmentContextValue | null>(
+  null
+)
 
 type Props = {
   children: React.ReactNode
   environments: Environment[]
-  currentEnvironmentId: string | undefined
 }
 
-export default function EnvironmentProvider({
-  children,
-  environments,
-  currentEnvironmentId,
-}: Props) {
+export default function EnvironmentProvider({ children, environments }: Props) {
   const defaultEnvironment = React.useMemo(
     () => environments.find((env) => env.isDefault),
     [environments]
   )
 
-  const [environmentId, setEnvironmentId] = React.useState(
-    currentEnvironmentId ?? defaultEnvironment?.id ?? 'all'
-  )
-
-  const handleSetEnvironmentId = React.useCallback(
-    async (environmentId: string) => {
-      setEnvironmentAction({
-        environmentId,
-      }).then(() => {
-        setEnvironmentId(environmentId)
-      })
-    },
-    []
+  const [currentEnvironmentId, setCurrentEnvironmentId] = useQueryState(
+    'environmentId',
+    {
+      defaultValue: defaultEnvironment?.id ?? 'all',
+    }
   )
 
   const contextValue = React.useMemo(() => {
     return {
-      currentEnvironmentId: environmentId,
-      setCurrentEnvironmentId: handleSetEnvironmentId,
+      currentEnvironmentId: currentEnvironmentId ?? defaultEnvironment?.id,
+      setCurrentEnvironmentId,
       environments,
     }
-  }, [environmentId, environments, handleSetEnvironmentId])
+  }, [
+    currentEnvironmentId,
+    setCurrentEnvironmentId,
+    environments,
+    defaultEnvironment?.id,
+  ])
 
   return (
     <EnvironmentContext.Provider value={contextValue}>
@@ -62,7 +52,7 @@ export default function EnvironmentProvider({
   )
 }
 
-export function useEnvironment(): EnvironmentContextType {
+export function useEnvironment(): EnvironmentContextValue {
   const context = React.useContext(EnvironmentContext)
 
   if (!context) {
