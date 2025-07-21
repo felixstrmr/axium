@@ -108,7 +108,7 @@ function SidebarItem(item: SidebarItemProps) {
           : 'text-muted-foreground border-transparent hover:bg-muted'
       )}
     >
-      <item.icon className={cn('size-4', item.isActive && 'text-primary')} />
+      <item.icon className={cn('size-4', item.isActive && 'text-primary ')} />
       <span className='text-sm'>{item.name}</span>
     </Link>
   )

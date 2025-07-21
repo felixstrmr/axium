@@ -5,6 +5,9 @@ import { actionClient } from '@/lib/clients/action-client'
 import { credentialSigninSchema } from '@/schemas/credential-signin-schema'
 
 export const credentialSigninAction = actionClient
+  .metadata({
+    name: 'credential-signin-action',
+  })
   .inputSchema(credentialSigninSchema)
   .action(async ({ parsedInput }) => {
     const { email, password, rememberMe } = parsedInput
