@@ -1,0 +1,14 @@
+import type { InferSelectModel } from 'drizzle-orm'
+import type {
+  accounts,
+  environments,
+  sessions,
+  users,
+  verifications,
+} from '@/db/schema'
+
+export type Account = InferSelectModel<typeof accounts>
+export type Environment = InferSelectModel<typeof environments>
+export type Session = InferSelectModel<typeof sessions>
+export type User = InferSelectModel<typeof users>
+export type Verification = InferSelectModel<typeof verifications>
