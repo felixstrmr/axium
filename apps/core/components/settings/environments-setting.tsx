@@ -28,7 +28,7 @@ export default function EnvironmentsSetting({ environments }: Props) {
   }
 
   return (
-    <div className='bg-muted p-1 rounded-xl w-full'>
+    <div className='bg-muted/50 p-1 rounded-xl w-full'>
       <div className='p-4 flex items-center justify-between gap-4'>
         <div>
           <h3 className='text-lg font-semibold tracking-tight'>Environments</h3>

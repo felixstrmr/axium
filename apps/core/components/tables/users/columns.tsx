@@ -15,7 +15,7 @@ export const columns: ColumnDef<User>[] = [
 
       return (
         <div className='flex items-center gap-2'>
-          <UserAvatar user={user} size='sm' />
+          <UserAvatar user={user} size='sm' variant='outline' />
           <span>{user.name}</span>
         </div>
       )
@@ -43,12 +43,12 @@ export const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: 'lastLoginAt',
-    header: 'Last Login',
+    header: 'Last login',
     cell: ({ row }) => {
       const user = row.original
 
       return (
-        <p className='capitalize'>
+        <p className='first-letter:uppercase'>
           {user.lastLoginAt
             ? formatRelative(user.lastLoginAt, new Date())
             : 'Never'}

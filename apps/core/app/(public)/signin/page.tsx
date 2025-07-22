@@ -6,7 +6,7 @@ import CredentialSigninForm from '@/components/forms/credential-signin-form'
 export default function Page() {
   return (
     <div className='size-full flex items-center justify-center'>
-      <div className='bg-muted rounded-xl p-1 shadow-xs'>
+      <div className='bg-muted/50 rounded-xl p-1 shadow-xs'>
         <div className='bg-background rounded-lg border p-8 shadow-xs'>
           <Link
             href='/'
