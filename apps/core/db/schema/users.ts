@@ -1,4 +1,11 @@
-import { boolean, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core'
+import {
+  boolean,
+  jsonb,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+} from 'drizzle-orm/pg-core'
 
 export const users = pgTable('users', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -13,6 +20,7 @@ export const users = pgTable('users', {
   banReason: text('ban_reason'),
   banExpires: timestamp('ban_expires'),
   lastLoginAt: timestamp('last_login_at'),
+  settings: jsonb('settings').default({}),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at'),
 })

@@ -1,5 +1,6 @@
 import { relations } from 'drizzle-orm'
 import { boolean, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core'
+
 import { users } from './users'
 
 export const environments = pgTable('environments', {

@@ -90,7 +90,7 @@ export default function DeleteEnvironmentForm({
           </DialogClose>
           <Button
             isLoading={isExecuting}
-            disabled={environment.name !== form.watch('name')}
+            disabled={environment.name !== form.watch('name') || isExecuting}
             variant='destructive'
           >
             Delete

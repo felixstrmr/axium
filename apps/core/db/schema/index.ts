@@ -1,5 +1,6 @@
 export * from './accounts'
 export * from './environments'
+export * from './identities'
 export * from './servers'
 export * from './sessions'
 export * from './settings'

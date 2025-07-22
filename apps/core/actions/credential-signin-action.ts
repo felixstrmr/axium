@@ -1,6 +1,7 @@
 'use server'
 
 import { eq } from 'drizzle-orm'
+import { revalidatePath } from 'next/cache'
 import { db } from '@/db'
 import { users } from '@/db/schema'
 import { auth } from '@/lib/auth'
@@ -30,4 +31,6 @@ export const credentialSigninAction = actionClient
         updatedAt: new Date(),
       })
       .where(eq(users.id, user.id))
+
+    revalidatePath('/', 'layout')
   })

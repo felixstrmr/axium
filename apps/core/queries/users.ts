@@ -1,8 +1,7 @@
 import { unstable_cache } from 'next/cache'
-import { cache } from 'react'
 import { db } from '@/db'
 
-export const getUsers = cache(async () => {
+export const getUsers = async () => {
   return unstable_cache(
     async () => {
       const users = await db.query.users.findMany()
@@ -15,4 +14,4 @@ export const getUsers = cache(async () => {
       revalidate: 60 * 60 * 24, // 1 day
     }
   )()
-})
+}

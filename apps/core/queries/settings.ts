@@ -1,8 +1,7 @@
 import { unstable_cache } from 'next/cache'
-import { cache } from 'react'
 import { db } from '@/db'
 
-export const getSettings = cache(async () => {
+export const getSettings = async () => {
   return unstable_cache(
     async () => {
       const settings = await db.query.settings.findMany()
@@ -15,4 +14,4 @@ export const getSettings = cache(async () => {
       revalidate: 60 * 60 * 24, // 1 day
     }
   )()
-})
+}

@@ -1,0 +1,1 @@
+ALTER TABLE "server_identities" ADD COLUMN "port" integer NOT NULL;
