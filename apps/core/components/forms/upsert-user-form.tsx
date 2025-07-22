@@ -109,7 +109,6 @@ export default function UpsertUserForm({ user, setIsOpen }: Props) {
                   <Input
                     disabled={isExecuting}
                     type='password'
-                    required
                     placeholder='••••••••••••'
                     {...field}
                   />
@@ -129,7 +128,6 @@ export default function UpsertUserForm({ user, setIsOpen }: Props) {
                     <Input
                       disabled={isExecuting}
                       type='password'
-                      required
                       placeholder='••••••••••••'
                       {...field}
                     />

@@ -1,9 +1,11 @@
 'use client'
 
+import { Button } from '@axium/ui/components/button'
 import type { ColumnDef } from '@tanstack/react-table'
 import { formatRelative } from 'date-fns'
-import { ShieldCheck } from 'lucide-react'
+import { Cog, ShieldCheck } from 'lucide-react'
 import UserAvatar from '@/components/user-avatar'
+import { upsertUserStore } from '@/stores/upsert-user-store'
 import type { User } from '@/types'
 
 export const columns: ColumnDef<User>[] = [
@@ -53,6 +55,28 @@ export const columns: ColumnDef<User>[] = [
             ? formatRelative(user.lastLoginAt, new Date())
             : 'Never'}
         </p>
+      )
+    },
+  },
+  {
+    id: 'actions',
+    cell: ({ row }) => {
+      const { setIsOpen, setUser } = upsertUserStore()
+
+      const user = row.original
+
+      return (
+        <Button
+          variant='ghost'
+          size='iconSm'
+          onClick={() => {
+            setUser(user)
+            setIsOpen(true)
+          }}
+          className='opacity-0 group-hover:opacity-100 transition-none'
+        >
+          <Cog />
+        </Button>
       )
     },
   },

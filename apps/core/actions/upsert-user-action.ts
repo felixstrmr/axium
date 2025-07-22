@@ -22,10 +22,6 @@ export const upsertUserAction = authActionClient
       throw new Error('Unauthorized')
     }
 
-    if (password !== confirmPassword) {
-      throw new Error('Passwords do not match')
-    }
-
     const existingUser = await db.query.users.findFirst({
       where: eq(users.email, email),
     })
@@ -50,13 +46,19 @@ export const upsertUserAction = authActionClient
         })
       }
 
-      await auth.api.setUserPassword({
-        body: {
-          userId: existingUser?.id,
-          newPassword: password,
-        },
-        headers: await headers(),
-      })
+      if (password && confirmPassword) {
+        if (password !== confirmPassword) {
+          throw new Error('Passwords do not match')
+        }
+
+        await auth.api.setUserPassword({
+          body: {
+            userId: existingUser?.id,
+            newPassword: password,
+          },
+          headers: await headers(),
+        })
+      }
     } else {
       await auth.api.createUser({
         body: {

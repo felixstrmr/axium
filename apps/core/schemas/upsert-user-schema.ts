@@ -5,6 +5,6 @@ export const upsertUserSchema = z.object({
   name: z.string().min(1),
   email: z.email().min(1),
   role: z.enum(['admin', 'user']),
-  password: z.string().min(8),
-  confirmPassword: z.string().min(8),
+  password: z.string().optional(),
+  confirmPassword: z.string().optional(),
 })
