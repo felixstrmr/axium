@@ -60,6 +60,10 @@ export const upsertUserAction = authActionClient
         })
       }
     } else {
+      if (!password) {
+        throw new Error('Password is required')
+      }
+
       await auth.api.createUser({
         body: {
           name,
