@@ -1,9 +1,16 @@
 'use client'
 
 import { Button } from '@axium/ui/components/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@axium/ui/components/dropdown-menu'
 import type { ColumnDef } from '@tanstack/react-table'
 import { formatRelative } from 'date-fns'
-import { Cog, ShieldCheck } from 'lucide-react'
+import { Cog, MoreHorizontal, ShieldCheck, Trash } from 'lucide-react'
 import UserAvatar from '@/components/user-avatar'
 import { upsertUserStore } from '@/stores/upsert-user-store'
 import type { User } from '@/types'
@@ -66,17 +73,30 @@ export const columns: ColumnDef<User>[] = [
       const user = row.original
 
       return (
-        <Button
-          variant='ghost'
-          size='iconSm'
-          onClick={() => {
-            setUser(user)
-            setIsOpen(true)
-          }}
-          className='opacity-0 group-hover:opacity-100 transition-none'
-        >
-          <Cog />
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant='ghost' className='h-8 w-8 p-0'>
+              <span className='sr-only'>Open menu</span>
+              <MoreHorizontal className='h-4 w-4' />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align='end'>
+            <DropdownMenuItem
+              onClick={() => {
+                setUser(user)
+                setIsOpen(true)
+              }}
+            >
+              <Cog />
+              Edit user
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem variant='destructive'>
+              <Trash />
+              Delete user
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       )
     },
   },

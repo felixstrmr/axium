@@ -1,5 +1,5 @@
 export default function Page() {
   return (
-    <div className='bg-background rounded-2xl size-full flex shadow-xs'></div>
+    <div className='bg-background border rounded-xl size-full flex shadow-xs'></div>
   )
 }

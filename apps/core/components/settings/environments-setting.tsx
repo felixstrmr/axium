@@ -1,10 +1,11 @@
 'use client'
 
 import { Button } from '@axium/ui/components/button'
-import { Cog, Trash } from 'lucide-react'
+import { Cog, GitBranch, Trash } from 'lucide-react'
 import { useState } from 'react'
 import DeleteEnvironmentDialog from '@/components/dialogs/delete-environment-dialog'
 import UpsertEnvironmentDialog from '@/components/dialogs/upsert-environment-dialog'
+import EmptyState from '@/components/empty-state'
 import type { Environment } from '@/types'
 
 type Props = {
@@ -51,11 +52,12 @@ export default function EnvironmentsSetting({ environments }: Props) {
       </div>
       <div className='bg-background rounded-lg shadow-xs border'>
         {environments.length < 1 ? (
-          <div className='p-4'>
-            <p className='text-sm text-muted-foreground'>
-              No environments found.
-            </p>
-          </div>
+          <EmptyState
+            icon={GitBranch}
+            title='No environments found.'
+            description='Create an environment to get started.'
+            background={false}
+          />
         ) : (
           environments.map((environment) => (
             <div

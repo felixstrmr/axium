@@ -12,7 +12,7 @@ export default function SettingsLayout({ children }: Props) {
       <Suspense fallback={<SettingsSidebarSkeleton />}>
         <SettingsSidebar />
       </Suspense>
-      <div className='flex-1 bg-background shadow-xs rounded-xl'>
+      <div className='flex-1 bg-background shadow-xs rounded-xl border'>
         <div className='max-w-5xl mx-auto w-full p-8 size-full flex'>
           {children}
         </div>
