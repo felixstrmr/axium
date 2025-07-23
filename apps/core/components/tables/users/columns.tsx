@@ -10,7 +10,7 @@ import {
 } from '@axium/ui/components/dropdown-menu'
 import type { ColumnDef } from '@tanstack/react-table'
 import { formatRelative } from 'date-fns'
-import { Cog, MoreHorizontal, ShieldCheck, Trash } from 'lucide-react'
+import { Cog, MoreVertical, ShieldCheck, Trash } from 'lucide-react'
 import UserAvatar from '@/components/user-avatar'
 import { upsertUserStore } from '@/stores/upsert-user-store'
 import type { User } from '@/types'
@@ -75,9 +75,8 @@ export const columns: ColumnDef<User>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant='ghost' className='h-8 w-8 p-0'>
-              <span className='sr-only'>Open menu</span>
-              <MoreHorizontal className='h-4 w-4' />
+            <Button variant='ghost' size='iconSm'>
+              <MoreVertical />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end'>
