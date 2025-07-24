@@ -57,6 +57,13 @@
       "when": 1753208967741,
       "tag": "0007_polite_vampiro",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1753330650759,
+      "tag": "0008_special_miss_america",
+      "breakpoints": true
     }
   ]
 }

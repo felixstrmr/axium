@@ -12,7 +12,9 @@ export default function ServersLayout({ children }: Props) {
       <Suspense fallback={<ServersSidebarSkeleton />}>
         <ServersSidebar />
       </Suspense>
-      {children}
+      <div className='flex-1 bg-background shadow-xs rounded-xl border'>
+        {children}
+      </div>
     </div>
   )
 }

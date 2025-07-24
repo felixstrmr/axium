@@ -3,6 +3,7 @@ import type {
   accounts,
   environments,
   identities,
+  serverIdentities,
   servers,
   sessions,
   settings,
@@ -13,6 +14,7 @@ import type {
 export type Account = InferSelectModel<typeof accounts>
 export type Environment = InferSelectModel<typeof environments>
 export type Identity = InferSelectModel<typeof identities>
+export type ServerIdentity = InferSelectModel<typeof serverIdentities>
 export type Server = InferSelectModel<typeof servers>
 export type Session = InferSelectModel<typeof sessions>
 export type Setting = InferSelectModel<typeof settings>

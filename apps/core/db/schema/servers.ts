@@ -2,6 +2,7 @@ import { relations } from 'drizzle-orm'
 import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core'
 
 import { environments } from './environments'
+import { serverFolders } from './server-folders'
 import { users } from './users'
 
 export const servers = pgTable('servers', {
@@ -10,6 +11,7 @@ export const servers = pgTable('servers', {
   description: text('description'),
   host: text('host').notNull(),
   environmentId: uuid('environment_id').references(() => environments.id),
+  folderId: uuid('folder_id').references(() => serverFolders.id),
   createdBy: uuid('created_by').references(() => users.id),
   updatedBy: uuid('updated_by').references(() => users.id),
   createdAt: timestamp('created_at').defaultNow(),
@@ -20,6 +22,10 @@ export const serversRelations = relations(servers, ({ one }) => ({
   environment: one(environments, {
     fields: [servers.environmentId],
     references: [environments.id],
+  }),
+  folder: one(serverFolders, {
+    fields: [servers.folderId],
+    references: [serverFolders.id],
   }),
   createdBy: one(users, {
     fields: [servers.createdBy],
