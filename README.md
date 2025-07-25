@@ -94,14 +94,6 @@ The application will be available at:
 - **Core App**: http://localhost:3000
 - **Web App**: http://localhost:3001
 
-## 📖 Usage
-
-1. **Sign in** to your account
-2. **Create environments** to organize your servers
-3. **Add servers** with SSH credentials
-4. **Connect** to servers through the web terminal
-5. **Manage users** and permissions as needed
-
 ## 🔧 Development
 
 ### Available Scripts
@@ -132,30 +124,3 @@ axium/
 │   └── typescript/    # TypeScript configurations
 └── README.md
 ```
-
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🆘 Support
-
-- 📧 Email: support@axium.com
-- 💬 Discord: [Join our community](https://discord.gg/axium)
-- 📖 Documentation: [docs.axium.com](https://docs.axium.com)
-- 🐛 Issues: [GitHub Issues](https://github.com/your-username/axium/issues)
-
----
-
-<div align="center">
-  Made with ❤️ by the Axium team
-</div>
