@@ -10,6 +10,7 @@ export const servers = pgTable('servers', {
   name: text('name').notNull(),
   description: text('description'),
   host: text('host').notNull(),
+  icon: text('icon').notNull().default('server'),
   environmentId: uuid('environment_id').references(() => environments.id),
   folderId: uuid('folder_id').references(() => serverFolders.id),
   createdBy: uuid('created_by').references(() => users.id),

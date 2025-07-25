@@ -1,0 +1,1 @@
+ALTER TABLE "servers" ADD COLUMN "icon" text DEFAULT 'server' NOT NULL;

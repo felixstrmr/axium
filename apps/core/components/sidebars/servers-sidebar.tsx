@@ -5,7 +5,7 @@ import { getServerFolders } from '@/queries/server-folders'
 import { getServers } from '@/queries/servers'
 
 export default async function ServersSidebar() {
-  const [server, serverFolders] = await Promise.all([
+  const [servers, serverFolders] = await Promise.all([
     getServers(),
     getServerFolders(),
   ])
@@ -14,7 +14,7 @@ export default async function ServersSidebar() {
     <aside className='bg-background p-4 rounded-xl border min-w-64 max-w-64 w-64 flex flex-col'>
       <EnvironmentSelect />
       <Separator className='my-4 bg-transparent' />
-      <ServersSidebarNav folders={serverFolders} servers={server} />
+      <ServersSidebarNav folders={serverFolders} servers={servers} />
     </aside>
   )
 }

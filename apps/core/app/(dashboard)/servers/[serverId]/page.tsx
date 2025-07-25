@@ -1,10 +1,14 @@
 import { GitBranch } from 'lucide-react'
 import { notFound } from 'next/navigation'
-import EmptyState from '@/components/empty-state'
+import ErrorState from '@/components/error-state'
 import SSHView from '@/components/views/ssh-view'
 import { getIdentity } from '@/queries/identities'
 import { getServer } from '@/queries/servers'
-import type { Identity } from '@/types'
+import type { Environment, Identity, Server } from '@/types'
+
+type ServerWithEnvironment = Server & {
+  environment: Environment | null
+}
 
 type Props = {
   params: Promise<{ serverId: string }>
@@ -24,10 +28,26 @@ export default async function Page({ params, searchParams }: Props) {
     return notFound()
   }
 
-  if (environmentId !== server?.environmentId && environmentId !== undefined) {
+  const isServerInEnvironment = (server: ServerWithEnvironment) => {
+    if (!server.environment) {
+      return true
+    }
+
+    if (environmentId === undefined || environmentId === null) {
+      return true
+    }
+
+    if (server.environment.id === environmentId) {
+      return true
+    }
+
+    return false
+  }
+
+  if (!isServerInEnvironment(server as ServerWithEnvironment)) {
     return (
       <div className='size-full flex items-center justify-center'>
-        <EmptyState
+        <ErrorState
           background={false}
           icon={GitBranch}
           title='Server is not in the selected environment'

@@ -1,7 +1,7 @@
 'use client'
 
 import type { FitAddon } from '@xterm/addon-fit'
-import { Loader } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { io, type Socket } from 'socket.io-client'
 import { toast } from 'sonner'
@@ -120,7 +120,7 @@ export default function SSHViewCanvas({
     <div className='relative size-full'>
       {!isInitialized && (
         <div className='absolute inset-0 z-10 flex items-center justify-center gap-2 bg-zinc-950'>
-          <Loader className='text-primary-foreground size-4 animate-spin' />
+          <Loader2 className='text-primary-foreground size-4 animate-spin' />
           <span className='text-primary-foreground'>Connecting...</span>
         </div>
       )}
