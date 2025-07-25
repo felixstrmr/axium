@@ -24,7 +24,7 @@ export default async function Page({ params, searchParams }: Props) {
     return notFound()
   }
 
-  if (environmentId !== 'all' && environmentId !== server?.environmentId) {
+  if (environmentId !== server?.environmentId && environmentId !== undefined) {
     return (
       <div className='size-full flex items-center justify-center'>
         <EmptyState

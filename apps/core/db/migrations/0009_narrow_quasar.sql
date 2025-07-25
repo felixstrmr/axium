@@ -1,0 +1,2 @@
+ALTER TABLE "server_folders" ADD COLUMN "environment_id" uuid;--> statement-breakpoint
+ALTER TABLE "server_folders" ADD CONSTRAINT "server_folders_environment_id_environments_id_fk" FOREIGN KEY ("environment_id") REFERENCES "public"."environments"("id") ON DELETE no action ON UPDATE no action;

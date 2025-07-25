@@ -14,7 +14,7 @@ export async function encrypt(value: string) {
   const salt = crypto.randomBytes(32)
   const iv = crypto.randomBytes(16)
 
-  const key = deriveKey(env.BETTER_AUTH_SECRET, salt)
+  const key = deriveKey(env.ENCRYPTION_KEY, salt)
   const cipher = crypto.createCipheriv('aes-256-gcm', key, iv)
 
   const encrypted = Buffer.concat([
@@ -36,7 +36,7 @@ export async function decrypt(value: string) {
   const tag = combined.subarray(48, 64)
   const encrypted = combined.subarray(64)
 
-  const key = deriveKey(env.BETTER_AUTH_SECRET, salt)
+  const key = deriveKey(env.ENCRYPTION_KEY, salt)
 
   const decipher = crypto.createDecipheriv('aes-256-gcm', key, iv)
   decipher.setAuthTag(tag)

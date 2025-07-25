@@ -76,6 +76,7 @@ export default function EnvironmentsSetting({ environments }: Props) {
                   <span className='text-xs text-primary'>Default</span>
                 </div>
               )}
+
               <div className='ml-auto flex items-center gap-1 opacity-0 group-hover:opacity-100'>
                 <Button
                   variant='ghost'

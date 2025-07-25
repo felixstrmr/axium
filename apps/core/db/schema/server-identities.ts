@@ -1,5 +1,5 @@
 import { relations } from 'drizzle-orm'
-import { integer, pgTable, timestamp, uuid } from 'drizzle-orm/pg-core'
+import { boolean, integer, pgTable, timestamp, uuid } from 'drizzle-orm/pg-core'
 
 import { identities } from './identities'
 import { servers } from './servers'
@@ -14,6 +14,7 @@ export const serverIdentities = pgTable('server_identities', {
     .references(() => identities.id)
     .notNull(),
   port: integer('port').notNull(),
+  isDefault: boolean('is_default').notNull().default(false),
   createdBy: uuid('created_by').references(() => users.id),
   updatedBy: uuid('updated_by').references(() => users.id),
   createdAt: timestamp('created_at').notNull().defaultNow(),

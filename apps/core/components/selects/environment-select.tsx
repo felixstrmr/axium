@@ -10,13 +10,21 @@ import {
 import { useEnvironment } from '@/components/providers/environment-provider'
 
 export default function EnvironmentSelect() {
-  const { environments, currentEnvironmentId, setCurrentEnvironmentId } =
+  const { environments, selectedEnvironmentId, setCurrentEnvironmentId } =
     useEnvironment()
+
+  const handleEnvironmentChange = (value: string) => {
+    if (value === 'all') {
+      setCurrentEnvironmentId(null)
+    } else {
+      setCurrentEnvironmentId(value)
+    }
+  }
 
   return (
     <Select
-      value={currentEnvironmentId}
-      onValueChange={setCurrentEnvironmentId}
+      value={selectedEnvironmentId ? selectedEnvironmentId : 'all'}
+      onValueChange={handleEnvironmentChange}
     >
       <SelectTrigger className='w-full'>
         <SelectValue placeholder='Environment' />

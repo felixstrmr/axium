@@ -1,12 +1,12 @@
 'use client'
 
-import { useQueryState } from 'nuqs'
+import { parseAsString, useQueryState } from 'nuqs'
 import React from 'react'
 import type { Environment } from '@/types'
 
 type EnvironmentContextValue = {
-  currentEnvironmentId: string
-  setCurrentEnvironmentId: (id: string) => void
+  selectedEnvironmentId: string | null
+  setCurrentEnvironmentId: (id: string | null) => void
   environments: Environment[]
 }
 
@@ -20,31 +20,23 @@ type Props = {
 }
 
 export default function EnvironmentProvider({ children, environments }: Props) {
-  const defaultEnvironment = React.useMemo(
-    () => environments.find((env) => env.isDefault),
-    [environments]
-  )
-
   const [currentEnvironmentId, setCurrentEnvironmentId] = useQueryState(
     'environmentId',
-    {
+    parseAsString.withOptions({
       shallow: false,
-      defaultValue: defaultEnvironment?.id ?? 'all',
-    }
+      clearOnDefault: false,
+    })
   )
+
+  const selectedEnvironmentId = currentEnvironmentId ?? null
 
   const contextValue = React.useMemo(() => {
     return {
-      currentEnvironmentId: currentEnvironmentId ?? defaultEnvironment?.id,
+      selectedEnvironmentId,
       setCurrentEnvironmentId,
       environments,
     }
-  }, [
-    currentEnvironmentId,
-    setCurrentEnvironmentId,
-    environments,
-    defaultEnvironment?.id,
-  ])
+  }, [selectedEnvironmentId, setCurrentEnvironmentId, environments])
 
   return (
     <EnvironmentContext.Provider value={contextValue}>
