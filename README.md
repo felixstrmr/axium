@@ -1,135 +1,161 @@
-# Turborepo starter
+<div align="center">
+  <img src="header.jpg" alt="Axium Header" width="100%" />
+  
+  # Axium
+  
+  **The Open-Source Remote Server Management Platform**
+  
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+  [![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
+  [![Bun](https://img.shields.io/badge/Bun-1.2.15+-black.svg)](https://bun.sh/)
+</div>
 
-This Turborepo starter is maintained by the Turborepo core team.
+---
 
-## Using this example
+## 🚀 Overview
 
-Run the following command:
+Axium is a modern, web-based platform that eliminates the need to switch between terminals and remote desktop applications. Access and manage all your servers from one beautiful, unified dashboard with real-time SSH terminal support.
 
-```sh
-npx create-turbo@latest
+### ✨ Key Features
+
+- **🔐 Secure SSH Terminal**: Full-featured terminal with real-time connection management
+- **🏗️ Multi-Environment Support**: Organize servers by environments (dev, staging, production)
+- **👥 User Management**: Role-based access control and user administration
+- **📁 Server Organization**: Folder-based server organization and management
+- **🎨 Modern UI**: Beautiful, responsive interface built with Next.js and Tailwind CSS
+- **⚡ Real-time**: WebSocket-powered real-time terminal connections
+- **🔒 Authentication**: Secure authentication with Better Auth
+
+## 🏗️ Architecture
+
+This is a monorepo built with [Turborepo](https://turbo.build/repo) containing:
+
+### Apps
+- **`apps/core`** - Main dashboard application (Next.js 15)
+- **`apps/web`** - Marketing website (Next.js 15)
+
+### Packages
+- **`packages/ui`** - Shared UI components (shadcn/ui)
+- **`packages/typescript`** - TypeScript configurations
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS + shadcn/ui
+- **Database**: PostgreSQL with Drizzle ORM
+- **Authentication**: Better Auth
+- **Terminal**: xterm.js with Socket.IO
+- **SSH**: node-ssh
+- **Package Manager**: Bun
+- **Monorepo**: Turborepo
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js 18+
+- Bun 1.2.15+
+- PostgreSQL database
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/your-username/axium.git
+   cd axium
+   ```
+
+2. **Install dependencies**
+   ```bash
+   bun install
+   ```
+
+3. **Set up environment variables**
+   ```bash
+   cp apps/core/.env.example apps/core/.env
+   # Edit the .env file with your configuration
+   ```
+
+4. **Set up the database**
+   ```bash
+   cd apps/core
+   bun run db:generate
+   bun run db:migrate
+   ```
+
+5. **Start the development server**
+   ```bash
+   # From the root directory
+   bun run dev
+   ```
+
+The application will be available at:
+- **Core App**: http://localhost:3000
+- **Web App**: http://localhost:3001
+
+## 📖 Usage
+
+1. **Sign in** to your account
+2. **Create environments** to organize your servers
+3. **Add servers** with SSH credentials
+4. **Connect** to servers through the web terminal
+5. **Manage users** and permissions as needed
+
+## 🔧 Development
+
+### Available Scripts
+
+```bash
+# Development
+bun run dev          # Start all apps in development mode
+bun run build        # Build all apps and packages
+bun run lint         # Lint all code
+bun run format       # Format all code
+bun run check-types  # Type check all packages
+
+# Database (from apps/core)
+bun run db:generate  # Generate database migrations
+bun run db:migrate   # Run database migrations
+bun run db:studio    # Open Drizzle Studio
 ```
 
-## What's inside?
-
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
+### Project Structure
 
 ```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+axium/
+├── apps/
+│   ├── core/          # Main dashboard application
+│   └── web/           # Marketing website
+├── packages/
+│   ├── ui/            # Shared UI components
+│   └── typescript/    # TypeScript configurations
+└── README.md
 ```
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+## 🤝 Contributing
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-### Develop
+## 📄 License
 
-To develop all apps and packages, run the following command:
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-```
-cd my-turborepo
+## 🆘 Support
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
+- 📧 Email: support@axium.com
+- 💬 Discord: [Join our community](https://discord.gg/axium)
+- 📖 Documentation: [docs.axium.com](https://docs.axium.com)
+- 🐛 Issues: [GitHub Issues](https://github.com/your-username/axium/issues)
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
+---
 
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+<div align="center">
+  Made with ❤️ by the Axium team
+</div>
