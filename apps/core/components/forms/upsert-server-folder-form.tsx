@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@axium/ui/components/button'
-import { DialogFooter } from '@axium/ui/components/dialog'
+import { DialogClose, DialogFooter } from '@axium/ui/components/dialog'
 import {
   Form,
   FormControl,
@@ -65,6 +65,9 @@ export default function UpsertServerFolderForm({
           />
         </div>
         <DialogFooter>
+          <DialogClose asChild>
+            <Button variant='outline'>Cancel</Button>
+          </DialogClose>
           <Button isLoading={isExecuting}>Save</Button>
         </DialogFooter>
       </form>

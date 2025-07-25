@@ -13,6 +13,7 @@ import {
 import { useCallback, useState } from 'react'
 import { ServerTree } from '@/components/server-tree'
 import { upsertServerFolderStore } from '@/stores/upsert-server-folder-store'
+import { upsertServerStore } from '@/stores/upsert-server-store'
 import type { Server, ServerFolder } from '@/types'
 
 type Props = {
@@ -21,7 +22,16 @@ type Props = {
 }
 
 export default function ServersSetting({ servers, folders }: Props) {
-  const { setServerFolder, setIsOpen, setParentId } = upsertServerFolderStore()
+  const {
+    setServerFolder,
+    setIsOpen: setIsOpenFolder,
+    setParentId,
+  } = upsertServerFolderStore()
+  const {
+    setServer,
+    setFolderId,
+    setIsOpen: setIsOpenServer,
+  } = upsertServerStore()
   const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set())
 
   const handleFolderToggle = useCallback((folderId: string) => {
@@ -84,32 +94,40 @@ export default function ServersSetting({ servers, folders }: Props) {
               )}
               <span className='truncate text-sm'>{folder.name}</span>
             </button>
-            <div className='flex items-center gap-1 ml-1 opacity-0 group-hover:opacity-100'>
+            <div className='flex items-center gap-1 ml-2 opacity-0 group-hover:opacity-100'>
               <Button
                 variant='ghost'
-                size='icon'
+                size='iconSm'
                 onClick={() => {
                   setServerFolder(null)
                   setParentId(folder.id)
-                  setIsOpen(true)
+                  setIsOpenFolder(true)
                 }}
               >
                 <FolderPlus />
               </Button>
-              <Button variant='ghost' size='icon'>
+              <Button
+                variant='ghost'
+                size='iconSm'
+                onClick={() => {
+                  setServer(null)
+                  setFolderId(folder.id)
+                  setIsOpenServer(true)
+                }}
+              >
                 <ServerIcon />
               </Button>
               <Button
                 variant='ghost'
-                size='icon'
+                size='iconSm'
                 onClick={() => {
                   setServerFolder(folder)
-                  setIsOpen(true)
+                  setIsOpenFolder(true)
                 }}
               >
                 <Cog />
               </Button>
-              <Button variant='ghost' size='icon'>
+              <Button variant='ghost' size='iconSm'>
                 <Trash />
               </Button>
             </div>
@@ -117,7 +135,15 @@ export default function ServersSetting({ servers, folders }: Props) {
         </div>
       )
     },
-    [handleFolderToggle, setIsOpen, setParentId, setServerFolder]
+    [
+      handleFolderToggle,
+      setIsOpenFolder,
+      setIsOpenServer,
+      setParentId,
+      setServerFolder,
+      setServer,
+      setFolderId,
+    ]
   )
 
   return (

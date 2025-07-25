@@ -9,8 +9,10 @@ export default function HomeLayout({ children }: Props) {
   return (
     <div className='size-full flex flex-col bg-muted/50'>
       <HomeNavbar />
-      <div className='flex bg-background size-full border rounded-xl shadow-xs'>
-        {children}
+      <div className='size-full flex px-1 pb-1'>
+        <div className='flex bg-background size-full border rounded-xl shadow-xs'>
+          {children}
+        </div>
       </div>
     </div>
   )
