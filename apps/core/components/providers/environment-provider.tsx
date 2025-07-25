@@ -28,6 +28,7 @@ export default function EnvironmentProvider({ children, environments }: Props) {
   const [currentEnvironmentId, setCurrentEnvironmentId] = useQueryState(
     'environmentId',
     {
+      shallow: false,
       defaultValue: defaultEnvironment?.id ?? 'all',
     }
   )

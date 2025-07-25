@@ -23,6 +23,9 @@ export const getServer = async (serverId: string) => {
     async () => {
       const server = await db.query.servers.findFirst({
         where: eq(servers.id, serverId),
+        with: {
+          environment: true,
+        },
       })
 
       return server
