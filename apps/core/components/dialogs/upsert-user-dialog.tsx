@@ -17,9 +17,7 @@ export default function UpsertUserDialog() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <DialogTrigger asChild>
-          <Button onClick={() => setUser(null)}>Add user</Button>
-        </DialogTrigger>
+        <Button onClick={() => setUser(null)}>Add user</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

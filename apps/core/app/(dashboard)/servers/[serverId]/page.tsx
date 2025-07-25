@@ -1,10 +1,12 @@
 import { GitBranch } from 'lucide-react'
+import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
 import ErrorState from '@/components/error-state'
-import SSHView from '@/components/views/ssh-view'
 import { getIdentity } from '@/queries/identities'
 import { getServer } from '@/queries/servers'
 import type { Environment, Identity, Server } from '@/types'
+
+const SSHView = dynamic(() => import('@/components/views/ssh-view'))
 
 type ServerWithEnvironment = Server & {
   environment: Environment | null
@@ -28,21 +30,10 @@ export default async function Page({ params, searchParams }: Props) {
     return notFound()
   }
 
-  const isServerInEnvironment = (server: ServerWithEnvironment) => {
-    if (!server.environment) {
-      return true
-    }
-
-    if (environmentId === undefined || environmentId === null) {
-      return true
-    }
-
-    if (server.environment.id === environmentId) {
-      return true
-    }
-
-    return false
-  }
+  const isServerInEnvironment = (server: ServerWithEnvironment) =>
+    !server.environment ||
+    environmentId == null ||
+    server.environment.id === environmentId
 
   if (!isServerInEnvironment(server as ServerWithEnvironment)) {
     return (
@@ -64,9 +55,9 @@ export default async function Page({ params, searchParams }: Props) {
           <SSHView server={server} identity={identity} environment={null} />
         )
       case 'vnc':
-        return <></>
+        return <div>123</div>
       case 'rdp':
-        return <></>
+        return <div>123</div>
     }
   }
 
