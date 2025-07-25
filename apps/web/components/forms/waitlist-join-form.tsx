@@ -6,7 +6,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormMessage,
 } from '@axium/ui/components/form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useAction } from 'next-safe-action/hooks'
@@ -54,12 +53,13 @@ export default function WaitlistJoinForm({ className }: Props) {
           name='email'
           render={({ field }) => (
             <FormItem>
-              <div className='border-input focus-within:border-ring focus-within:ring-ring/50 hover:border-ring bg-background flex w-fit rounded-xl border p-1 pl-3 shadow-lg transition-[color,box-shadow,border] focus-within:ring-[3px]'>
+              <div className='border-input focus-within:border-ring shadow-xs focus-within:ring-ring/50 hover:border-ring bg-background flex w-fit rounded-lg border p-1 pl-3 transition-[color,box-shadow,border] focus-within:ring-[3px]'>
                 <FormControl>
                   <input
                     disabled={isExecuting}
                     placeholder='email@example.com'
                     className='w-80 p-0 outline-none'
+                    required
                     {...field}
                   />
                 </FormControl>
@@ -67,7 +67,6 @@ export default function WaitlistJoinForm({ className }: Props) {
                   Join waitlist
                 </Button>
               </div>
-              <FormMessage />
             </FormItem>
           )}
         />

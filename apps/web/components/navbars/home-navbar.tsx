@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 export default function HomeNavbar() {
   return (
-    <div className='flex py-4 max-w-4xl mx-auto w-full justify-between'>
+    <div className='flex py-4 max-w-5xl mx-auto w-full justify-between'>
       <Link href='/' className='flex items-center gap-2'>
         <div className={buttonVariants({ variant: 'default', size: 'icon' })}>
           <AxiumIcon />
