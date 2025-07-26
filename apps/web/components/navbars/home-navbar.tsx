@@ -3,6 +3,7 @@ import AxiumIcon from '@axium/ui/icons/axium-icon'
 import GithubIcon from '@axium/ui/icons/github-icon'
 import { cn } from '@axium/ui/lib/utils'
 import Link from 'next/link'
+import ThemeDropdown from '@/components/dropdowns/theme-dropdown'
 
 export default function HomeNavbar() {
   return (
@@ -14,6 +15,7 @@ export default function HomeNavbar() {
         <h2 className='text-2xl font-semibold tracking-tight'>Axium</h2>
       </Link>
       <div className='flex items-center gap-2'>
+        <ThemeDropdown />
         <Link
           href='https://axium.userjot.com/roadmap'
           target='_blank'

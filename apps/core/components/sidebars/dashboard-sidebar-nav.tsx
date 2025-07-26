@@ -15,6 +15,7 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import { useSearchParams, useSelectedLayoutSegment } from 'next/navigation'
+import ThemeDropdown from '@/components/dropdowns/theme-dropdown'
 
 export default function DashboardSidebarNav() {
   const segment = useSelectedLayoutSegment()
@@ -52,6 +53,8 @@ export default function DashboardSidebarNav() {
         ))}
       </ul>
       <ul className='space-y-1'>
+        <ThemeDropdown />
+
         <Tooltip>
           <TooltipTrigger asChild>
             <Link
