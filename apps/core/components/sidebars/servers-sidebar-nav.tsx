@@ -133,6 +133,10 @@ export default function ServersSidebarNav({ folders, servers }: Props) {
 
   const renderFolder = React.useCallback(
     (folder: ServerFolder, level: number, isExpanded: boolean) => {
+      const serverCount = filteredServers.filter(
+        (server) => server.folderId === folder.id
+      ).length
+
       return (
         <div style={{ paddingLeft: `${level * 16}px` }}>
           <button
@@ -150,11 +154,12 @@ export default function ServersSidebarNav({ folders, servers }: Props) {
               <FolderIcon className='size-4' />
             )}
             <span className='truncate text-sm'>{folder.name}</span>
+            <span className='text-xs text-muted-foreground'>{serverCount}</span>
           </button>
         </div>
       )
     },
-    [handleFolderToggle]
+    [handleFolderToggle, filteredServers]
   )
 
   const emptyState = (

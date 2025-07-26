@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack -p 3000",
-    "dev:ssh": "bun server.ts",
+    "dev:server": "bun server.ts",
     "dev:email": "email dev",
     "build": "next build",
     "start": "NODE_ENV=production bun server.ts",
@@ -52,7 +52,6 @@
     "drizzle-kit": "^0.31.4",
     "react-email": "4.2.3",
     "tailwindcss-motion": "^1.1.1",
-    "tsx": "^4.20.3",
     "typescript": "^5"
   }
 }

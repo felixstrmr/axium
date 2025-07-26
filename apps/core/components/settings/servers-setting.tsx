@@ -32,7 +32,23 @@ export default function ServersSetting({ servers, folders }: Props) {
     setFolderId,
     setIsOpen: setIsOpenServer,
   } = upsertServerStore()
-  const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set())
+
+  const [expandedFolders, setExpandedFolders] = useState<Set<string>>(() => {
+    const foldersWithItems = new Set<string>()
+
+    const foldersWithServers = new Set(
+      servers.map((server) => server.folderId).filter(Boolean) as string[]
+    )
+
+    const foldersWithSubfolders = new Set(
+      folders.map((folder) => folder.parentId).filter(Boolean) as string[]
+    )
+
+    foldersWithServers.forEach((folderId) => foldersWithItems.add(folderId))
+    foldersWithSubfolders.forEach((folderId) => foldersWithItems.add(folderId))
+
+    return foldersWithItems
+  })
 
   const handleFolderToggle = useCallback((folderId: string) => {
     setExpandedFolders((prev) => {
@@ -71,6 +87,10 @@ export default function ServersSetting({ servers, folders }: Props) {
 
   const renderFolder = useCallback(
     (folder: ServerFolder, level: number, isExpanded: boolean) => {
+      const serverCount = servers.filter(
+        (server) => server.folderId === folder.id
+      ).length
+
       return (
         <div
           style={{ paddingLeft: `${level * 16}px` }}
@@ -84,8 +104,6 @@ export default function ServersSetting({ servers, folders }: Props) {
                 isExpanded ? 'text-foreground' : 'text-muted-foreground'
               )}
               onClick={() => handleFolderToggle(folder.id)}
-              aria-expanded={isExpanded}
-              title={folder.name}
             >
               {isExpanded ? (
                 <FolderOpenIcon className='size-4' />
@@ -93,6 +111,9 @@ export default function ServersSetting({ servers, folders }: Props) {
                 <FolderIcon className='size-4' />
               )}
               <span className='truncate text-sm'>{folder.name}</span>
+              <span className='text-xs text-muted-foreground'>
+                {serverCount}
+              </span>
             </button>
             <div className='flex items-center gap-1 ml-2 opacity-0 group-hover:opacity-100'>
               <Button
@@ -143,6 +164,7 @@ export default function ServersSetting({ servers, folders }: Props) {
       setServerFolder,
       setServer,
       setFolderId,
+      servers,
     ]
   )
 
