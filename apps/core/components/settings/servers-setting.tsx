@@ -1,6 +1,5 @@
 'use client'
 
-import { Button } from '@axium/ui/components/button'
 import { cn } from '@axium/ui/lib/utils'
 import {
   Cog,
@@ -8,9 +7,9 @@ import {
   FolderOpenIcon,
   FolderPlus,
   ServerIcon,
-  Trash,
 } from 'lucide-react'
 import { useCallback, useState } from 'react'
+import EmptyState from '@/components/empty-state'
 import { ServerTree } from '@/components/server-tree'
 import { upsertServerFolderStore } from '@/stores/upsert-server-folder-store'
 import { upsertServerStore } from '@/stores/upsert-server-store'
@@ -96,11 +95,11 @@ export default function ServersSetting({ servers, folders }: Props) {
           style={{ paddingLeft: `${level * 16}px` }}
           className='flex flex-col'
         >
-          <div className='flex items-center group'>
+          <div className='flex h-8 items-center group hover:bg-muted/50 rounded-md'>
             <button
               type='button'
               className={cn(
-                'group-hover:bg-muted flex h-8 min-h-8 flex-1 cursor-pointer items-center gap-2 rounded-md px-2',
+                'flex flex-1 cursor-pointer items-center gap-2 rounded-md px-2',
                 isExpanded ? 'text-foreground' : 'text-muted-foreground'
               )}
               onClick={() => handleFolderToggle(folder.id)}
@@ -115,42 +114,39 @@ export default function ServersSetting({ servers, folders }: Props) {
                 {serverCount}
               </span>
             </button>
-            <div className='flex items-center gap-1 ml-2 opacity-0 group-hover:opacity-100'>
-              <Button
-                variant='ghost'
-                size='iconSm'
+            <div className='flex items-center gap-1 opacity-0 group-hover:opacity-100'>
+              <button
+                type='button'
+                className='size-6 flex items-center cursor-pointer justify-center hover:bg-muted rounded-md'
                 onClick={() => {
                   setServerFolder(null)
                   setParentId(folder.id)
                   setIsOpenFolder(true)
                 }}
               >
-                <FolderPlus />
-              </Button>
-              <Button
-                variant='ghost'
-                size='iconSm'
+                <FolderPlus className='size-3.5' />
+              </button>
+              <button
+                type='button'
+                className='size-6 flex items-center cursor-pointer justify-center hover:bg-muted rounded-md'
                 onClick={() => {
                   setServer(null)
                   setFolderId(folder.id)
                   setIsOpenServer(true)
                 }}
               >
-                <ServerIcon />
-              </Button>
-              <Button
-                variant='ghost'
-                size='iconSm'
+                <ServerIcon className='size-3.5' />
+              </button>
+              <button
+                type='button'
+                className='size-6 flex items-center cursor-pointer justify-center hover:bg-muted rounded-md'
                 onClick={() => {
                   setServerFolder(folder)
                   setIsOpenFolder(true)
                 }}
               >
-                <Cog />
-              </Button>
-              <Button variant='ghost' size='iconSm'>
-                <Trash />
-              </Button>
+                <Cog className='size-3.5' />
+              </button>
             </div>
           </div>
         </div>
@@ -178,6 +174,15 @@ export default function ServersSetting({ servers, folders }: Props) {
           onFolderToggle={handleFolderToggle}
           renderServer={renderServer}
           renderFolder={renderFolder}
+          emptyState={
+            <div className='size-full flex items-center justify-center'>
+              <EmptyState
+                icon={ServerIcon}
+                title='No servers or folders found'
+                description='Create a server or folder to get started.'
+              />
+            </div>
+          }
         />
       </div>
     </div>

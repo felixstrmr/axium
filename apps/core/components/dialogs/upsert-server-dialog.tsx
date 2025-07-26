@@ -8,9 +8,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@axium/ui/components/dialog'
+import UpsertServerForm from '@/components/forms/upsert-server-form'
 import { upsertServerStore } from '@/stores/upsert-server-store'
+import type { Identity } from '@/types'
 
-export default function UpsertServerDialog() {
+type Props = {
+  identities: Identity[]
+}
+
+export default function UpsertServerDialog({ identities }: Props) {
   const { isOpen, setIsOpen, server, setServer, folderId, setFolderId } =
     upsertServerStore()
 
@@ -30,6 +36,12 @@ export default function UpsertServerDialog() {
         <DialogHeader>
           <DialogTitle>{server ? 'Update' : 'Create'} server</DialogTitle>
         </DialogHeader>
+        <UpsertServerForm
+          server={server}
+          identities={identities}
+          setIsOpen={setIsOpen}
+          folderId={folderId}
+        />
       </DialogContent>
     </Dialog>
   )

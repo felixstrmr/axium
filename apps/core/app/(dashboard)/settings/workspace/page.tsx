@@ -1,7 +1,12 @@
-import EnvironmentsSetting from '@/components/settings/environments-setting'
-import SmtpSetting from '@/components/settings/smtp-setting'
+import dynamic from 'next/dynamic'
 import { getEnvironments } from '@/queries/environments'
 import { getSettings } from '@/queries/settings'
+
+const EnvironmentsSetting = dynamic(
+  () => import('@/components/settings/environments-setting')
+)
+
+const SmtpSetting = dynamic(() => import('@/components/settings/smtp-setting'))
 
 export default async function Page() {
   const [environments, settings] = await Promise.all([

@@ -1,7 +1,10 @@
+import dynamic from 'next/dynamic'
 import UpsertUserDialog from '@/components/dialogs/upsert-user-dialog'
-import { columns } from '@/components/tables/users/columns'
-import { DataTable } from '@/components/tables/users/data-table'
 import { getUsers } from '@/queries/users'
+
+const UsersSetting = dynamic(
+  () => import('@/components/settings/users-setting')
+)
 
 export default async function Page() {
   const users = await getUsers()
@@ -15,7 +18,7 @@ export default async function Page() {
         </div>
         <UpsertUserDialog />
       </div>
-      <DataTable columns={columns} data={users} />
+      <UsersSetting users={users} />
     </div>
   )
 }

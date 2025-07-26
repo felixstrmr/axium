@@ -1,13 +1,19 @@
+import dynamic from 'next/dynamic'
 import UpsertServerDialog from '@/components/dialogs/upsert-server-dialog'
 import UpsertServerFolderDialog from '@/components/dialogs/upsert-server-folder-dialog'
-import ServersSetting from '@/components/settings/servers-setting'
+import { getIdentities } from '@/queries/identities'
 import { getServerFolders } from '@/queries/server-folders'
 import { getServers } from '@/queries/servers'
 
+const ServersSetting = dynamic(
+  () => import('@/components/settings/servers-setting')
+)
+
 export default async function Page() {
-  const [servers, folders] = await Promise.all([
+  const [servers, folders, identities] = await Promise.all([
     getServers(),
     getServerFolders(),
+    getIdentities(),
   ])
 
   return (
@@ -19,7 +25,7 @@ export default async function Page() {
         </div>
         <div className='flex items-center gap-2'>
           <UpsertServerFolderDialog />
-          <UpsertServerDialog />
+          <UpsertServerDialog identities={identities} />
         </div>
       </div>
       <ServersSetting servers={servers} folders={folders} />

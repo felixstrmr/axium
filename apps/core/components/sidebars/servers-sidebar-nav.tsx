@@ -165,7 +165,7 @@ export default function ServersSidebarNav({ folders, servers }: Props) {
   const emptyState = (
     <div className='size-full flex items-center justify-center pb-16'>
       <p className='text-center text-sm text-muted-foreground'>
-        No servers found in this environment.
+        No servers found.
       </p>
     </div>
   )
